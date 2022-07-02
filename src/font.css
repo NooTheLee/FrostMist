@@ -1,0 +1,18 @@
+@font-face {
+    font-family: "Quicksand";
+    src: local("Quicksand"), url("./fonts/Quicksand.ttf") format("truetype");
+}
+@font-face {
+    font-family: "PressStart2P";
+    src: local("PressStart2P"),
+        url("./fonts/PressStart2P.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Raleway";
+    src: local("Raleway"), url("./fonts/Raleway.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Raleway-light";
+    src: local("Raleway-light"),
+        url("./fonts/Raleway-Light.ttf") format("truetype");
+}
