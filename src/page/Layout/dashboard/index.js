@@ -1,4 +1,3 @@
-import {Helmet} from "react-helmet";
 import {useAppContext} from "../../../context/useContext";
 import {useNavigate} from "react-router-dom";
 import Left from "./Left.component";

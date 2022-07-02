@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Helmet} from "react-helmet";
+
 import {AiOutlineEye, AiOutlineEyeInvisible} from "react-icons/ai";
 import {Nav} from "../components";
 import {useAppContext} from "../context/useContext";
@@ -54,10 +54,6 @@ const ForgetPassword = () => {
     }
     return (
         <div>
-            <Helmet>
-                <meta charSet='utf-8' />
-                <title>Forget password</title>
-            </Helmet>
             <Nav />
             <div
                 className={`bg-[#cdcfd4] dark:bg-[#4E4F50] h-screen w-screen flex items-center relative transition-50 overflow-hidden `}

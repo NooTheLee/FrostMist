@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Helmet} from "react-helmet";
+
 import {AiOutlineEye, AiOutlineEyeInvisible} from "react-icons/ai";
 import {Nav} from "../components";
 import {useAppContext} from "../context/useContext";
@@ -49,10 +49,6 @@ const Login = () => {
 
     return (
         <div>
-            <Helmet>
-                <meta charSet='utf-8' />
-                <title>Login</title>
-            </Helmet>
             <Nav />
             <div className='pt-12 bg-[#FEDCC5] dark:bg-[#4E4F50] h-screen w-screen flex items-center relative transition-50 '>
                 <div className='fixed z-0 bottom-0'>
