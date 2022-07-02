@@ -43,11 +43,6 @@ const Dashboard = () => {
 
     return (
         <div className='overflow-x-hidden min-h-screen pt-[85px]  '>
-            <Helmet>
-                <meta charSet='utf-8' />
-                <title>Frost Social</title>
-            </Helmet>
-
             <div className='w-screen grid grid-cols-11 gap-x-12 px-10 relative '>
                 <div className='col-span-11 md:col-span-3 relative '>
                     <Left autoFetch={autoFetch} dark={dark} />
