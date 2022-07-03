@@ -12,6 +12,8 @@ import LoadingImage from "./loading/Loading.Image";
 import LoadingCard from "./loading/Loading.Card";
 import LoadingPostInformation from "./loading/Loading.PostInformation";
 
+import Messenger from "./messenger/messenger.pages";
+
 export {
     Nav,
     Post,
@@ -25,4 +27,5 @@ export {
     LoadingImage,
     LoadingPostInformation,
     LoadingCard,
+    Messenger,
 };
