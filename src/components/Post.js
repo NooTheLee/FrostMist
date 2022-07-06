@@ -221,7 +221,7 @@ const Post = ({
 
     return (
         <div
-            className={`dark:bg-[#242526] bg-white mb-5 py-3 rounded-lg ${className} `}>
+            className={`dark:bg-[#242526] bg-white mb-5 pt-3 pb-2.5 md:pb-3 rounded-lg ${className} `}>
             {/* Model when in mode edit post */}
             {openModal && (
                 <Modal
@@ -238,15 +238,17 @@ const Post = ({
                 />
             )}
             {/* header post */}
-            <div className='flex items-center px-4'>
+            <div className='flex items-center pl-2 pr-3 sm:px-3 md:px-4'>
+                {/* avatar */}
                 <img
                     src={post.postedBy.image.url}
                     alt='avatar'
-                    className='w-[40px] h-[40px] rounded-full object-cover cursor-pointer '
+                    className='w-10 h-10 rounded-full object-cover cursor-pointer '
                     onClick={() => {
                         navigate(`profile/${post.postedBy._id}`);
                     }}
                 />
+                {/* name and time post */}
                 <div className={`ml-2 font-bold `}>
                     <div
                         className='flex items-center gap-x-1 cursor-pointer '
@@ -318,7 +320,7 @@ const Post = ({
                     <img
                         src={post.image.url}
                         alt='img_content'
-                        className='w-full h-auto max-h-[350px] object-contain bg-[#F0F2F5] dark:bg-[#18191A]'
+                        className='w-full h-auto max-h-[300px] sm:max-h-[350px] object-contain bg-[#F0F2F5] dark:bg-[#18191A]'
                         onClick={() => {
                             navigate(`/post/information/${post._id}`);
                         }}
@@ -436,11 +438,11 @@ const Post = ({
             )}
 
             {/* form add comment */}
-            <div className='flex gap-x-1.5 px-4 py-1 '>
+            <div className='flex gap-x-1.5 px-2 sm:px-3 md:px-4 py-1 items-center '>
                 <img
                     src={user_img}
                     alt='user_avatar'
-                    className='w-[40px] h-[40px] object-cover shrink-0 rounded-full '
+                    className='w-8 sm:w-9 h-8 sm:h-9 object-cover shrink-0 rounded-full '
                 />
                 <form
                     className='flex px-2 rounded-full bg-[#F0F2F5] w-full mt-1 items-center dark:bg-[#3A3B3C]  '
@@ -450,7 +452,7 @@ const Post = ({
                     }}>
                     <input
                         type='text'
-                        className='px-2 py-1.5 border-none focus:ring-0 bg-inherit rounded-full w-full font-medium dark:placeholder:text-[#b0b3b8] '
+                        className='px-2 py-1 sm:py-1.5 border-none focus:ring-0 bg-inherit rounded-full w-full font-medium dark:placeholder:text-[#b0b3b8] '
                         placeholder='Write a comment...'
                         value={textComment}
                         disabled={commentLoading}

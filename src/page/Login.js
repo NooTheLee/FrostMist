@@ -51,6 +51,7 @@ const Login = () => {
         <div>
             <Nav />
             <div className='pt-12 bg-[#FEDCC5] dark:bg-[#4E4F50] h-screen w-screen flex items-center relative transition-50 '>
+                {/* image chicken */}
                 <div className='fixed z-0 bottom-0'>
                     <img
                         src='/images/chicken-bg.png'
@@ -58,8 +59,9 @@ const Login = () => {
                         className='h-[100vh] w-auto object-cover '
                     />
                 </div>
-                <div className='w-[600px] md:w-[80%] mx-auto flex items-center justify-center  md:justify-between z-[1] mt-4 '>
-                    <div className='bg-[#FEE7D6] dark:bg-[#3a3a3a] dark:text-white/70 w-[80%] md:w-auto px-[20px] md:px-[80px] py-[30px] md:py-[40px] rounded-3xl '>
+                {/* form */}
+                <div className='w-full md:w-[80%] mx-auto flex items-center justify-center  md:justify-between z-[1] md:mt-4 '>
+                    <div className='bg-[#FEE7D6] dark:bg-[#3a3a3a] dark:text-white/70 w-[90%] md:w-auto px-[20px] md:px-[80px] py-[30px] md:py-[40px] rounded-3xl '>
                         <div className=' mb-[18px] '>
                             <img
                                 src={`/images/${
@@ -149,7 +151,7 @@ const Login = () => {
                                         color='white'
                                     />
                                 ) : (
-                                    "Sing in"
+                                    "Sign in"
                                 )}
                             </button>
                         </form>
@@ -183,9 +185,12 @@ const Login = () => {
                             <span className='block md:inline '>
                                 Don't have an account yet?{" "}
                             </span>
-                            <strong role='button' className='hover:scale-110 '>
+                            <NavLink
+                                to={"/register"}
+                                role='button'
+                                className='hover:scale-110 text-[18px] font-bold '>
                                 Register for free
-                            </strong>
+                            </NavLink>
                         </div>
                     </div>
                     <img

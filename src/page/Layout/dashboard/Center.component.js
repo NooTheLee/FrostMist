@@ -114,7 +114,7 @@ const Center = ({
         if (loading) return <LoadingForm />;
         return (
             <div
-                className={`dark:bg-[#242526] bg-white mb-5 pt-3 rounded-lg px-4 ${
+                className={`dark:bg-[#242526] bg-white mb-5 pt-3 rounded-lg px-2 md:px-4 ${
                     !dark ? "shadow-post" : ""
                 } `}>
                 <div className='flex items-center gap-x-2 '>

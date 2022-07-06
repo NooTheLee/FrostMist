@@ -81,33 +81,37 @@ const Left = ({dark, autoFetch}) => {
     };
 
     const left = () => {
-        if (wError)
-            return <div className=' text-2xl my-5 '>No city found!</div>;
+        if (wError) return <div className='text-2xl my-5 '>No city found!</div>;
         if (wLoading)
             return (
-                <div className='my-8'>
+                <div className='my-4 sm:my-6 md:my-8'>
                     <LoadingWeather />
                 </div>
             );
         if (weather.cod === 200) {
             return (
                 <>
-                    <div className='text-2xl font-semibold mt-3 pt-4 mb-0 border-t-[1px] dark:border-white/30 border-black/30 w-full text-center '>
+                    {/* city's name and country's name
+                    ex: Ho Chi Minh (VN)
+                    */}
+                    <div className='text-xl md:text-2xl font-semibold mt-3 pt-2 md:pt-4 mb-0 border-t-[1px] dark:border-white/30 border-black/30 w-full text-center '>
                         {weather.name} ({weather.sys.country})
                     </div>
                     <div className='my-1 '>{weather.weather[0].main}</div>
                     <img
                         src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
                         alt='icon-weather'
-                        className='w-20 h-20 bg-sky-500 dark:bg-sky-700 rounded-full my-2 '
+                        className='w-14 sm:w-18 md:w-20 h-14 sm:h-18 md:h-20 bg-sky-500 dark:bg-sky-700 rounded-full my-2 '
                     />
-                    <div className='mb-6 text-[60px] font-bold w-full  flex justify-center leading-[48px] '>
+                    <div className='md-4 md:mb-6 text-[40px] sm:text-50px md:text-[60px] font-bold w-full  flex justify-center leading-[48px] '>
                         {weather.main.temp}
                         <BiRadioCircle className='text-2xl ' />C
                     </div>
                     <div className='weather-information'>
-                        <h1>Feel like</h1>
-                        <p className='flex '>
+                        <div className='font-bold text-base sm:text-[18px] md:text-xl '>
+                            Feel like
+                        </div>
+                        <p className='flex text-[14px] sm:text-base '>
                             {weather.main.feels_like}
                             <BiRadioCircle className='text-[10px] mt-1 ' />C
                         </p>
@@ -144,8 +148,8 @@ const Left = ({dark, autoFetch}) => {
         <div
             className={`bg-white  ${
                 !dark ? "shadow-post" : ""
-            } dark:bg-[#242526] flex flex-col items-center rounded-lg py-4 px-5 md:fixed w-full mb-5 md:w-[24%] `}>
-            <div className='flex items-center gap-x-1 dark:dark:bg-[#393A3B] bg-[#F1F2F4] rounded-full px-3 text-[15px] px-y group '>
+            } dark:bg-[#242526] flex flex-col items-center rounded-lg py-2 sm:py-3 md:py-4 px-5 md:fixed w-full mb-5 md:w-[24%] `}>
+            <div className='flex items-center gap-x-1 dark:dark:bg-[#393A3B] bg-[#F1F2F4] rounded-full px-3 text-[15px]  group '>
                 <FaSearchLocation className='text-2xl dark:text-white/50 text-black/30 dark:group-focus-within:text-white group-focus-within:text-black/50 ' />
 
                 <input

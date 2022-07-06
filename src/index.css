@@ -54,7 +54,7 @@
         font-weight: 900;
     }
     .input-register {
-        @apply focus:ring-0 bg-white w-full md:w-[300px] h-[35px] md:h-[50px] px-5 rounded-[5px] text-sm md:text-[16px]  dark:bg-[#242526] font-medium dark:placeholder:text-white/40 placeholder:text-black/40;
+        @apply focus:ring-0 bg-white w-full md:w-[300px] h-[35px] md:h-[50px] px-3 md:px-5 rounded-[5px] text-sm md:text-[16px]  dark:bg-[#242526] font-medium dark:placeholder:text-white/40 placeholder:text-black/40;
     }
     .input-login {
         @apply focus:ring-0 bg-white border-none w-full md:w-[400px] h-[35px] md:h-[50px] px-5 rounded-[5px] text-sm md:text-[16px]  dark:bg-[#242526] font-medium dark:placeholder:text-white/40;
@@ -74,8 +74,9 @@
     .li-profile.active {
         @apply text-[#2e89ff] hover:bg-inherit;
     }
+
     .btn-home {
-        @apply border-2 dark:border-white/50 border-black/50 w-32 py-1.5 font-bold text-xl relative bg-inherit hover:bg-gradient-to-r from-purple-500 to-pink-500 transition-50 hover:text-white;
+        @apply w-24 sm:w-28 md:w-32  md:py-0.5 font-bold relative bg-inherit hover:bg-gradient-to-r from-purple-500 to-pink-500 transition-50 hover:text-white text-base sm:text-xl;
     }
 }
 
@@ -125,7 +126,7 @@
         @apply col-span-1 row-span-1 flex flex-col items-center justify-center w-full;
     }
     .weather-information h1 {
-        @apply text-[18px] font-bold;
+        @apply text-base sm:text-[18px] font-bold;
     }
     .weather-information p {
         @apply opacity-70;
@@ -138,6 +139,24 @@
     }
     .bg-loading {
         @apply dark:bg-[#8f9192] bg-[#d1d4d5] rounded-lg;
+    }
+    .boxed {
+        position: relative;
+        background-clip: padding-box;
+        border: 10px solid transparent;
+        background-color: black;
+        border-radius: 10px;
+        z-index: 1;
+    }
+    .boxed::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        margin: -10px;
+        background-color: red;
+        background-image: linear-gradient(to right top, #2979ff, #07a787);
+        border-radius: inherit;
     }
 }
 

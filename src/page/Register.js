@@ -62,7 +62,8 @@ const Register = () => {
                 style={{
                     backgroundImage: !dark ? "none" : "url(/images/bg.png)",
                 }}>
-                <div className='hidden md:flex  h-full items-center justify-center relative md:col-span-1 '>
+                {/* image background */}
+                <div className='hidden md:flex h-full items-center justify-center relative md:col-span-1 '>
                     <img
                         src='/images/cloud.png'
                         alt='cloud'
@@ -95,21 +96,22 @@ const Register = () => {
                         className='w-[70%] h-auto object-contain z-10'
                     />
                 </div>
+                {/* form */}
                 <div className='flex md:col-span-2 w-full items-center justify-center z-10'>
-                    <div className='bg-[#ffffff]/80 mx-[10%] md:mx-0 w-full mt-9 dark:bg-[#3a3a3a]/80 dark:text-white/70 md:w-auto px-[20px] md:px-[80px] py-[30px] md:py-[40px] rounded-3xl transition-50 '>
-                        <div className=' mb-[18px] text-[30px] text-[#5b38bc] dark:text-[#9b7cee] font-extrabold '>
+                    <div className='bg-[#ffffff]/80 mx-[5%] md:mx-0 w-full mt-9 dark:bg-[#3a3a3a]/80 dark:text-white/70 md:w-auto px-[20px] md:px-[80px] py-[15px] sm:py-[30px] md:py-[40px] rounded-3xl transition-50 '>
+                        <div className=' mb-[18px] text-xl sm:text-2xl md:text-[30px] text-[#5b38bc] dark:text-[#9b7cee] font-extrabold '>
                             Register
                         </div>
                         <form
-                            className='md:mt-[20px] font-bold '
+                            className='mt-[13px] sm:mt-[15px] md:mt-[20px] font-bold '
                             onSubmit={(e) => {
                                 e.preventDefault();
                                 register();
                             }}>
                             {/* name and email */}
-                            <div className='grid grid-cols-2 gap-x-3 '>
+                            <div className='grid grid-cols-2 gap-x-2 md:gap-x-3 '>
                                 <div className='col-span-1'>
-                                    <div className='text-sm  md:text-[16px] mb-2'>
+                                    <div className='text-sm md:text-[16px] mb-1 md:mb-2'>
                                         Name
                                     </div>
                                     <input
@@ -122,7 +124,7 @@ const Register = () => {
                                     />
                                 </div>
                                 <div className='col-span-1'>
-                                    <div className='text-sm md:text-[16px] mb-2'>
+                                    <div className='text-sm md:text-[16px] mb-1 md:mb-2'>
                                         Email
                                     </div>
                                     <input
@@ -136,10 +138,10 @@ const Register = () => {
                                 </div>
                             </div>
                             {/* password and confirm password */}
-                            <div className='mt-[25px] grid grid-cols-2 gap-x-3'>
+                            <div className='mt-4 md:mt-[25px] grid grid-cols-2 gap-x-2 md:gap-x-3'>
                                 {/* Password */}
                                 <div className='col-span-1'>
-                                    <div className='text-sm md:text-[16px] mb-2'>
+                                    <div className='text-sm md:text-[16px] mb-1 md:mb-2'>
                                         Password
                                     </div>
                                     <div className='flex items-center relative'>
@@ -168,7 +170,7 @@ const Register = () => {
                                 </div>
                                 {/* Confirm password */}
                                 <div className='col-span-1'>
-                                    <div className='text-sm md:text-[16px] mb-2'>
+                                    <div className='text-sm md:text-[16px] mb-1 md:mb-2'>
                                         Confirm password
                                     </div>
                                     <div className='flex items-center relative'>
@@ -197,10 +199,10 @@ const Register = () => {
                                 </div>
                             </div>
                             {/* Question and answer */}
-                            <div className=' mt-[25px] sm:grid grid-cols-2 gap-x-3'>
+                            <div className='mt-4 md:mt-[25px] sm:grid grid-cols-2 gap-x-2 md:gap-x-3'>
                                 {/* Question */}
                                 <div className='col-span-1'>
-                                    <div className='text-sm md:text-[16px] mb-2'>
+                                    <div className='text-sm md:text-[16px] mb-1 md:mb-2'>
                                         Question{" "}
                                         <span className='font-normal text-[14.5px] '>
                                             (use when reset password)
@@ -234,8 +236,8 @@ const Register = () => {
                                     </select>
                                 </div>
                                 {/* Answer */}
-                                <div className='col-span-1 mt-6 md:mt-0'>
-                                    <div className='text-sm md:text-[16px] mb-2'>
+                                <div className='col-span-1 mt-4 sm:mt-5 md:mt-0'>
+                                    <div className='text-sm md:text-[16px] mb-1 md:mb-2'>
                                         Answer
                                     </div>
                                     <input
@@ -254,7 +256,7 @@ const Register = () => {
                                 </NavLink>
                             </div>
                             <button
-                                className={`mt-[35px] md:mt-[35px] w-full font-extrabold text-[20px] md:text-2xl bg-[#46289A]/80 hover:bg-[#46289A] border text-white py-[8px] md:py-[13px] rounded-[5px] transition-50 ${
+                                className={`mt-[30px] md:mt-[35px] w-full font-extrabold text-[20px] md:text-2xl bg-[#46289A]/80 hover:bg-[#46289A] border text-white py-[8px] md:py-[13px] rounded-[5px] transition-50 ${
                                     loading ? "loading" : ""
                                 } `}
                                 type='submit'
