@@ -4,6 +4,7 @@ import Left from "./Left.component";
 import Center from "./Center.component";
 import Right from "./Right.component";
 import {useState} from "react";
+import React from "react";
 
 const Dashboard = () => {
     const navigate = useNavigate();
