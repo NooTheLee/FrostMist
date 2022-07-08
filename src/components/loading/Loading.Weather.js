@@ -5,7 +5,7 @@ const LoadingWeather = () => {
     const {dark} = useAppContext();
     return (
         <div
-            className={`w-[20vw] dark:bg-[#242526] bg-white rounded-lg p-4 ${
+            className={`w-full dark:bg-[#242526] bg-white rounded-lg p-4 ${
                 !dark ? "shadow-post" : ""
             } `}>
             <div className=' w-[80%] ml-[10%] py-5  bg-loading '></div>

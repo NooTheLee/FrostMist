@@ -1,12 +1,15 @@
-import {useAppContext} from "../../../context/useContext";
+import React from "react";
+import {useAppContext} from "../../context/useContext";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import Header from "./Header.Component";
-import Left from "./Left.component";
-import Right from "./Right.component";
-import {LoadingProfile} from "../../../components";
-import FollowerPage from "./Follower.component";
-import FollowingPage from "./Following.component";
+
+//components
+import Header from "./components/Header.Component";
+import Left from "./components/Left.component";
+import Right from "./components/Right.component";
+import {LoadingProfile} from "../";
+import FollowerPage from "./components/Follower.component";
+import FollowingPage from "./components/Following.component";
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -117,34 +120,38 @@ const Profile = () => {
             );
         }
         return (
-            <div className='w-full grid grid-cols-5 gap-x-4 '>
-                <Left
-                    user={user}
-                    own={own}
-                    images={images}
-                    navigate={navigate}
-                    autoFetch={autoFetch}
-                    dark={dark}
-                    profileLoading={loading}
-                    postLoading={postLoading}
-                />
-                <Right
-                    autoFetch={autoFetch}
-                    dark={dark}
-                    own={own}
-                    user={user}
-                    setOneState={setOneState}
-                    loading={postLoading}
-                    posts={posts}
-                    setPosts={setPosts}
-                    getDeletePostId={getDeletePostId}
-                />
+            <div className='w-full sm:grid grid-cols-5 gap-x-4 '>
+                <div className='col-span-2'>
+                    <Left
+                        user={user}
+                        own={own}
+                        images={images}
+                        navigate={navigate}
+                        autoFetch={autoFetch}
+                        dark={dark}
+                        profileLoading={loading}
+                        postLoading={postLoading}
+                    />
+                </div>
+                <div className='col-span-3 '>
+                    <Right
+                        autoFetch={autoFetch}
+                        dark={dark}
+                        own={own}
+                        user={user}
+                        setOneState={setOneState}
+                        loading={postLoading}
+                        posts={posts}
+                        setPosts={setPosts}
+                        getDeletePostId={getDeletePostId}
+                    />
+                </div>
             </div>
         );
     };
 
     return (
-        <div className='pt-[65px] min-h-screen w-[99.5vw] overflow-x-hidden pb-7 '>
+        <div className='min-h-screen w-[99.5vw] overflow-x-hidden pb-7 '>
             {!loading ? (
                 <Header
                     user={user}
@@ -160,7 +167,9 @@ const Profile = () => {
                 <LoadingProfile />
             )}
 
-            <div className='mx-[15%] px-10 mt-4 '>{main()}</div>
+            <div className='mx-4 sm:mx-[5%] md:mx-[15%] px-1 sm:px-10 mt-4 '>
+                {main()}
+            </div>
         </div>
     );
 };

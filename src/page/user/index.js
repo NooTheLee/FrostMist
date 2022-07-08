@@ -1,4 +1,4 @@
-import Profile from "./profile/Profile.pages.js";
+import Profile from "./profile";
 import UpdateProfile from "./UpdateProfile";
 import SuggestFollow from "./SuggestFollow";
 

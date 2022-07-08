@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {TiTick} from "react-icons/ti";
 import {toast} from "react-toastify";
-import {LoadingSuggestion} from "../../../components";
+import {LoadingSuggestion} from "../../";
 
 const Right = ({
     navigate,

@@ -1,15 +1,7 @@
-const color = (dark = false) => {
-    const whiteColor = [
-        "#FCE4EC",
-        "#FCE4EC",
-        "#EDE7F6",
-        "#E8EAF6",
-        "#E3F2FD",
-        "#E1F5FE",
-        "#E0F7FA",
-        "#E0F2F1",
-        "#E8F5E9",
-    ];
+import React from "react";
+
+function colorGeneration(dark = false) {
+    const whiteColor = ["#FFCDD2", "#E1BEE7"];
     const darkColor = [
         "#FF8A80",
         "#880E4F",
@@ -29,6 +21,6 @@ const color = (dark = false) => {
     return dark
         ? darkColor[Math.floor(Math.random() * darkLength)]
         : whiteColor[Math.floor(Math.random() * whiteLength)];
-};
+}
 
-export default color;
+export default colorGeneration;

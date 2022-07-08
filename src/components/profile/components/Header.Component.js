@@ -93,22 +93,22 @@ const Header = ({
     };
 
     return (
-        <div className='px-[15%] w-full dark:bg-[#242426] bg-white overflow-x-hidden '>
+        <div className='pt-[50px] md:pt-[75px] md:px-[15%] w-full dark:bg-[#242426] bg-white overflow-x-hidden '>
             <img
                 src='https://res.cloudinary.com/dcwekkkez/image/upload/v1656421547/bavmjvxcucadotx45jtk.jpg'
                 alt='bg'
-                className='w-full h-[54vh] object-cover rounded-b-lg '
+                className='w-full h-[30vh] sm:h-[40vh] md:h-[54vh] object-cover rounded-b-lg '
             />
-            <div className='flex mx-10 items-start gap-x-4 border-b-[1px] dark:border-b-white/10 border-b-black/10 '>
+            <div className='flex flex-col sm:flex-row mx-10 sm:items-start gap-x-4 border-b-[1px] dark:border-b-white/10 border-b-black/10 items-center '>
                 <img
                     src={user.image.url}
                     alt='avatar'
                     className='w-[170px] h-[170px] rounded-full object-contain translate-y-[-32px] '
                 />
-                <div className='flex w-full justify-between items-end pt-4 '>
+                <div className='flex flex-col sm:flex-row w-full justify-between items-center sm:items-end pt-4 translate-y-[-32px] sm:translate-y-[0] '>
                     <div>
                         <div className='flex'>
-                            <div className='text-[32px] font-bold flex items-center gap-x-1 '>
+                            <div className='text-[32px] font-bold flex items-center gap-x-1  '>
                                 {user.name}
                                 {user.role === "Admin" && (
                                     <TiTick className='text-[20px] text-white rounded-full bg-sky-500 ' />
@@ -118,7 +118,7 @@ const Header = ({
                                 </span>
                             </div>
                         </div>
-                        <div className='dark:text-[#b0b3b8] font-semibold text-[17px] flex gap-x-1.5 items-center text-[#65676b] '>
+                        <div className='dark:text-[#b0b3b8] font-semibold text-[17px] flex gap-x-1.5 items-center text-[#65676b] justify-center sm:justify-start'>
                             <span className='cursor-pointer '>
                                 {user.following.length} following
                             </span>
@@ -128,14 +128,14 @@ const Header = ({
                             </span>
                         </div>
                     </div>
-                    <div className='flex'>{btn()}</div>
+                    <div className='flex mt-4 sm:mt-0 '>{btn()}</div>
                 </div>
             </div>
-            <div className='flex mx-10 '>
+            <div className='flex mx-0 sm:mx-10 '>
                 <ul className='flex items-center justify-between w-full px-16 py-1 gap-x-10 '>
                     {list.map((v) => (
                         <li
-                            key={v + "asdqwew"}
+                            key={v + "button"}
                             className={`li-profile ${menu === v && "active"} `}
                             onClick={() => {
                                 setMenu(v);

@@ -4,7 +4,7 @@ import {AiOutlineCloseCircle} from "react-icons/ai";
 import {BiRadioCircle} from "react-icons/bi";
 import {FaSearchLocation} from "react-icons/fa";
 
-import {LoadingWeather} from "../../../components";
+import {LoadingWeather} from "../../";
 
 import useDebounce from "../../../hooks/useDebounce";
 const initWeather = {
@@ -97,13 +97,17 @@ const Left = ({dark, autoFetch}) => {
                     <div className='text-xl md:text-2xl font-semibold mt-3 pt-2 md:pt-4 mb-0 border-t-[1px] dark:border-white/30 border-black/30 w-full text-center '>
                         {weather.name} ({weather.sys.country})
                     </div>
-                    <div className='my-1 '>{weather.weather[0].main}</div>
-                    <img
-                        src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-                        alt='icon-weather'
-                        className='w-14 sm:w-18 md:w-20 h-14 sm:h-18 md:h-20 bg-sky-500 dark:bg-sky-700 rounded-full my-2 '
-                    />
-                    <div className='md-4 md:mb-6 text-[40px] sm:text-50px md:text-[60px] font-bold w-full  flex justify-center leading-[48px] '>
+                    <div className='my-1 text-center '>
+                        {weather.weather[0].main}
+                    </div>
+                    <div className='w-full flex items-center justify-center '>
+                        <img
+                            src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                            alt='icon-weather'
+                            className='w-14 sm:w-18 md:w-20 h-14 sm:h-18 md:h-20 bg-sky-500 dark:bg-sky-700 rounded-full my-2 '
+                        />
+                    </div>
+                    <div className='md-4 md:mb-6 text-[40px] sm:text-50px md:text-[60px] font-bold w-full flex justify-center leading-[48px] '>
                         {weather.main.temp}
                         <BiRadioCircle className='text-2xl ' />C
                     </div>
@@ -151,16 +155,18 @@ const Left = ({dark, autoFetch}) => {
             } dark:bg-[#242526] flex flex-col items-center rounded-lg py-2 sm:py-3 md:py-4 px-5 md:fixed w-full mb-5 md:w-[24%] `}>
             <div className='flex items-center gap-x-1 dark:dark:bg-[#393A3B] bg-[#F1F2F4] rounded-full px-3 text-[15px]  group '>
                 <FaSearchLocation className='text-2xl dark:text-white/50 text-black/30 dark:group-focus-within:text-white group-focus-within:text-black/50 ' />
-
-                <input
-                    type='text'
-                    className=' border-0 bg-inherit  fucus:ring-0 focus-within:ring-0 dark:placeholder:text-white/50 rounded-full w-[170px] '
-                    placeholder='Search city...'
-                    value={cityName}
-                    onChange={(e) => {
-                        setCityName(e.target.value);
-                    }}
-                />
+                {/* form input search */}
+                <div className='w-full '>
+                    <input
+                        type='text'
+                        className=' border-0 bg-inherit  fucus:ring-0 focus-within:ring-0 dark:placeholder:text-white/50 rounded-full w-[80%] mx-auto '
+                        placeholder='Search city...'
+                        value={cityName}
+                        onChange={(e) => {
+                            setCityName(e.target.value);
+                        }}
+                    />
+                </div>
                 {cityName && (
                     <AiOutlineCloseCircle
                         className={`cursor-pointer opacity-0 group-hover:opacity-100 transition-50 `}
@@ -170,6 +176,7 @@ const Left = ({dark, autoFetch}) => {
                     />
                 )}
             </div>
+            {/* History search */}
             {cityHistory.length > 0 && (
                 <div className='flex mt-3 gap-x-2 items-center flex-wrap '>
                     <div className='mt-1 '>History :</div>{" "}
@@ -186,7 +193,7 @@ const Left = ({dark, autoFetch}) => {
                 </div>
             )}
 
-            {left()}
+            <div className='w-full'>{left()}</div>
         </div>
     );
 };

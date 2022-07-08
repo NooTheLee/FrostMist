@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {useAppContext} from "../context/useContext";
+import {useAppContext} from "../../context/useContext";
 import {GiEarthAmerica} from "react-icons/gi";
 import {
     MdArrowDropDown,
@@ -105,7 +105,7 @@ const Modal = ({
             <>
                 <div className='w-full h-full rounded-md flex flex-col items-center justify-center dark:group-hover:bg-[#47494A] relative bg-[#EAEBED]/60 group-hover:bg-[#d9dadc]/60 dark:bg-inherit '>
                     <MdCancel
-                        className='absolute top-1.5 right-1.5 text-[26px] text-[#8e8f91] hover:text-[#525151] dark:hover:text-[#c0bebe] transition-20 hidden group-hover:flex mb-1 z-[203] '
+                        className='absolute top-1.5 right-1.5 text-[26px] text-[#8e8f91] hover:text-[#525151] dark:hover:text-[#c0bebe] transition-20 cursor-pointer mb-1 z-[203] '
                         onClick={() => {
                             setAttachment("");
                         }}
@@ -139,7 +139,7 @@ const Modal = ({
                         setOpenModal(false);
                     }
                 }}></div>
-            <div className='w-[33%] bg-white dark:bg-[#242526] rounded-xl px-4 z-[202] box-shadow relative '>
+            <div className='mx-auto w-[90%] sm:w-[66%] md:w-[33%] bg-white dark:bg-[#242526] rounded-xl px-4 z-[202] box-shadow relative '>
                 {isEditPost && (
                     <MdCancel
                         className='absolute top-4 right-6 text-[30px] opacity-50 hover:opacity-100 cursor-pointer transition-50 '

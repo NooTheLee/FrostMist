@@ -1,6 +1,8 @@
+import React from "react";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {useAppContext} from "./context/useContext";
 import {ToastContainer} from "react-toastify";
+// page
 import {
     Home,
     Login,

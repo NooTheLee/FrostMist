@@ -1,7 +1,8 @@
 import React from "react";
-import {Dashboard} from "../../../components";
+import {Profile} from "../../../components";
+
 const index = () => {
-    return <Dashboard />;
+    return <Profile />;
 };
 
 export default index;

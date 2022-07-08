@@ -4,6 +4,7 @@ import {useState} from "react";
 import {toast} from "react-toastify";
 import {TiTick} from "react-icons/ti";
 import ReactLoading from "react-loading";
+import React from "react";
 
 const UpdateProfile = () => {
     const {user, autoFetch, setNameAndToken} = useAppContext();
@@ -151,6 +152,7 @@ const UpdateProfile = () => {
             <div className='col-span-1 flex flex-col items-center justify-center pb-10 '>
                 <label className='relative group w-40 h-40 cursor-pointer '>
                     <img
+                        // @ts-ignore
                         src={image?.url || user.image.url}
                         alt='avatar'
                         className='w-full h-full rounded-full object-cover '

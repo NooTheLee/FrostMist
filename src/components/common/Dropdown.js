@@ -1,5 +1,8 @@
 import {Menu, Transition} from "@headlessui/react";
+import React from "react";
 import {Fragment} from "react";
+import {NavLink} from "react-router-dom";
+//icon
 import {
     AiOutlineUser,
     AiOutlineSetting,
@@ -10,8 +13,8 @@ import {SiMessenger} from "react-icons/si";
 import {IoLogoGameControllerB} from "react-icons/io";
 import {MdAdminPanelSettings} from "react-icons/md";
 import {LogoutIcon} from "@heroicons/react/outline";
-import {NavLink} from "react-router-dom";
-import {useAppContext} from "../context/useContext";
+// components
+import {useAppContext} from "../../context/useContext";
 
 export default function Dropdown() {
     const {logOut, dark, user} = useAppContext();

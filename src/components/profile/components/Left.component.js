@@ -187,11 +187,11 @@ const Left = ({
     };
 
     return (
-        <div className='LEFT col-span-2 flex flex-col gap-y-4 '>
+        <div className='mb-4 '>
             {/* Intro */}
             {intro()}
             {/* image */}
-            {photo()}
+            <div className='mt-4'>{photo()}</div>
         </div>
     );
 };

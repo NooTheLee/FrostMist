@@ -1,13 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import moment from "moment";
 import {useNavigate} from "react-router-dom";
 import ReactLoading from "react-loading";
 import {toast} from "react-toastify";
-// component
-import Comment from "./Comment";
-import {useAppContext} from "../context/useContext";
-import Modal from "./Modal";
-import PostLoading from "./loading/Loading.Post";
 // icon
 import {
     AiOutlineHeart,
@@ -18,6 +13,12 @@ import {
 import {FiMessageSquare} from "react-icons/fi";
 import {TiTick} from "react-icons/ti";
 import {MdCancel} from "react-icons/md";
+// component
+import Comment from "./Comment";
+import {useAppContext} from "../../context/useContext";
+import Modal from "./Modal";
+import PostLoading from "../loading/Loading.Post";
+import {colorGeneration} from "../";
 
 const Post = ({
     currentPost,
@@ -27,7 +28,7 @@ const Post = ({
     getDeletePostId = (postId) => {},
 }) => {
     const navigate = useNavigate();
-    const {autoFetch, setOneState} = useAppContext();
+    const {autoFetch, setOneState, dark} = useAppContext();
     const [showOption, setShowOption] = useState(false);
     const [showComment, setShowComment] = useState(false);
     const [likeLoading, setLikeLoading] = useState(false);
@@ -48,6 +49,12 @@ const Post = ({
     );
     const [imageEdit, setImageEdit] = useState(currentPost.image);
     const [loadingEdit, setLoadingEdit] = useState(false);
+
+    // background color:
+    const bgColor = useMemo(() => {
+        return "";
+        //return colorGeneration(dark);
+    }, [dark]);
 
     // open modal
     useEffect(() => {
@@ -169,7 +176,6 @@ const Post = ({
     };
 
     //update post
-
     const updatePost = async () => {
         setLoadingEdit(true);
         try {
@@ -221,7 +227,8 @@ const Post = ({
 
     return (
         <div
-            className={`dark:bg-[#242526] bg-white mb-5 pt-3 pb-2.5 md:pb-3 rounded-lg ${className} `}>
+            className={`dark:bg-[#242526] bg-white mb-5 pt-3 pb-2.5 md:pb-3 rounded-lg ${className} `}
+            style={{backgroundColor: bgColor}}>
             {/* Model when in mode edit post */}
             {openModal && (
                 <Modal
@@ -328,9 +335,10 @@ const Post = ({
                 </div>
             )}
 
-            {/* post's comment and like count */}
+            {/* post's comment and like quantity */}
             {(commentCount > 0 || likeCount > 0) && (
                 <div className='px-4 py-[10px] flex gap-x-[6px] items-center text-[15px] '>
+                    {/* like quantity */}
                     {likeCount > 0 && (
                         <>
                             {!post.likes.includes(userId) ? (
@@ -356,7 +364,7 @@ const Post = ({
                             )}
                         </>
                     )}
-
+                    {/* comment quantity */}
                     <span className='text-[14px] ml-auto text-[#65676b] dark:text-[#afb0b1] '>
                         {commentCount > 0 &&
                             `${commentCount} ${
@@ -376,8 +384,8 @@ const Post = ({
                         {likeLoading ? (
                             <ReactLoading
                                 type='spin'
-                                width='6%'
-                                height='6%'
+                                width={20}
+                                height={20}
                                 color='#c22727'
                             />
                         ) : (
@@ -395,8 +403,8 @@ const Post = ({
                         {likeLoading ? (
                             <ReactLoading
                                 type='spin'
-                                width='6%'
-                                height='6%'
+                                width={20}
+                                height={20}
                                 color='#6A7583'
                             />
                         ) : (

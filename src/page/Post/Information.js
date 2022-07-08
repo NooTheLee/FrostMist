@@ -4,10 +4,11 @@ import moment from "moment";
 import {AiOutlineHeart, AiFillHeart, AiOutlineSend} from "react-icons/ai";
 import ReactLoading from "react-loading";
 import {FiMessageSquare} from "react-icons/fi";
-import Comment from "../../components/Comment";
+import {Comment} from "../../components";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import {LoadingPostInformation} from "../../components";
+import React from "react";
 
 const initPost = {
     comments: [],
