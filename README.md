@@ -1,5 +1,5 @@
 * Introduction
-This is a social-network project with MERN (mongon, express, reactJs, nodeJs) + tailwindCss
+  - This is a social-network project with MERN (mongon, express, reactJs, nodeJs) + tailwindCss
 * Page:
  (Not logged)
   - Home.
