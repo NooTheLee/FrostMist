@@ -1,19 +1,19 @@
-* Introduction
+**Introduction**
   - This is a social-network project with MERN (mongon, express, reactJs, nodeJs) + tailwindCss
-* Page:
-  /** (Not logged) */
+**Page**
+  _(Not logged)_
   - Home.
   - Login.
   - Register.
   - Froget password.
-  /** (Logged) */
+  _(Logged)_
   - Dashboard.
   - Messenger (updateting).
   - Game (updateting).
   - Admin page (Only with admin's accounts) (updateting).
   - Profile.
   - Update profile.
-* Features
+**Features**
   - Responsive.
   - Sign in, log out.
   - Follow user, unfollow user.
