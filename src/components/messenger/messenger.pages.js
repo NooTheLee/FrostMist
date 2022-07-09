@@ -4,6 +4,7 @@ import ReactLoading from "react-loading";
 import {toast} from "react-toastify";
 import io from "socket.io-client";
 import useSound from "use-sound";
+import {useNavigate} from "react-router-dom";
 
 import {useAppContext} from "../../context/useContext";
 import BoxChat from "./components/BoxChat.component";
@@ -156,6 +157,8 @@ const reducer = (state, action) => {
 };
 
 const Message = () => {
+    const navigate = useNavigate();
+
     const path = "sounds/message_sound.mp3";
     const [playSound] = useSound(path, {volume: 0.2});
 
@@ -273,6 +276,10 @@ const Message = () => {
         }
     }, [user]);
 
+    const navigateToProfile = (id) => {
+        navigate(`/profile/${id}`);
+    };
+
     const handleSendMess = async (receivedId) => {
         setLoading(true);
         try {
@@ -379,6 +386,7 @@ const Message = () => {
                         setOneState={setOneState}
                         state={state}
                         user={user}
+                        navigateToProfile={navigateToProfile}
                     />
 
                     {/* form add new message */}

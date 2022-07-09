@@ -12,8 +12,10 @@ const CLEAR_WHEN_DUPLICATE = "CLEAR_WHEN_DUPLICATE";
 export default function ItemsList({dataSource, dispatch, user, state}) {
     const quantity = dataSource.length;
     return (
-        <div className='border box-shadow'>
-            <List className='' sx={{width: "100%", bgcolor: "#F0F2F5"}}>
+        <div className='border dark:border-white/20 box-shadow'>
+            <List
+                className='bg-[#F0F2F5] w-full dark:bg-[#3A3B3C] '
+                sx={{width: "100%"}}>
                 {dataSource.length > 0 &&
                     dataSource.map((v, index) => (
                         <div
@@ -51,7 +53,7 @@ export default function ItemsList({dataSource, dispatch, user, state}) {
                                     <Avatar
                                         alt={v.name}
                                         src={v.image.url}
-                                        className='border-[1px] border-black/30 '
+                                        className='border-[1px] border-black/30 dark:bg-white bg-black/30 '
                                     />
                                 </ListItemAvatar>
                                 <div className='text-[18px] font-medium flex items-center gap-x-0.5 '>

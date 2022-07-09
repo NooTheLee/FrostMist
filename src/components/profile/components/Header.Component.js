@@ -1,9 +1,11 @@
 import React, {useState} from "react";
+import {toast} from "react-toastify";
+import ReactLoading from "react-loading";
+
+// icon
 import {FiEdit2} from "react-icons/fi";
 import {GoPrimitiveDot} from "react-icons/go";
 import {TiTick} from "react-icons/ti";
-import ReactLoading from "react-loading";
-import {toast} from "react-toastify";
 
 const Header = ({
     user,
@@ -103,7 +105,7 @@ const Header = ({
                 <img
                     src={user.image.url}
                     alt='avatar'
-                    className='w-[170px] h-[170px] rounded-full object-contain translate-y-[-32px] '
+                    className='w-[170px] h-[170px] rounded-full object-cover translate-y-[-32px] shrink-0 '
                 />
                 <div className='flex flex-col sm:flex-row w-full justify-between items-center sm:items-end pt-4 translate-y-[-32px] sm:translate-y-[0] '>
                     <div>

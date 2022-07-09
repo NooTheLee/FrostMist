@@ -176,9 +176,9 @@ const BoxChat = ({setOneState, state, getData, user, dispatch}) => {
 
                 <div className='flex items-center transition-50 my-1 pr-2'>
                     {state.isNewMessage ? (
-                        <div className='my-3 bg-[#8EABB4] w-full py-2 text-white '>
-                            <div className='flex items-start px-2 '>
-                                <div>
+                        <div className='my-3 bg-[#8EABB4] dark:bg-[#252F3C] w-full py-2 text-white rounded-lg '>
+                            <div className='flex items-start px-3  '>
+                                <div className=''>
                                     New message to:{" "}
                                     {state.listResultByPeopleSearch.length >
                                         0 &&
@@ -195,10 +195,10 @@ const BoxChat = ({setOneState, state, getData, user, dispatch}) => {
                             </div>
                         </div>
                     ) : (
-                        <div className='flex rounded-full w-full border-[1px] border-[#8eabb4] px-2 my-2 '>
+                        <div className='flex rounded-full w-full border-[1px] border-[#8eabb4] px-2 my-2'>
                             <input
                                 type='text'
-                                className='w-full bg-inherit border-0 focus:ring-0'
+                                className='w-full bg-inherit  border-0 focus:ring-0'
                                 placeholder='Search user...'
                                 value={state.textSearchPeople}
                                 onChange={(e) => {
