@@ -5,6 +5,8 @@ import Post from "./common/Post";
 import Comment from "./common/Comment";
 import Dropdown from "./common/Dropdown";
 import FormCreatePost from "./common/FormCreatePost";
+import ItemsList from "./common/ItemsList";
+import GroupAvatars from "./common/GroupAvatars";
 
 // loading component
 import LoadingPost from "./loading/Loading.Post";
@@ -31,6 +33,8 @@ export {
     Modal,
     Comment,
     Dropdown,
+    ItemsList,
+    GroupAvatars,
     FormCreatePost,
     LoadingPost,
     LoadingWeather,

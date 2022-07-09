@@ -14,9 +14,9 @@
 ###### _(Logged)_
 
 -   Dashboard.
--   Messenger (updateting).
--   Game (updateting).
--   Admin page (Only with admin's accounts) (updateting).
+-   Messenger (updating).
+-   Game (updating).
+-   Admin page (Only with admin's accounts) (updating).
 -   Profile.
 -   Update profile.
 

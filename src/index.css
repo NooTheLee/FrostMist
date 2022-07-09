@@ -78,6 +78,9 @@
     .btn-home {
         @apply w-24 sm:w-28 md:w-32  md:py-0.5 font-bold relative bg-inherit hover:bg-gradient-to-r from-purple-500 to-pink-500 transition-50 hover:text-white text-base sm:text-xl;
     }
+    .before-nav {
+        @apply before:absolute before:z-[100] before:top-[115%] before:text-white/80 before:bg-[#3A3B3C] before:text-[14px] before:px-2.5 before:py-1.5;
+    }
 }
 
 @layer components {
@@ -116,7 +119,7 @@
         width: calc(100% - 4px);
     }
     .box-shadow {
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 5px;
     }
     .shadow-post {
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;

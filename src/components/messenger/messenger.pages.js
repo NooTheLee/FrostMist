@@ -1,16 +1,13 @@
-// @ts-ignore
-import React, {useEffect, useRef, useState, useReducer} from "react";
-
+import React, {useEffect, useRef, useReducer, useState} from "react";
+import {AiOutlineSend} from "react-icons/ai";
+import ReactLoading from "react-loading";
 import {toast} from "react-toastify";
-import moment from "moment";
-import {CloseCircleOutlined} from "@ant-design/icons";
-import {List} from "antd";
 import io from "socket.io-client";
 import useSound from "use-sound";
-import {Avatar, Tooltip} from "antd";
 
 import {useAppContext} from "../../context/useContext";
 import BoxChat from "./components/BoxChat.component";
+import MainChat from "./components/MainChat.component";
 import "./messenger.css";
 
 // @ts-ignore
@@ -159,12 +156,12 @@ const reducer = (state, action) => {
 };
 
 const Message = () => {
-    const path = "sound/message_sound.mp3";
+    const path = "sounds/message_sound.mp3";
     const [playSound] = useSound(path, {volume: 0.2});
 
     const {autoFetch, user} = useAppContext(); /// own user
-
     const [state, dispatch] = useReducer(reducer, initState);
+    const [scrLoading, setScrLoading] = useState(false);
 
     const setLoading = (value) => {
         // @ts-ignore
@@ -201,9 +198,6 @@ const Message = () => {
                     if (!index) {
                         return;
                     }
-
-                    //console.log(newMessage);
-                    //console.log(allMessages);
                     let newData = state.allMessages.filter((d) => {
                         if (d._id === newMessage._id) {
                             d.content = newMessage.content;
@@ -239,6 +233,7 @@ const Message = () => {
     }, [state]);
 
     const getData = async () => {
+        setScrLoading(true);
         try {
             const {data} = await autoFetch.get("api/message/get-all-messages");
             if (user) {
@@ -269,6 +264,7 @@ const Message = () => {
                 toast.error(error.response.data.msg);
             }
         }
+        setScrLoading(false);
     };
 
     useEffect(() => {
@@ -359,440 +355,107 @@ const Message = () => {
         }
     };
 
-    const messBox = () => {
-        const currentMessenger = state.allMessages.find(
-            (m) => m._id === state.index
-        );
-
-        if (currentMessenger && currentMessenger.content && user) {
-            // @ts-ignore
-            return currentMessenger.content.map((c, k) => (
-                <div
-                    className={`chat-message chat-message-${
-                        c.sentBy._id === user._id ? "right" : "left"
-                    } `}
-                    key={c._id}>
-                    {c.sentBy._id === user._id ? (
-                        <></>
-                    ) : (
-                        <div className='image d-flex'>
-                            <img
-                                src={
-                                    c && c.sentBy && c.sentBy.image
-                                        ? c.sentBy.image.url
-                                        : ""
-                                }
-                                className='mr-1'
-                                alt='AVATAR'
-                                width={"30px"}
-                                height={"30px"}
-                                style={{
-                                    border: "1px solid #8EABB4",
-                                    marginRight: "3px",
-                                    borderRadius: "9999px",
-                                    marginTop: "5px",
-                                }}
-                            />
-                            {currentMessenger.members.length > 2 && (
-                                <span className='sentBy-name'>
-                                    {c.sentBy.name}
-                                </span>
-                            )}
-                        </div>
-                    )}
-
-                    <span
-                        className={`flex-shrink-1 chat-element ${
-                            c.sentBy._id === user._id
-                                ? "py-2 px-3 ml-3"
-                                : "py-2 px-3 ml-3"
-                        }`}>
-                        {c.text}
-                    </span>
-                    <div className='message-time'>
-                        {moment(c.created).fromNow()}
-                    </div>
-                </div>
-            ));
-        }
-        return <></>;
-    };
-
-    const colRight = () => {
-        if (state.isNewMessage) {
-            return (
-                <>
-                    <div className='py-2 px-4 border-bottom d-none d-lg-block'>
-                        <div className='d-flex create-new-message py-1'>
-                            <div className='to'>to:</div>
-                            <div className='result'>
-                                {state.listResultByPeopleSearch.length > 0 &&
-                                    state.listResultByPeopleSearch.map(
-                                        (l, k) => (
-                                            <span
-                                                key={k}
-                                                style={{
-                                                    padding: "5px",
-                                                    backgroundColor: "#8eabb4",
-                                                    borderRadius: "3px",
-                                                    margin: "0 2px",
-                                                    color: "white",
-                                                }}
-                                                role='button'
-                                                className='result-people'>
-                                                {l ? l.name : "nothing"}
-                                                <CloseCircleOutlined
-                                                    className='remove-result-people'
-                                                    onClick={() => {
-                                                        const newListResult =
-                                                            state.listResultByPeopleSearch.filter(
-                                                                (n) =>
-                                                                    n._id !==
-                                                                    l._id
-                                                            );
-                                                        setOneState(
-                                                            "listResultByPeopleSearch",
-                                                            newListResult
-                                                        );
-                                                    }}
-                                                />
-                                            </span>
-                                        )
-                                    )}
-                            </div>
-                            <div className='ip'>
-                                <input
-                                    type='text'
-                                    value={state.textSearchNewMessage}
-                                    onChange={(e) => {
-                                        setOneState(
-                                            "textSearchNewMessage",
-                                            e.target.value
-                                        );
-                                        searchPeopleToNewMessage(
-                                            e.target.value
-                                        );
-                                    }}
-                                    className='form-control'
-                                    placeholder='Search user...'
-                                    style={{}}
-                                />
-                                <div className='list-people-search-new-message'>
-                                    {state.listPeopleToNewMessage.length >
-                                        0 && (
-                                        <List
-                                            itemLayout='horizontal'
-                                            dataSource={
-                                                state.listPeopleToNewMessage
-                                            }
-                                            renderItem={(people) => (
-                                                <List.Item>
-                                                    <List.Item.Meta
-                                                        title={
-                                                            <div
-                                                                className='d-flex'
-                                                                role='button'
-                                                                onClick={() => {
-                                                                    if (
-                                                                        user &&
-                                                                        people._id ===
-                                                                            user._id
-                                                                    ) {
-                                                                        // @ts-ignore
-                                                                        dispatch(
-                                                                            // @ts-ignore
-                                                                            {
-                                                                                type: CLEAR_WHEN_DUPLICATE,
-                                                                            }
-                                                                        );
-                                                                        return;
-                                                                    }
-                                                                    if (
-                                                                        state
-                                                                            .listResultByPeopleSearch
-                                                                            .length >
-                                                                        0
-                                                                    ) {
-                                                                        let id =
-                                                                            state.listResultByPeopleSearch.find(
-                                                                                (
-                                                                                    i
-                                                                                ) =>
-                                                                                    i._id ===
-                                                                                    people._id
-                                                                            );
-                                                                        // @ts-ignore
-                                                                        dispatch(
-                                                                            // @ts-ignore
-                                                                            {
-                                                                                type: CLEAR_WHEN_DUPLICATE,
-                                                                            }
-                                                                        );
-                                                                        if (id)
-                                                                            return;
-                                                                    }
-
-                                                                    // @ts-ignore
-                                                                    dispatch({
-                                                                        type: ADD_USER_TO_SEND_NEW_MESSAGE,
-                                                                        payload:
-                                                                            {
-                                                                                listResultByPeopleSearch:
-                                                                                    [
-                                                                                        ...state.listResultByPeopleSearch,
-                                                                                        people,
-                                                                                    ],
-                                                                            },
-                                                                    });
-                                                                }}>
-                                                                <Avatar
-                                                                    src={
-                                                                        people
-                                                                            .image
-                                                                            .url
-                                                                    }
-                                                                />
-                                                                {people.name}
-                                                            </div>
-                                                        }
-                                                    />
-                                                </List.Item>
-                                            )}
-                                        />
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='position-relative'>
-                        <div className='chat-messages p-4'></div>
-                    </div>
-                </>
-            );
-        }
-        if (!state.allMessages.length) {
-            return (
-                <div className='text-center' style={{marginTop: "50%"}}>
-                    U don&rsquo;t have any message. Let&rsquo;s send message to
-                    someone!
-                </div>
-            );
-        }
-        return (
-            <>
-                <div className='py-2 px-4 border-bottom d-none d-lg-block'>
-                    <div className='d-flex align-items-center py-1'>
-                        {/* list avatar */}
-                        <div className='position-relative'>
-                            {state.isGroup ? (
-                                <div
-                                    className='d-flex'
-                                    style={{height: "40px"}}>
-                                    {state.listResultByPeopleSearch.length &&
-                                        state.listResultByPeopleSearch.map(
-                                            (v, k) => (
-                                                <Tooltip
-                                                    title={v.name}
-                                                    placement={"top"}
-                                                    key={k}>
-                                                    <img
-                                                        src={
-                                                            v && v.image
-                                                                ? v.image.url
-                                                                : ""
-                                                        }
-                                                        className='rounded-circle mr-1'
-                                                        alt='avatar'
-                                                        width={"40px"}
-                                                        height={"40px"}
-                                                    />
-                                                </Tooltip>
-                                            )
-                                        )}
-                                </div>
-                            ) : (
-                                <div style={{height: "40px"}}>
-                                    {state.receiveUser &&
-                                        state.receiveUser.image && (
-                                            <img
-                                                src={
-                                                    state.receiveUser &&
-                                                    state.receiveUser.image
-                                                        ? state.receiveUser
-                                                              .image.url
-                                                        : ""
-                                                }
-                                                className='rounded-circle mr-1'
-                                                alt='avatar'
-                                                width={40}
-                                                height={40}
-                                            />
-                                        )}
-                                </div>
-                            )}
-                        </div>
-                        {/* list name */}
-                        <div className='flex-grow-1 pl-3'>
-                            {state.isGroup &&
-                            state.listResultByPeopleSearch.length ? (
-                                <div className='d-flex'>
-                                    <strong>You, &nbsp;</strong>
-                                    {state.listResultByPeopleSearch.map(
-                                        (v, k) => {
-                                            if (k > 3) {
-                                                return (
-                                                    <strong key={k}>
-                                                        &nbsp;
-                                                        {` and ${
-                                                            state
-                                                                .listResultByPeopleSearch
-                                                                .length - 4
-                                                        } others people`}
-                                                    </strong>
-                                                );
-                                            }
-                                            if (k > 3) {
-                                                return <div key={k}></div>;
-                                            }
-                                            return (
-                                                <strong key={k}>
-                                                    {k > 0 ? ", " : " "}
-                                                    {v ? v.name : ""}
-                                                </strong>
-                                            );
-                                        }
-                                    )}
-                                </div>
-                            ) : (
-                                <strong>
-                                    {state.receiveUser
-                                        ? state.receiveUser.name
-                                        : ""}
-                                </strong>
-                            )}
-                            <div className='text-muted small'>
-                                {/* <em>Typing...</em> */}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='position-relative'>
-                    <div
-                        className='chat-messages p-4'
-                        style={{margin: "0 7px"}}>
-                        {messBox()}
-                        <div ref={messagesEndRef} />
-                    </div>
-                </div>
-            </>
-        );
-    };
+    if (scrLoading) {
+        return <h1 className='text-red-500 mt-[80px] '>Loading...</h1>;
+    }
 
     return (
-        <main className='content-message'>
-            <div className='container'>
-                <div className='card'>
-                    <div className='grid-cols-4 w-full '>
-                        {/* List box chat */}
-                        <BoxChat
-                            dispatch={dispatch}
-                            getData={getData}
-                            setOneState={setOneState}
-                            state={state}
-                            user={user}
-                        />
-                        {/* main chat */}
-                    </div>
+        <div className='w-screen h-screen px-[5%] pt-[70px] '>
+            <div className='w-full h-full grid grid-cols-4 '>
+                <div className='col-span-1 '>
+                    <BoxChat
+                        dispatch={dispatch}
+                        getData={getData}
+                        setOneState={setOneState}
+                        state={state}
+                        user={user}
+                    />
+                </div>
+                <div className='col-span-3 '>
+                    <MainChat
+                        dispatch={dispatch}
+                        messagesEndRef={messagesEndRef}
+                        searchPeopleToNewMessage={searchPeopleToNewMessage}
+                        setOneState={setOneState}
+                        state={state}
+                        user={user}
+                    />
+
+                    {/* form add new message */}
+                    {!state.allMessages.length && !state.isNewMessage ? (
+                        <></>
+                    ) : (
+                        <form
+                            className='flex-grow-0 py-3 px-4'
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                if (state.isNewMessage) {
+                                    if (
+                                        state.listResultByPeopleSearch
+                                            .length === 1
+                                    ) {
+                                        setOneState(
+                                            "receiveUser",
+                                            state.listResultByPeopleSearch[0]
+                                        );
+                                    } else {
+                                        setOneState("isGroup", true);
+                                    }
+                                    handleSendMess("");
+                                } else {
+                                    if (!state.text || !state.receiveUser) {
+                                        return;
+                                    }
+                                    handleSendMess(state.receiveUser._id);
+                                }
+                            }}>
+                            <div className='w-full rounded-full border-[1px] border-[#8EABB4] flex px-2 items-center '>
+                                <input
+                                    type='text'
+                                    className='w-full bg-inherit border-0 focus:ring-0 rounded-full '
+                                    placeholder='Type your message'
+                                    value={state.text}
+                                    onChange={(e) =>
+                                        setOneState("text", e.target.value)
+                                    }
+                                    disabled={
+                                        !state.receiveUser ||
+                                        state.loading ||
+                                        (state.isNewMessage &&
+                                            !state.listResultByPeopleSearch
+                                                .length)
+                                    }
+                                    ref={emailInputRef}
+                                />
+                                <button
+                                    className='shrink-0 text-xl opacity-50 hover:opacity-80 cursor-pointer '
+                                    type='submit'
+                                    disabled={
+                                        !state.receiveUser ||
+                                        state.loading ||
+                                        !state.text ||
+                                        (state.isNewMessage &&
+                                            state.listResultByPeopleSearch
+                                                .length === 0)
+                                    }>
+                                    {state.loading ? (
+                                        <ReactLoading
+                                            type='spin'
+                                            width={20}
+                                            height={20}
+                                            color='#7d838c'
+                                        />
+                                    ) : (
+                                        <AiOutlineSend />
+                                    )}
+                                </button>
+                            </div>
+                        </form>
+                    )}
                 </div>
             </div>
-        </main>
+        </div>
     );
 };
 
 export default Message;
-
-{
-    /* <div className='col-span-3'>
-{colRight()}
-{!state.allMessages.length &&
-!state.isNewMessage ? (
-    <></>
-) : (
-    <form
-        className='flex-grow-0 py-3 px-4 border-top'
-        onSubmit={(e) => {
-            e.preventDefault();
-            if (state.isNewMessage) {
-                if (
-                    state.listResultByPeopleSearch
-                        .length === 1
-                ) {
-                    setOneState(
-                        "receiveUser",
-                        state
-                            .listResultByPeopleSearch[0]
-                    );
-                } else {
-                    // console.log(state.listResultByPeopleSearch);
-                    setOneState("isGroup", true);
-                }
-                handleSendMess("");
-            } else {
-                if (
-                    !state.text ||
-                    !state.receiveUser
-                ) {
-                    return;
-                }
-                handleSendMess(
-                    state.receiveUser._id
-                );
-            }
-        }}>
-        <div className='input-group'>
-            <input
-                type='text'
-                className='form-control'
-                placeholder='Type your message'
-                value={state.text}
-                onChange={(e) =>
-                    setOneState(
-                        "text",
-                        e.target.value
-                    )
-                }
-                disabled={
-                    !state.receiveUser ||
-                    state.loading ||
-                    (state.isNewMessage &&
-                        !state
-                            .listResultByPeopleSearch
-                            .length)
-                }
-                ref={emailInputRef}
-            />
-            <button
-                className='btn'
-                type='submit'
-                disabled={
-                    !state.receiveUser ||
-                    state.loading ||
-                    !state.text ||
-                    (state.isNewMessage &&
-                        state
-                            .listResultByPeopleSearch
-                            .length === 0)
-                }
-                style={{
-                    backgroundColor: "#8eabb4",
-                    color: "white",
-                }}>
-                {state.loading
-                    ? "loading..."
-                    : "send"}
-            </button>
-        </div>
-    </form>
-)}
-</div> */
-}

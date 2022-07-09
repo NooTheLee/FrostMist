@@ -1,6 +1,13 @@
 import React from "react";
-import {PlusSquareOutlined} from "@ant-design/icons";
-import {Avatar, Tooltip} from "antd";
+import {Avatar, Tooltip} from "@mui/material";
+// components
+import {GroupAvatars} from "../../";
+//icon
+import {
+    AiOutlinePlusSquare,
+    AiOutlineCloseSquare,
+    AiOutlineCloseCircle,
+} from "react-icons/ai";
 
 const IS_NEW_MESSAGE = "IS_NEW_MESSAGE";
 const CLICK_TO_BOX_MESSAGE = "CLICK_TO_BOX_MESSAGE";
@@ -10,43 +17,12 @@ const BoxChat = ({setOneState, state, getData, user, dispatch}) => {
         // when box chat has more 2 user
         if (m.members.length > 2) {
             return (
-                <>
-                    <Avatar.Group
-                        maxCount={3}
-                        maxStyle={{
-                            color: "white",
-                            backgroundColor: "#8EABB4",
-                        }}>
-                        {m.members.map((receivePeople, k) => {
-                            return (
-                                <Tooltip
-                                    title={
-                                        user && receivePeople._id === user._id
-                                            ? "You"
-                                            : receivePeople.name
-                                    }
-                                    placement='top'
-                                    key={k}>
-                                    <img
-                                        src={
-                                            receivePeople && receivePeople.image
-                                                ? receivePeople.image.url
-                                                : ""
-                                        }
-                                        alt='avatar'
-                                        className='rounded-full object-contain bg-white border-[1px] border-[#8EABB4] w-10 h-10  '
-                                        // @ts-ignore
-                                        onClick={() => {
-                                            setOneState(
-                                                "receiveUser",
-                                                receivePeople
-                                            );
-                                        }}
-                                    />
-                                </Tooltip>
-                            );
-                        })}
-                    </Avatar.Group>
+                <div className='flex'>
+                    <GroupAvatars
+                        dataSource={m.members}
+                        user={user}
+                        setOneState={setOneState}
+                    />
                     <strong
                         className='flex-grow pl-3'
                         style={{
@@ -55,7 +31,7 @@ const BoxChat = ({setOneState, state, getData, user, dispatch}) => {
                         }}>
                         Group chat
                     </strong>
-                </>
+                </div>
             );
         }
         // when box chat has only 2 user
@@ -72,14 +48,14 @@ const BoxChat = ({setOneState, state, getData, user, dispatch}) => {
                                 setOneState("receiveUser", receivePeople);
                             }}
                             className='Ko-nghi-ra-ten flex'>
-                            <img
+                            <Avatar
                                 src={
                                     receivePeople && receivePeople.image
                                         ? receivePeople.image.url
                                         : ""
                                 }
                                 alt='avatar'
-                                className='w-10 h-10 bg-white border-[1px] border-[#8eabb4] rounded-full '
+                                className='w-10 h-10 bg-white border-[1px] border-[#8eabb4] '
                             />
                             <strong className='flex-grow pl-3 leading-10 '>
                                 {receivePeople ? receivePeople.name : ""}
@@ -142,53 +118,66 @@ const BoxChat = ({setOneState, state, getData, user, dispatch}) => {
         ));
     };
     return (
-        <div className='col-span-1'>
-            <div className='px-4 d-none d-md-block'>
-                <div className='flex justify-between'>
-                    <h2
-                        style={{
-                            color: "#658189",
-                        }}>
+        <div>
+            <div className=''>
+                <div className='flex justify-between items-center pt-4'>
+                    <h2 className='text-[#658189] font-extrabold text-3xl  '>
                         Chats
                     </h2>
-                    <Tooltip title='New message' placement='top'>
-                        <PlusSquareOutlined
-                            className='btn-add-new-message'
-                            role='button'
-                            onClick={() => {
-                                if (state.isNewMessage) {
-                                    setOneState("isNewMessage", false);
-                                    setOneState(
-                                        "allMessages",
-                                        state.sourceMessage
-                                    );
-                                } else {
-                                    // @ts-ignore
-                                    dispatch({
-                                        type: IS_NEW_MESSAGE,
-                                    });
-                                }
-                            }}
-                            style={{
-                                fontSize: "25px",
-                                lineHeight: "37px",
-                            }}
-                        />
-                    </Tooltip>
+                    {/* btn add new message */}
+                    {state.isNewMessage ? (
+                        <Tooltip title='Close' placement='top'>
+                            <div>
+                                <AiOutlineCloseSquare
+                                    className='text-3xl opacity-40 cursor-pointer hover:opacity-60 '
+                                    role='button'
+                                    onClick={() => {
+                                        if (state.isNewMessage) {
+                                            setOneState("isNewMessage", false);
+                                            setOneState(
+                                                "allMessages",
+                                                state.sourceMessage
+                                            );
+                                        } else {
+                                            // @ts-ignore
+                                            dispatch({
+                                                type: IS_NEW_MESSAGE,
+                                            });
+                                        }
+                                    }}
+                                />
+                            </div>
+                        </Tooltip>
+                    ) : (
+                        <Tooltip title='New message' placement='top'>
+                            <div>
+                                <AiOutlinePlusSquare
+                                    className='text-3xl opacity-40 cursor-pointer hover:opacity-60 '
+                                    role='button'
+                                    onClick={() => {
+                                        if (state.isNewMessage) {
+                                            setOneState("isNewMessage", false);
+                                            setOneState(
+                                                "allMessages",
+                                                state.sourceMessage
+                                            );
+                                        } else {
+                                            // @ts-ignore
+                                            dispatch({
+                                                type: IS_NEW_MESSAGE,
+                                            });
+                                        }
+                                    }}
+                                />
+                            </div>
+                        </Tooltip>
+                    )}
                 </div>
 
-                <div className='flex items-center transition-50'>
+                <div className='flex items-center transition-50 my-1 pr-2'>
                     {state.isNewMessage ? (
-                        <div
-                            role=''
-                            className='row my-3'
-                            style={{
-                                backgroundColor: "#8EABB4",
-                                width: "100%",
-                                padding: "5px 0",
-                                color: "white",
-                            }}>
-                            <div className='flex items-start d-flex'>
+                        <div className='my-3 bg-[#8EABB4] w-full py-2 text-white '>
+                            <div className='flex items-start px-2 '>
                                 <div>
                                     New message to:{" "}
                                     {state.listResultByPeopleSearch.length >
@@ -206,81 +195,72 @@ const BoxChat = ({setOneState, state, getData, user, dispatch}) => {
                             </div>
                         </div>
                     ) : (
-                        <div className='row my-3'>
-                            <div className='input-group'>
-                                <input
-                                    type='text'
-                                    className='form-control'
-                                    placeholder='Search user...'
-                                    value={state.textSearchPeople}
-                                    onChange={(e) => {
-                                        setOneState(
-                                            "textSearchPeople",
-                                            e.target.value
-                                        );
-                                        if (!e.target.value) {
-                                            getData();
-                                            setOneState("textSearchPeople", "");
-                                        }
-                                        setOneState("index", "");
-                                        setOneState("receiveUser", {});
-                                        setOneState(
-                                            "listResultByPeopleSearch",
-                                            []
-                                        );
-                                        setOneState("isGroup", false);
+                        <div className='flex rounded-full w-full border-[1px] border-[#8eabb4] px-2 my-2 '>
+                            <input
+                                type='text'
+                                className='w-full bg-inherit border-0 focus:ring-0'
+                                placeholder='Search user...'
+                                value={state.textSearchPeople}
+                                onChange={(e) => {
+                                    setOneState(
+                                        "textSearchPeople",
+                                        e.target.value
+                                    );
+                                    if (!e.target.value) {
+                                        getData();
+                                        setOneState("textSearchPeople", "");
+                                    }
+                                    setOneState("index", "");
+                                    setOneState("receiveUser", {});
+                                    setOneState("listResultByPeopleSearch", []);
+                                    setOneState("isGroup", false);
 
-                                        const arrFilter =
-                                            state.sourceMessage.filter((v) => {
-                                                const length = v.members.length;
-                                                for (
-                                                    var i = 0;
-                                                    i < length;
-                                                    i++
+                                    const arrFilter =
+                                        state.sourceMessage.filter((v) => {
+                                            const length = v.members.length;
+                                            for (var i = 0; i < length; i++) {
+                                                if (
+                                                    v.members[i]._id ===
+                                                    user._id
                                                 ) {
-                                                    if (
-                                                        v.members[i]._id ===
-                                                        user._id
-                                                    ) {
-                                                        continue;
-                                                    }
-                                                    if (
-                                                        v.members[i].name
-                                                            .toLowerCase()
-                                                            .includes(
-                                                                e.target.value.toLowerCase()
-                                                            )
-                                                    ) {
-                                                        return v;
-                                                    }
+                                                    continue;
                                                 }
-                                            });
-                                        //console.log(arrFilter);
-                                        setOneState("allMessages", arrFilter);
-                                    }}
-                                />
+                                                if (
+                                                    v.members[i].name
+                                                        .toLowerCase()
+                                                        .includes(
+                                                            e.target.value.toLowerCase()
+                                                        )
+                                                ) {
+                                                    return v;
+                                                }
+                                            }
+                                        });
+                                    //console.log(arrFilter);
+                                    setOneState("allMessages", arrFilter);
+                                }}
+                            />
+                            {state.textSearchPeople && (
                                 <button
-                                    className='btn'
+                                    className='text-2xl opacity-50 hover:opacity-70 cursor-pointer '
                                     onClick={() => {
                                         getData();
                                         setOneState("textSearchPeople", "");
                                     }}
-                                    disabled={!state.textSearchPeople}
-                                    style={{
-                                        backgroundColor: "#8eabb4",
-                                        color: "white",
-                                    }}>
-                                    clear
+                                    disabled={!state.textSearchPeople}>
+                                    <Tooltip title='Clear' placement='top'>
+                                        <div>
+                                            <AiOutlineCloseCircle />
+                                        </div>
+                                    </Tooltip>
                                 </button>
-                            </div>
+                            )}
                         </div>
                     )}
                 </div>
             </div>
 
             <div className='cot-trai'>{colLeft()}</div>
-
-            <hr className='d-block d-lg-none mt-1 mb-0' />
         </div>
     );
 };
