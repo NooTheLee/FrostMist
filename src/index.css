@@ -81,6 +81,10 @@
     .before-nav {
         @apply before:absolute before:z-[100] before:top-[115%] before:text-white/80 before:bg-[#3A3B3C] before:text-[14px] before:px-2.5 before:py-1.5;
     }
+    .chat-messages {
+        @apply flex flex-col h-[68vh] overflow-y-auto dark:bg-[#242526] dark:shadow-none rounded-md;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
 }
 
 @layer components {

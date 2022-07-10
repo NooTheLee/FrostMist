@@ -105,32 +105,37 @@ const Header = ({
                 <img
                     src={user.image.url}
                     alt='avatar'
-                    className='w-[170px] h-[170px] rounded-full object-cover translate-y-[-32px] shrink-0 '
+                    className='w-[170px] h-[170px] rounded-full object-cover translate-y-[-32px] shrink-0 dark:border-4 dark:border-white '
                 />
                 <div className='flex flex-col sm:flex-row w-full justify-between items-center sm:items-end pt-4 translate-y-[-32px] sm:translate-y-[0] '>
                     <div>
-                        <div className='flex'>
-                            <div className='text-[32px] font-bold flex items-center gap-x-1  '>
-                                {user.name}
-                                {user.role === "Admin" && (
-                                    <TiTick className='text-[20px] text-white rounded-full bg-sky-500 ' />
-                                )}
-                                <span className='ml-1.5 font-normal text-[28px] '>
+                        <div className='flex justify-center'>
+                            <div className='text-[32px] font-bold md:flex items-center gap-x-1 '>
+                                <div className='text-center flex items-center justify-center '>
+                                    {user.name}
+                                    {user.role === "Admin" && (
+                                        <TiTick className='text-[20px] text-white rounded-full bg-sky-500 ' />
+                                    )}
+                                </div>
+
+                                <div className='ml-1.5 font-normal text-xl md:text-[28px] flex-shrink-0 '>
                                     ({user.username})
-                                </span>
+                                </div>
                             </div>
                         </div>
                         <div className='dark:text-[#b0b3b8] font-semibold text-[17px] flex gap-x-1.5 items-center text-[#65676b] justify-center sm:justify-start'>
-                            <span className='cursor-pointer '>
+                            <span className='cursor-pointer flex-shrink-0 '>
                                 {user.following.length} following
                             </span>
                             <GoPrimitiveDot />
-                            <span className='cursor-pointer'>
+                            <span className='cursor-pointer flex-shrink-0 '>
                                 {user.follower.length} follower
                             </span>
                         </div>
                     </div>
-                    <div className='flex mt-4 sm:mt-0 '>{btn()}</div>
+                    <div className='flex mt-4 sm:mt-0 flex-shrink-0 '>
+                        {btn()}
+                    </div>
                 </div>
             </div>
             <div className='flex mx-0 sm:mx-10 '>

@@ -23,44 +23,55 @@ const MainChat = ({
 
         if (currentMessenger && currentMessenger.content && user) {
             // @ts-ignore
-            return currentMessenger.content.map((c) => (
-                <div
-                    className={`chat-message chat-message-${
-                        c.sentBy._id === user._id ? "right" : "left"
-                    } flex items-center `}
-                    key={c._id}>
-                    {c.sentBy._id === user._id ? (
-                        <></>
-                    ) : (
+            return currentMessenger.content.map((c) => {
+                return (
+                    <div>
                         <div
-                            className='image flex '
-                            onClick={() => navigateToProfile(c._id)}>
-                            <Avatar
-                                src={
-                                    c && c.sentBy && c.sentBy.image
-                                        ? c.sentBy.image.url
-                                        : ""
-                                }
-                                className='mr-1 border-[1px] border-[#8EABB4] rounded-full w-8 h-8 cursor-pointer '
-                                alt='AVATAR'
-                            />
-                            {currentMessenger.members.length > 2 && (
-                                <span className='sentBy-name'>
-                                    {c.sentBy.name}
-                                </span>
+                            className={`chat-message max-w-[80%] md:max-w-[50%] chat-message-${
+                                c.sentBy._id === user._id ? "right" : "left"
+                            } flex items-center `}
+                            key={c._id}>
+                            {c.sentBy._id === user._id ? (
+                                <></>
+                            ) : (
+                                <div
+                                    className='image flex '
+                                    onClick={() => navigateToProfile(c._id)}>
+                                    <Avatar
+                                        src={
+                                            c && c.sentBy && c.sentBy.image
+                                                ? c.sentBy.image.url
+                                                : ""
+                                        }
+                                        className='mr-1 border-[1px] border-[#8EABB4] rounded-full w-8 h-8 cursor-pointer '
+                                        alt='AVATAR'
+                                    />
+                                    {currentMessenger.members.length > 2 && (
+                                        <span className='sentBy-name'>
+                                            {c.sentBy.name}
+                                        </span>
+                                    )}
+                                </div>
                             )}
-                        </div>
-                    )}
 
-                    <span
-                        className={`chat-element flex-shrink-0 bg-[#8eabb4] rounded-[25px] dark:bg-[#3E4042] py-2 px-2 ml-3  `}>
-                        {c.text}
-                    </span>
-                    <div className='text-[#727272] flex-shrink-0 w-auto text-[13px] mx-1 '>
-                        {moment(c.created).fromNow()}
+                            <Tooltip
+                                title={moment(c.created).fromNow()}
+                                placement={
+                                    c.sentBy._id === user._id ? "left" : "right"
+                                }>
+                                <span
+                                    className={`chat-element md:max-w-[70%] flex-shrink-0 rounded-2xl md:rounded-[25px] ${
+                                        c.sentBy._id === user._id
+                                            ? "dark:bg-[#006064] bg-[#8eabb4] "
+                                            : "dark:bg-[#3E4042] bg-white box-shadow text-black "
+                                    }  px-3 py-2 ml-1 dark:text-white `}>
+                                    {c.text}
+                                </span>
+                            </Tooltip>
+                        </div>
                     </div>
-                </div>
-            ));
+                );
+            });
         }
         return <></>;
     };
@@ -69,15 +80,15 @@ const MainChat = ({
         return (
             <>
                 <div className='py-2 px-4 border-bottom d-none d-lg-block'>
-                    <div className='flex create-new-message py-1 items-center gap-x-1 '>
-                        <div className='to'>To:</div>
-                        <div className='flex gap-x-0.5'>
+                    <div className='flex create-new-message py-1 items-center gap-x-1 flex-wrap '>
+                        <div className='flex gap-x-0.5 flex-wrap '>
+                            <div className='to  '>To:</div>
                             {state.listResultByPeopleSearch.length > 0 &&
                                 state.listResultByPeopleSearch.map((l, k) => (
                                     <span
                                         key={k}
                                         role='button'
-                                        className='flex items-center py-0.5 px-3 gap-x-0.5 text-white rounded-full bg-[#8EABB4] dark:bg-[#3A3B3C] '>
+                                        className='flex items-center py-0.5 px-3 gap-x-0.5 text-white rounded-full bg-[#8EABB4] dark:bg-[#3A3B3C] mt-1 md:mt-0 '>
                                         {l ? l.name : "nothing"}
                                         {l.role === "Admin" && (
                                             <TiTick className='text-[13px] text-white rounded-full bg-sky-500 ' />
@@ -98,7 +109,7 @@ const MainChat = ({
                                     </span>
                                 ))}
                         </div>
-                        <div className='ip  '>
+                        <div className='ip mt-1 md:mt-0 '>
                             <input
                                 type='text'
                                 value={state.textSearchNewMessage}
@@ -109,7 +120,7 @@ const MainChat = ({
                                     );
                                     searchPeopleToNewMessage(e.target.value);
                                 }}
-                                className='rounded-full border-[#8EABB4] dark:border-0 focus:ring-0 dark:focus:border-0 pl-3 dark:bg-[#3A3B3C] dark:text-[#e4e6eb] dark:placeholder:text-[#e4e6eb] py-1.5 '
+                                className='rounded-full border-[#8EABB4] dark:border-0 focus:ring-0 dark:focus:border-0 pl-3 dark:bg-[#3A3B3C] dark:text-[#e4e6eb] dark:placeholder:text-[#e4e6eb] py-1 md:py-1.5 w-[150px] md:w-auto text-[14px] md:text-base mt-0 '
                                 placeholder='Search user...'
                                 style={{}}
                             />
@@ -128,7 +139,7 @@ const MainChat = ({
                         </div>
                     </div>
                 </div>
-                <div className='position-relative'>
+                <div className='relative'>
                     <div className='chat-messages p-4'></div>
                 </div>
             </>
@@ -164,7 +175,7 @@ const MainChat = ({
                                                             : ""
                                                     }
                                                     alt='avatar'
-                                                    className='w-10 h-10 bg-white border-[1px] border-[#8eabb4] cursor-pointer '
+                                                    className='w-10 h-10 bg-white border-[#8eabb4] cursor-pointer border dark:border-white '
                                                     onClick={() =>
                                                         navigateToProfile(v._id)
                                                     }
@@ -174,7 +185,7 @@ const MainChat = ({
                                     )}
                             </div>
                         ) : (
-                            <div style={{height: "40px"}}>
+                            <div className='h-10'>
                                 {state.receiveUser &&
                                     state.receiveUser.image && (
                                         <Avatar
@@ -185,7 +196,7 @@ const MainChat = ({
                                                           .url
                                                     : ""
                                             }
-                                            className='rounded-full mr-1 w-10 h-10 cursor-pointer '
+                                            className='rounded-full mr-1 w-10 h-10 cursor-pointer border dark:border-white '
                                             alt='avatar'
                                             onClick={() =>
                                                 navigateToProfile(
@@ -198,33 +209,23 @@ const MainChat = ({
                         )}
                     </div>
                     {/* list name */}
-                    <div className='grow pl-3'>
+                    <div className='grow pl-3 w-full text-ellipsis'>
                         {state.isGroup &&
                         state.listResultByPeopleSearch.length ? (
-                            <div className='flex'>
-                                <strong>You, &nbsp;</strong>
+                            <div className='flex text-[12px] md:text-base text-ellipsis w-full font-bold '>
+                                You,
                                 {state.listResultByPeopleSearch.map((v, k) => {
                                     if (k > 3) {
-                                        return (
-                                            <strong key={k}>
-                                                &nbsp;
-                                                {` and ${
-                                                    state
-                                                        .listResultByPeopleSearch
-                                                        .length - 4
-                                                } others people`}
-                                            </strong>
-                                        );
+                                        return ` and ${
+                                            state.listResultByPeopleSearch
+                                                .length - 4
+                                        } others people`;
                                     }
                                     if (k > 3) {
-                                        return <div key={k}></div>;
+                                        return "";
                                     }
-                                    return (
-                                        <strong key={k}>
-                                            {k > 0 ? ", " : " "}
-                                            {v ? v.name : ""}
-                                        </strong>
-                                    );
+                                    return `${k > 0 ? ", " : " "}
+                                            ${v ? v.name : ""}`;
                                 })}
                             </div>
                         ) : (
@@ -239,7 +240,7 @@ const MainChat = ({
             </div>
             <div className='relative'>
                 <div
-                    className='chat-messages p-4 flex dark:bg-[#242526] '
+                    className='chat-messages p-2 md:p-4 flex dark:bg-[#242526]'
                     style={{margin: "0 7px"}}>
                     {messBox()}
                     <div ref={messagesEndRef} />

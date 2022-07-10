@@ -17,19 +17,10 @@
 .btn-add-new-message:hover {
     opacity: 0.7;
 }
-.chat-messages {
-    display: flex;
-    flex-direction: column;
-    height: 500px;
-    overflow-y: auto;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    /* justify-content: flex-end; */
-}
 
 .cot-trai {
     display: flex;
     flex-direction: column;
-    height: 500px;
     overflow-y: auto;
     margin-right: 3px;
 }
@@ -125,7 +116,6 @@
 .chat-message {
     margin-top: 3px;
     color: white;
-    max-width: 50%;
     position: relative;
 }
 .chat-message .chat-element {
@@ -136,7 +126,6 @@
     max-width: 60%;
 }
 .chat-message.chat-message-left .chat-element {
-    max-width: 70%;
     word-wrap: break-word;
 }
 .chat-message .message-time {
@@ -179,11 +168,13 @@
 .last-mess {
     font-size: 15px;
     color: rgb(150, 150, 150);
-    padding-left: 3px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     width: 90%;
+}
+.dark .col-left.active .last-mess {
+    color: #ffffff70;
 }
 .col-left.active .last-mess {
     color: #dee2e6;

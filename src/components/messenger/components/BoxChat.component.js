@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Avatar, Tooltip} from "@mui/material";
 // components
 import {GroupAvatars} from "../../";
@@ -17,20 +17,28 @@ const BoxChat = ({setOneState, state, getData, user, dispatch}) => {
         // when box chat has more 2 user
         if (m.members.length > 2) {
             return (
-                <div className='flex'>
+                <div className='flex items-center '>
                     <GroupAvatars
                         dataSource={m.members}
                         user={user}
                         setOneState={setOneState}
                     />
-                    <strong
-                        className='flex-grow pl-3'
-                        style={{
-                            lineHeight: "38px",
-                            transform: "translateX(4px)",
-                        }}>
-                        Group chat
-                    </strong>
+                    <div className='hidden md:flex flex-col pl-3'>
+                        <strong className='flex-grow '>Group chat</strong>
+                        <div className='last-mess'>{`${
+                            user &&
+                            m &&
+                            m.content &&
+                            m.content[m.content.length - 1].sentBy._id ===
+                                user._id
+                                ? "You: "
+                                : ""
+                        }  ${
+                            m && m.content
+                                ? m.content[m.content.length - 1].text
+                                : ""
+                        }`}</div>
+                    </div>
                 </div>
             );
         }
@@ -47,7 +55,7 @@ const BoxChat = ({setOneState, state, getData, user, dispatch}) => {
                             onClick={() => {
                                 setOneState("receiveUser", receivePeople);
                             }}
-                            className='Ko-nghi-ra-ten flex'>
+                            className='Ko-nghi-ra-ten flex items-center '>
                             <Avatar
                                 src={
                                     receivePeople && receivePeople.image
@@ -57,71 +65,76 @@ const BoxChat = ({setOneState, state, getData, user, dispatch}) => {
                                 alt='avatar'
                                 className='w-10 h-10 bg-white border-[1px] border-[#8eabb4] '
                             />
-                            <strong className='flex-grow pl-3 leading-10 '>
-                                {receivePeople ? receivePeople.name : ""}
-                            </strong>
+                            <div className='pl-3 w-full pr-[20%] hidden md:flex flex-col '>
+                                <strong className='hidden md:flex flex-grow  '>
+                                    {receivePeople ? receivePeople.name : ""}
+                                </strong>
+                                <div className='last-mess text-ellipsis w-full hidden md:flex '>{`${
+                                    user &&
+                                    m &&
+                                    m.content &&
+                                    m.content[m.content.length - 1].sentBy
+                                        ._id === user._id
+                                        ? "You: "
+                                        : ""
+                                }  ${
+                                    m && m.content
+                                        ? m.content[m.content.length - 1].text
+                                        : ""
+                                }`}</div>
+                            </div>
                         </div>
                     );
                 })}
             </>
         );
     };
-
     const colLeft = () => {
         if (!state.allMessages) return "Nothing....";
-        return state.allMessages.map((m, id) => (
-            <div
-                key={id}
-                className={` col-left ${
-                    m._id === state.index ? "active" : ""
-                }`}>
+        return state.allMessages.map((m, id) => {
+            return (
                 <div
-                    role='button'
-                    className={`flex `}
-                    onClick={() => {
-                        let result = [];
-                        if (m.members.length > 2) {
-                            m.members.forEach((v) => {
-                                if (v._id !== user._id) {
-                                    result.push(v);
-                                }
+                    key={id}
+                    className={` col-left ${
+                        m._id === state.index ? "active" : ""
+                    } md:p-2.5  md:h-auto rounded-l-lg `}>
+                    <div
+                        role='button'
+                        className={`flex `}
+                        onClick={() => {
+                            let result = [];
+                            if (m.members.length > 2) {
+                                m.members.forEach((v) => {
+                                    if (v._id !== user._id) {
+                                        result.push(v);
+                                    }
+                                });
+                            }
+                            // @ts-ignore
+                            dispatch({
+                                type: CLICK_TO_BOX_MESSAGE,
+                                payload: {
+                                    index: m._id,
+                                    isGroup: m.members.length > 2,
+                                    listResultByPeopleSearch: result,
+                                },
                             });
-                        }
-                        // @ts-ignore
-                        dispatch({
-                            type: CLICK_TO_BOX_MESSAGE,
-                            payload: {
-                                index: m._id,
-                                isGroup: m.members.length > 2,
-                                listResultByPeopleSearch: result,
-                            },
-                        });
-                    }}>
-                    {m && (
-                        <div className='w-full h-full items-start flex'>
-                            {boxUser(m)}
-                        </div>
-                    )}
+                        }}>
+                        {m && (
+                            <div className='w-full h-full items-start flex'>
+                                {boxUser(m)}
+                            </div>
+                        )}
+                    </div>
                 </div>
-
-                <div className='last-mess'>{`${
-                    user &&
-                    m &&
-                    m.content &&
-                    m.content[m.content.length - 1].sentBy._id === user._id
-                        ? "You: "
-                        : ""
-                }  ${
-                    m && m.content ? m.content[m.content.length - 1].text : ""
-                }`}</div>
-            </div>
-        ));
+            );
+        });
     };
     return (
-        <div>
-            <div className=''>
+        <div className='overflow-x-hidden'>
+            <div className='overflow-x-hidden'>
                 <div className='flex justify-between items-center pt-4'>
-                    <h2 className='text-[#658189] font-extrabold text-3xl  '>
+                    <h2 className='text-[#658189] font-extrabold text-xl sm:text-2xl md:text-3xl  '>
                         Chats
                     </h2>
                     {/* btn add new message */}
@@ -129,7 +142,7 @@ const BoxChat = ({setOneState, state, getData, user, dispatch}) => {
                         <Tooltip title='Close' placement='top'>
                             <div>
                                 <AiOutlineCloseSquare
-                                    className='text-3xl opacity-40 cursor-pointer hover:opacity-60 '
+                                    className='text-xl sm:text-2xl md:text-3xl opacity-40 cursor-pointer hover:opacity-60 '
                                     role='button'
                                     onClick={() => {
                                         if (state.isNewMessage) {
@@ -152,7 +165,7 @@ const BoxChat = ({setOneState, state, getData, user, dispatch}) => {
                         <Tooltip title='New message' placement='top'>
                             <div>
                                 <AiOutlinePlusSquare
-                                    className='text-3xl opacity-40 cursor-pointer hover:opacity-60 '
+                                    className='text-xl sm:text-2xl md:text-3xl opacity-40 cursor-pointer hover:opacity-60 '
                                     role='button'
                                     onClick={() => {
                                         if (state.isNewMessage) {
@@ -174,32 +187,31 @@ const BoxChat = ({setOneState, state, getData, user, dispatch}) => {
                     )}
                 </div>
 
-                <div className='flex items-center transition-50 my-1 pr-2'>
+                <div className='flex items-center transition-50 my-1 pr-2 '>
                     {state.isNewMessage ? (
                         <div className='my-3 bg-[#8EABB4] dark:bg-[#252F3C] w-full py-2 text-white rounded-lg '>
-                            <div className='flex items-start px-3  '>
-                                <div className=''>
+                            <div className='flex items-start px-1 md:px-3  '>
+                                <div className='text-[13px] md:text-base flex flex-wrap '>
                                     New message to:{" "}
                                     {state.listResultByPeopleSearch.length >
                                         0 &&
                                         state.listResultByPeopleSearch.map(
                                             (v, k) => {
-                                                if (k > 0) {
-                                                    return " , " + v.name;
+                                                if (k === v.length - 1) {
+                                                    return <div>{v.name}</div>;
                                                 }
-
-                                                return v.name;
+                                                return <div>{v.name},</div>;
                                             }
                                         )}
                                 </div>
                             </div>
                         </div>
                     ) : (
-                        <div className='flex rounded-full w-full border-[1px] border-[#8eabb4] px-2 my-2'>
+                        <div className='flex rounded-2xl md:rounded-full w-full border-[1px] border-[#8eabb4] px-1 md:px-2 my-2 '>
                             <input
                                 type='text'
-                                className='w-full bg-inherit  border-0 focus:ring-0'
-                                placeholder='Search user...'
+                                className='w-full bg-inherit border-0 focus:ring-0 px-1 py-1 md:px-3 md:py-2 text-[13px] md:text-base  '
+                                placeholder='Search...'
                                 value={state.textSearchPeople}
                                 onChange={(e) => {
                                     setOneState(
@@ -260,7 +272,9 @@ const BoxChat = ({setOneState, state, getData, user, dispatch}) => {
                 </div>
             </div>
 
-            <div className='cot-trai'>{colLeft()}</div>
+            <div className='cot-trai max-h-[70vh] md:h-[67vh] overflow-x-hidden '>
+                {colLeft()}
+            </div>
         </div>
     );
 };
