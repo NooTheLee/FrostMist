@@ -30,6 +30,11 @@ const Register = () => {
         setLoading(true);
         try {
             const {name, password, rePassword, secret} = state;
+            if (name.includes("admin")) {
+                toast.error(`Name cannot include "admin"`);
+                setLoading(false);
+                return;
+            }
             const email = state.email.toLowerCase();
             const {data} = await autoFetch.post("/api/auth/register", {
                 name,
