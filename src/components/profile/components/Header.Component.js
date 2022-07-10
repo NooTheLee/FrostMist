@@ -20,6 +20,7 @@ const Header = ({
     const [loading, setLoading] = useState(false);
 
     const list = ["Posts", "Following", "Follower"];
+
     const handleFollower = async (user) => {
         setLoading(true);
         try {

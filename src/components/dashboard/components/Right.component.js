@@ -138,7 +138,7 @@ const Right = ({
         <div
             className={`bg-white ${
                 !dark && "shadow-post"
-            } dark:bg-[#242526] rounded-lg py-4 px-5 md:fixed w-full md:w-[24%] mr-12 mt-5 md:mt-0 `}>
+            } dark:bg-[#242526] rounded-lg py-4 px-5 md:fixed w-full md:w-[24%] mr-12 mb-4 md:mb-0 `}>
             {content()}
         </div>
     );

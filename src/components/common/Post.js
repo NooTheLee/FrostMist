@@ -18,13 +18,13 @@ import Comment from "./Comment";
 import {useAppContext} from "../../context/useContext";
 import Modal from "./Modal";
 import PostLoading from "../loading/Loading.Post";
-import {colorGeneration} from "../";
 
 const Post = ({
     currentPost,
     user_img,
     userId,
     className = "",
+    userRole,
     getDeletePostId = (postId) => {},
 }) => {
     const navigate = useNavigate();
@@ -273,7 +273,7 @@ const Post = ({
                     </div>
                 </div>
                 {/* Edit or delete posts */}
-                {userId === post.postedBy._id && (
+                {(userId === post.postedBy._id || userRole === "Admin") && (
                     <div
                         className='ml-auto text-[25px] transition-50 cursor-pointer font-bold w-[35px] h-[35px] rounded-full hover:bg-[#F2F2F2] dark:hover:bg-[#3A3B3C] flex flex-row items-center justify-center group relative '
                         onClick={() => {

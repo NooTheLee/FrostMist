@@ -18,6 +18,7 @@ import LoadingIntro from "./loading/Loading.Intro";
 import LoadingImage from "./loading/Loading.Image";
 import LoadingCard from "./loading/Loading.Card";
 import LoadingPostInformation from "./loading/Loading.PostInformation";
+import LoadingMessenger from "./loading/Loading.Messenger";
 
 // pages
 import Messenger from "./messenger/messenger.pages";
@@ -28,6 +29,7 @@ import Profile from "./profile/Profile.pages";
 import colorGeneration from "./common/colorGeneration";
 
 export {
+    // common
     Nav,
     Post,
     Modal,
@@ -36,6 +38,7 @@ export {
     ItemsList,
     GroupAvatars,
     FormCreatePost,
+    //loading
     LoadingPost,
     LoadingWeather,
     LoadingSuggestion,
@@ -45,6 +48,8 @@ export {
     LoadingImage,
     LoadingPostInformation,
     LoadingCard,
+    LoadingMessenger,
+    // page
     Messenger,
     Dashboard,
     Profile,

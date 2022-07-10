@@ -5,10 +5,11 @@ import {toast} from "react-toastify";
 import io from "socket.io-client";
 import useSound from "use-sound";
 import {useNavigate} from "react-router-dom";
-
+//components
 import {useAppContext} from "../../context/useContext";
 import BoxChat from "./components/BoxChat.component";
 import MainChat from "./components/MainChat.component";
+import {LoadingMessenger} from "../";
 import "./messenger.css";
 
 // @ts-ignore
@@ -363,7 +364,7 @@ const Message = () => {
     };
 
     if (scrLoading) {
-        return <h1 className='text-red-500 mt-[80px] '>Loading...</h1>;
+        return <LoadingMessenger />;
     }
 
     return (

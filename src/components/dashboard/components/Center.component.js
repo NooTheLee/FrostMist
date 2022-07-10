@@ -102,6 +102,7 @@ const Center = ({
                         user_img={user.image.url}
                         userId={user._id}
                         className={!dark ? "shadow-post" : ""}
+                        userRole={user.role}
                     />
                 ))}
             </InfiniteScroll>
