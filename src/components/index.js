@@ -24,7 +24,7 @@ import LoadingMessenger from "./loading/Loading.Messenger";
 import Messenger from "./messenger/messenger.pages";
 import Dashboard from "./dashboard/DashBoard.pages";
 import Profile from "./profile/Profile.pages";
-
+import Admin from "./admin/admin.pages";
 // function
 import colorGeneration from "./common/colorGeneration";
 
@@ -54,4 +54,5 @@ export {
     Dashboard,
     Profile,
     colorGeneration,
+    Admin,
 };
