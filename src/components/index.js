@@ -8,6 +8,7 @@ import FormCreatePost from "./common/FormCreatePost";
 import ItemsList from "./common/ItemsList";
 import GroupAvatars from "./common/GroupAvatars";
 import ModalQrCode from "./common/ModalQrCode";
+import Table from "./common/table/Table";
 
 // loading component
 import LoadingPost from "./loading/Loading.Post";
@@ -25,7 +26,7 @@ import LoadingMessenger from "./loading/Loading.Messenger";
 import Messenger from "./messenger/messenger.pages";
 import Dashboard from "./dashboard/DashBoard.pages";
 import Profile from "./profile/Profile.pages";
-import Admin from "./admin/admin.pages";
+import Admin from "./admin/Admin2.pages";
 // function
 import colorGeneration from "./common/colorGeneration";
 
@@ -40,6 +41,7 @@ export {
     GroupAvatars,
     FormCreatePost,
     ModalQrCode,
+    Table,
     //loading
     LoadingPost,
     LoadingWeather,

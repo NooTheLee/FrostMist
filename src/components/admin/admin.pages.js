@@ -4,26 +4,27 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import moment from "moment";
 import Pagination from "@mui/material/Pagination";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { AiOutlineDelete } from "react-icons/ai";
+import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
+import {AiOutlineDelete} from "react-icons/ai";
 
-import { useAppContext } from "../../context/useContext";
+import {useAppContext} from "../../context/useContext";
+import React from "react";
 
 const Admin = () => {
     const navigation = useNavigate();
-    const { autoFetch } = useAppContext();
+    const {autoFetch} = useAppContext();
 
     const deletePostWithAdmin = async (postId) => {
         setLoading(true);
         try {
-            const { data } = await autoFetch.delete(
+            const {data} = await autoFetch.delete(
                 `api/post/admin/delete-post/${postId}`
             );
             toast(data.msg);
@@ -38,7 +39,7 @@ const Admin = () => {
     const deleteUserWithAdmin = async (userId) => {
         setLoading(true);
         try {
-            const { data } = await autoFetch.delete(
+            const {data} = await autoFetch.delete(
                 `api/auth/admin/delete-user/${userId}`
             );
             toast(data.msg);
@@ -69,7 +70,7 @@ const Admin = () => {
     const getAllUsers = async () => {
         setLoading(true);
         try {
-            const { data } = await autoFetch.get(
+            const {data} = await autoFetch.get(
                 `/api/auth/all-users?page=${page}&perPage=${perPage}`
             );
             setAllUsers(data.users);
@@ -84,7 +85,7 @@ const Admin = () => {
     const getAllPosts = async () => {
         setLoading(true);
         try {
-            const { data } = await autoFetch.get(
+            const {data} = await autoFetch.get(
                 `/api/post/all-posts?page=${page}&perPage=${perPage}`
             );
             setPosts(data.posts);
@@ -127,9 +128,8 @@ const Admin = () => {
                                             <>
                                                 {moment(p.createdAt).fromNow()}
                                                 <IconButton
-                                                    edge="end"
-                                                    aria-label="delete"
-                                                >
+                                                    edge='end'
+                                                    aria-label='delete'>
                                                     <AiOutlineDelete
                                                         onClick={() => {
                                                             if (
@@ -145,11 +145,10 @@ const Admin = () => {
                                                     />
                                                 </IconButton>
                                             </>
-                                        }
-                                    >
+                                        }>
                                         {key + 1 + (page - 1) * perPage}.
                                         <div
-                                            className="d-flex"
+                                            className='d-flex'
                                             onClick={() => {
                                                 navigation(
                                                     `user/profile/${
@@ -159,8 +158,7 @@ const Admin = () => {
                                                     }`
                                                 );
                                             }}
-                                            role="button"
-                                        >
+                                            role='button'>
                                             <ListItemAvatar>
                                                 <Avatar>
                                                     <img
@@ -180,7 +178,7 @@ const Admin = () => {
                                                 : ""}
                                         </div>
                                     </ListItem>
-                                    <p className="m-l-80">
+                                    <p className='m-l-80'>
                                         {p && p.content ? p.content : ""}
                                     </p>
                                 </>
@@ -204,9 +202,8 @@ const Admin = () => {
                                                 Created:{" "}
                                                 {moment(u.createdAt).fromNow()}
                                                 <IconButton
-                                                    edge="end"
-                                                    aria-label="delete"
-                                                >
+                                                    edge='end'
+                                                    aria-label='delete'>
                                                     <AiOutlineDelete
                                                         onClick={() => {
                                                             if (
@@ -222,11 +219,10 @@ const Admin = () => {
                                                     />
                                                 </IconButton>
                                             </>
-                                        }
-                                    >
+                                        }>
                                         {key + 1 + (page - 1) * perPage}.
                                         <div
-                                            className="d-flex"
+                                            className='d-flex'
                                             onClick={() => {
                                                 navigation(
                                                     `user/profile/${
@@ -234,8 +230,7 @@ const Admin = () => {
                                                     }`
                                                 );
                                             }}
-                                            role="button"
-                                        >
+                                            role='button'>
                                             <ListItemAvatar>
                                                 <Avatar>
                                                     <img
@@ -259,27 +254,26 @@ const Admin = () => {
     };
     return (
         <>
-            <div className="container sss">
-                <div className="h1 display-1 text-success text-center py-5">
+            <div className='container sss'>
+                <div className='h1 display-1 text-success text-center py-5'>
                     All {menu}
                     <hr />
                 </div>
-                <div className="text-center pb-3">
+                <div className='text-center pb-3'>
                     <select
                         onChange={(e) => {
                             setMenu(e.target.value);
                         }}
-                        role="button"
-                    >
-                        <option value="Posts">Posts</option>
-                        <option value="Users">Users</option>
+                        role='button'>
+                        <option value='Posts'>Posts</option>
+                        <option value='Users'>Users</option>
                     </select>
                 </div>
-                <div className="row">
-                    <div className="col-sm-2"></div>
-                    <div className="col-sm-8">{mainContent()}</div>
+                <div className='row'>
+                    <div className='col-sm-2'></div>
+                    <div className='col-sm-8'>{mainContent()}</div>
                 </div>
-                <div className="d-flex justify-content-center">
+                <div className='d-flex justify-content-center'>
                     <Pagination
                         count={count()}
                         page={page}
@@ -287,17 +281,16 @@ const Admin = () => {
                             handleChange(setOneState, page)
                         }
                     />
-                    <div className="per-page">
-                        <FormControl sx={{ m: 1, minWidth: 50 }} size="small">
+                    <div className='per-page'>
+                        <FormControl sx={{m: 1, minWidth: 50}} size='small'>
                             <Select
-                                labelId="demo-select-small"
-                                id="demo-select-small"
+                                labelId='demo-select-small'
+                                id='demo-select-small'
                                 value={perPage}
-                                label="Number post in page"
+                                label='Number post in page'
                                 onChange={(setOneState, perPage) =>
                                     handleChangePerPage(setOneState, perPage)
-                                }
-                            >
+                                }>
                                 <MenuItem value={3}>3</MenuItem>
                                 <MenuItem value={5}>5</MenuItem>
                                 <MenuItem value={10}>10</MenuItem>

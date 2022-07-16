@@ -34,17 +34,6 @@ export default function Dropdown() {
             icon: <SiMessenger className='w-5 h-5 mr-2' aria-hidden='true' />,
             href: "/messenger",
         },
-        {
-            text: "Game",
-            bgColor: "#0EA5E9",
-            icon: (
-                <IoLogoGameControllerB
-                    className='w-5 h-5 mr-2'
-                    aria-hidden='true'
-                />
-            ),
-            href: "/game",
-        },
     ];
 
     if (user) {

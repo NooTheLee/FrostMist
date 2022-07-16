@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, useState} from "react";
+import React, {useRef, useEffect, useState, useMemo} from "react";
 import {NavLink} from "react-router-dom";
 
 // icon
@@ -63,6 +63,90 @@ const Nav = () => {
         }
     };
 
+    const menuListUnLogged = useMemo(() => {
+        const list = [
+            {
+                text: "#c96c88",
+                hover: "#c24269",
+                bgAfter: "#c24269",
+                link: "/home",
+                icon: <AiFillHome />,
+            },
+            {
+                text: "#26A69A",
+                hover: "#00897B",
+                bgAfter: "#26A69A",
+                link: "/login",
+                icon: <RiSpaceShipFill />,
+            },
+            {
+                text: "#607D8B",
+                hover: "#455A64",
+                bgAfter: "#607D8B",
+                link: "/register",
+                icon: <RiSpaceShipFill className='rotate-180' />,
+            },
+        ];
+        return list;
+    }, []);
+
+    const navMenuUnLogged = () => {
+        return menuListUnLogged.map((v) => (
+            <NavLink
+                key={"navlinkssss " + v.link}
+                to={v.link}
+                className={`relative bg-inherit text-[${v.text}] py-2 md:py-2.5 my-1 mx-1 shrink-1 w-full flex justify-center hover:text-[${v.hover}] hover:bg-[#EBEDF0] rounded-[10px] text-[23px] transition-20 after:content-[''] after:absolute after:h-[3px] after:w-[70%] after:left-[15%] after:bg-[${v.bgAfter}] after:opacity-0 after:bottom-0 -['Home']  before:rounded-lg dark:bg-inherit before:opacity-0 dark:text-[#B8BBBF] dark:hover:bg-[#3A3B3C] dark:hover:text-[#d2d5d7] `}
+                role='button'>
+                {v.icon}
+            </NavLink>
+        ));
+    };
+
+    const menuListLogged = useMemo(() => {
+        const list = [
+            {
+                text: "#c96c88",
+                hover: "#c24269",
+                bgAfter: "#c24269",
+                link: "/",
+                icon: <AiFillHome />,
+            },
+            {
+                text: "#26A69A",
+                hover: "#00897B",
+                bgAfter: "#26A69A",
+                link: "/messenger",
+                icon: <SiMessenger className='text-[22px] ' />,
+            },
+        ];
+
+        if (user.role === "Admin") {
+            list.push({
+                text: "#607D8B",
+                hover: "#455A64",
+                bgAfter: "#607D8B",
+                link: "/admin",
+                icon: <MdAdminPanelSettings className='text-[28px] ' />,
+            });
+        }
+        return list;
+    }, []);
+
+    const navMenuLogged = () => {
+        return menuListLogged.map((v) => (
+            <div
+                className={`w-full ${user.role !== "Admin" ? "px-[10%]" : ""}`}
+                key={"navlink" + v.link}>
+                <NavLink
+                    to={v.link}
+                    className={`relative bg-inherit text-[${v.text}] py-2 md:py-2.5 my-1 mx-1 shrink-1 w-full flex justify-center hover:text-[${v.hover}] hover:bg-[#EBEDF0] rounded-[10px] text-[25px] transition-20 after:content-[''] after:absolute after:h-[3px] after:w-[70%] after:left-[15%] after:bg-[${v.bgAfter}] after:opacity-0 after:bottom-0 -['Admin-page']  before:rounded-lg dark:bg-inherit before:opacity-0 dark:text-[#B8BBBF] dark:hover:bg-[#3A3B3C] dark:hover:text-[#d2d5d7] `}
+                    role='button'>
+                    {v.icon}
+                </NavLink>
+            </div>
+        ));
+    };
+
     return (
         <div className='flex fixed top-0 w-screen bg-white px-1 sm:px-2 md:px-4 z-[100] items-center dark:bg-[#242526] transition-50 dark:text-[#DDDFE3] border-b-[#8a8a8a] py-1 '>
             <div
@@ -76,7 +160,9 @@ const Nav = () => {
                 {user && (
                     <div className='flex items-center border border-black/20 dark:bg-[#4E4F50] dark:text-[#b9bbbe] w-[180px] md:w-[220px] h-auto md:h-[40px] rounded-full px-2 ml-2 '>
                         <BiSearchAlt className='text-16px md:text-[20px] mx-1 ' />
-                        <div ref={searchRef}>
+                        <div
+                            // @ts-ignore
+                            ref={searchRef}>
                             <input
                                 type='text'
                                 className='text-[15px] border-none bg-inherit w-[80%] focus:ring-0 focus:border-0 pl-0 font-medium dark:placeholder:text-[#b1b2b5] dark:text-[#cecfd2] '
@@ -110,57 +196,7 @@ const Nav = () => {
             <ul
                 className='hidden md:flex  items-center justify-between text-white dark:text-[#B8BBBF] text-[25px] min-w-[33%] '
                 style={{flex: "1 1 auto"}}>
-                {user ? (
-                    <>
-                        <NavLink
-                            to='/'
-                            className="relative bg-inherit text-[#c96c88] py-2 my-1 mx-1 shrink-1 w-full flex justify-center hover:text-[#c24269] hover:bg-[#EBEDF0] rounded-[10px] text-[23px] transition-20 after:content-[''] after:absolute after:h-[3px] after:w-[70%] after:left-[15%] after:bg-[#c24269] after:opacity-0 after:bottom-0 -['Home']  before:rounded-lg dark:bg-inherit before:opacity-0 dark:text-[#B8BBBF] dark:hover:bg-[#3A3B3C] dark:hover:text-[#d2d5d7] "
-                            role='button'>
-                            <AiFillHome />
-                        </NavLink>
-                        <NavLink
-                            to='/messenger'
-                            className="relative bg-inherit text-[#26A69A] py-2 my-1 mx-1 shrink-1 w-full flex justify-center hover:text-[#00897B] hover:bg-[#EBEDF0] rounded-[10px] text-[21px] transition-20 after:content-[''] after:absolute after:h-[3px] after:w-[70%] after:left-[15%] after:bg-[#26A69A] after:opacity-0 after:bottom-0 -['Messenger']  before:rounded-lg dark:bg-inherit before:opacity-0 dark:text-[#B8BBBF] dark:hover:bg-[#3A3B3C] dark:hover:text-[#d2d5d7] "
-                            role='button'>
-                            <SiMessenger />
-                        </NavLink>
-                        <NavLink
-                            to='/game'
-                            className="relative bg-inherit text-sky-600 py-2 my-1 mx-1 shrink-1 w-full flex justify-center hover:text-sky-700 hover:bg-[#EBEDF0] rounded-[10px] text-[25px] transition-20 after:content-[''] after:absolute after:h-[3px] after:w-[70%] after:left-[15%] after:bg-sky-600 after:opacity-0 after:bottom-0 -['Game']  before:rounded-lg dark:bg-inherit before:opacity-0 dark:text-[#B8BBBF] dark:hover:bg-[#3A3B3C] dark:hover:text-[#d2d5d7] "
-                            role='button'>
-                            <IoLogoGameControllerB />
-                        </NavLink>
-                        {user.role === "Admin" && (
-                            <NavLink
-                                to='/admin'
-                                className="relative bg-inherit text-[#607D8B] py-2 my-1 mx-1 shrink-1 w-full flex justify-center hover:text-[#455A64] hover:bg-[#EBEDF0] rounded-[10px] text-[25px] transition-20 after:content-[''] after:absolute after:h-[3px] after:w-[70%] after:left-[15%] after:bg-[#607D8B] after:opacity-0 after:bottom-0 -['Admin-page']  before:rounded-lg dark:bg-inherit before:opacity-0 dark:text-[#B8BBBF] dark:hover:bg-[#3A3B3C] dark:hover:text-[#d2d5d7] "
-                                role='button'>
-                                <MdAdminPanelSettings />
-                            </NavLink>
-                        )}
-                    </>
-                ) : (
-                    <>
-                        <NavLink
-                            to='/home'
-                            className="relative bg-inherit text-[#c96c88] py-2 my-1 mx-1 shrink-1 w-full flex justify-center hover:text-[#c24269] hover:bg-[#EBEDF0] rounded-[10px] text-[23px] transition-20 after:content-[''] after:absolute after:h-[3px] after:w-[70%] after:left-[15%] after:bg-[#c24269] after:opacity-0 after:bottom-0 -['Home']  before:rounded-lg dark:bg-inherit before:opacity-0 dark:text-[#B8BBBF] dark:hover:bg-[#3A3B3C] dark:hover:text-[#d2d5d7] "
-                            role='button'>
-                            <AiFillHome />
-                        </NavLink>
-                        <NavLink
-                            to='/login'
-                            className="relative bg-inherit text-[#26A69A] py-2 my-1 mx-1 shrink-1 w-full flex justify-center hover:text-[#00897B] hover:bg-[#EBEDF0] rounded-[10px] text-[25px] transition-20 after:content-[''] after:absolute after:h-[3px] after:w-[70%] after:left-[15%] after:bg-[#26A69A] after:opacity-0 after:bottom-0 -['Login']  before:rounded-lg dark:bg-inherit before:opacity-0 dark:text-[#B8BBBF] dark:hover:bg-[#3A3B3C] dark:hover:text-[#d2d5d7] "
-                            role='button'>
-                            <RiSpaceShipFill />
-                        </NavLink>
-                        <NavLink
-                            to='/register'
-                            className="relative bg-inherit text-sky-600 py-2 my-1 mx-1 shrink-1 w-full flex justify-center hover:text-sky-700 hover:bg-[#EBEDF0] rounded-[10px] text-[25px] transition-20 after:content-[''] after:absolute after:h-[3px] after:w-[70%] after:left-[15%] after:bg-sky-600 after:opacity-0 after:bottom-0 -['Register']  before:rounded-lg dark:bg-inherit before:opacity-0 dark:text-[#B8BBBF] dark:hover:bg-[#3A3B3C] dark:hover:text-[#d2d5d7] "
-                            role='button'>
-                            <RiSpaceShipFill className='rotate-180' />
-                        </NavLink>
-                    </>
-                )}
+                {user ? navMenuLogged() : navMenuUnLogged()}
             </ul>
             <div
                 className='flex items-center justify-end min-w-[33%] gap-x-1 sm:gap-x-2 md:gap-x-3 '

@@ -13,7 +13,7 @@ import {
     ShareLayout,
 } from "./page";
 // layout
-import {Dashboard, Messenger, Admin, Game} from "./page/Layout";
+import {Dashboard, Messenger, Admin} from "./page/Layout";
 import {Profile, UpdateProfile, SuggestFollow} from "./page/user";
 import {Information} from "./page/Post";
 // modal qrCode
@@ -55,10 +55,6 @@ const App = () => {
                             element={<Dashboard />}
                         />
                         <Route path='/messenger' element={<Messenger />} />
-                        <Route
-                            path='/game'
-                            element={<Game rows={20} columns={10} />}
-                        />
                         <Route path='/admin' element={<Admin />} />
                         <Route path='/profile/*' element={<Profile />} />
                         <Route
