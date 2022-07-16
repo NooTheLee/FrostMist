@@ -32,6 +32,18 @@
     .box-comment {
         max-width: calc(100% - 90px);
     }
+    .css-11xur9t-MuiPaper-root-MuiTableContainer-root {
+        border-radius: 0px !important;
+    }
+    .dashboard {
+        @apply text-[#c96c88] hover:text-[#c24269] after:bg-[#c24269];
+    }
+    .messenger {
+        @apply text-[#26A69A] hover:text-[#00897B] after:bg-[#26A69A];
+    }
+    .admin {
+        @apply text-[#607D8B] hover:text-[#455A64] after:bg-[#607D8B];
+    }
 }
 
 @layer base {
@@ -170,12 +182,24 @@
         background-color: #f5f5f5;
     }
     .scroll-bar::-webkit-scrollbar-thumb {
-        background-color: #4f585b;
-        border: 2px solid #353b3d;
+        background-color: #8eabb4;
+        border: 2px solid #8eabb4;
     }
     .scroll-bar::-webkit-scrollbar {
         width: 5px;
         background-color: #f5f5f5;
+    }
+    .sky.scroll-bar::-webkit-scrollbar-thumb {
+        background-color: #0284c7;
+        border: 2px solid #0284c7;
+    }
+    .green.scroll-bar::-webkit-scrollbar-thumb {
+        background-color: #009688;
+        border: 2px solid #009688;
+    }
+    .dark .scroll-bar::-webkit-scrollbar-thumb {
+        background-color: #242526;
+        border: 0.1px solid #242526;
     }
 }
 
@@ -190,6 +214,9 @@
 }
 .rounded-br-lg {
     border-bottom-right-radius: 0.5rem;
+}
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root {
+    border-radius: 0px !important;
 }
 
 @keyframes animate {

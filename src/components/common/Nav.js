@@ -63,45 +63,6 @@ const Nav = () => {
         }
     };
 
-    const menuListUnLogged = useMemo(() => {
-        const list = [
-            {
-                text: "#c96c88",
-                hover: "#c24269",
-                bgAfter: "#c24269",
-                link: "/home",
-                icon: <AiFillHome />,
-            },
-            {
-                text: "#26A69A",
-                hover: "#00897B",
-                bgAfter: "#26A69A",
-                link: "/login",
-                icon: <RiSpaceShipFill />,
-            },
-            {
-                text: "#607D8B",
-                hover: "#455A64",
-                bgAfter: "#607D8B",
-                link: "/register",
-                icon: <RiSpaceShipFill className='rotate-180' />,
-            },
-        ];
-        return list;
-    }, []);
-
-    const navMenuUnLogged = () => {
-        return menuListUnLogged.map((v) => (
-            <NavLink
-                key={"navlinkssss " + v.link}
-                to={v.link}
-                className={`relative bg-inherit text-[${v.text}] py-2 md:py-2.5 my-1 mx-1 shrink-1 w-full flex justify-center hover:text-[${v.hover}] hover:bg-[#EBEDF0] rounded-[10px] text-[23px] transition-20 after:content-[''] after:absolute after:h-[3px] after:w-[70%] after:left-[15%] after:bg-[${v.bgAfter}] after:opacity-0 after:bottom-0 -['Home']  before:rounded-lg dark:bg-inherit before:opacity-0 dark:text-[#B8BBBF] dark:hover:bg-[#3A3B3C] dark:hover:text-[#d2d5d7] `}
-                role='button'>
-                {v.icon}
-            </NavLink>
-        ));
-    };
-
     const menuListLogged = useMemo(() => {
         const list = [
             {
@@ -110,6 +71,7 @@ const Nav = () => {
                 bgAfter: "#c24269",
                 link: "/",
                 icon: <AiFillHome />,
+                className: "dashboard",
             },
             {
                 text: "#26A69A",
@@ -117,6 +79,7 @@ const Nav = () => {
                 bgAfter: "#26A69A",
                 link: "/messenger",
                 icon: <SiMessenger className='text-[22px] ' />,
+                className: "messenger",
             },
         ];
 
@@ -127,6 +90,7 @@ const Nav = () => {
                 bgAfter: "#607D8B",
                 link: "/admin",
                 icon: <MdAdminPanelSettings className='text-[28px] ' />,
+                className: "admin",
             });
         }
         return list;
@@ -135,7 +99,9 @@ const Nav = () => {
     const navMenuLogged = () => {
         return menuListLogged.map((v) => (
             <div
-                className={`w-full ${user.role !== "Admin" ? "px-[10%]" : ""}`}
+                className={`w-full ${
+                    user.role !== "Admin" ? "px-[10%]" : ""
+                } + ${v.className} `}
                 key={"navlink" + v.link}>
                 <NavLink
                     to={v.link}
@@ -196,7 +162,30 @@ const Nav = () => {
             <ul
                 className='hidden md:flex  items-center justify-between text-white dark:text-[#B8BBBF] text-[25px] min-w-[33%] '
                 style={{flex: "1 1 auto"}}>
-                {user ? navMenuLogged() : navMenuUnLogged()}
+                {user ? (
+                    navMenuLogged()
+                ) : (
+                    <>
+                        <NavLink
+                            to='/home'
+                            className={`relative bg-inherit text-[#c96c88] py-2 md:py-2.5 my-1 mx-1 shrink-1 w-full flex justify-center hover:text-[#c24269] hover:bg-[#EBEDF0] rounded-[10px] text-[23px] transition-20 after:content-[''] after:absolute after:h-[3px] after:w-[70%] after:left-[15%] after:bg-[#c24269] after:opacity-0 after:bottom-0 -['Home']  before:rounded-lg dark:bg-inherit before:opacity-0 dark:text-[#B8BBBF] dark:hover:bg-[#3A3B3C] dark:hover:text-[#d2d5d7] `}
+                            role='button'>
+                            <AiFillHome />
+                        </NavLink>
+                        <NavLink
+                            to='/login'
+                            className={`relative bg-inherit text-[#26A69A] py-2 md:py-2.5 my-1 mx-1 shrink-1 w-full flex justify-center hover:text-[#00897B] hover:bg-[#EBEDF0] rounded-[10px] text-[23px] transition-20 after:content-[''] after:absolute after:h-[3px] after:w-[70%] after:left-[15%] after:bg-[#26A69A] after:opacity-0 after:bottom-0 -['Home']  before:rounded-lg dark:bg-inherit before:opacity-0 dark:text-[#B8BBBF] dark:hover:bg-[#3A3B3C] dark:hover:text-[#d2d5d7] `}
+                            role='button'>
+                            <RiSpaceShipFill />
+                        </NavLink>
+                        <NavLink
+                            to='/register'
+                            className={`relative bg-inherit text-[#607D8B] py-2 md:py-2.5 my-1 mx-1 shrink-1 w-full flex justify-center hover:text-[#455A64] hover:bg-[#EBEDF0] rounded-[10px] text-[23px] transition-20 after:content-[''] after:absolute after:h-[3px] after:w-[70%] after:left-[15%] after:bg-[#607D8B] after:opacity-0 after:bottom-0 -['Home']  before:rounded-lg dark:bg-inherit before:opacity-0 dark:text-[#B8BBBF] dark:hover:bg-[#3A3B3C] dark:hover:text-[#d2d5d7] `}
+                            role='button'>
+                            <RiSpaceShipFill className='rotate-180' />
+                        </NavLink>
+                    </>
+                )}
             </ul>
             <div
                 className='flex items-center justify-end min-w-[33%] gap-x-1 sm:gap-x-2 md:gap-x-3 '

@@ -7,8 +7,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import {Avatar} from "@mui/material";
-
+import {Avatar, Tooltip} from "@mui/material";
+import {useNavigate} from "react-router-dom";
+//icon
+import {AiOutlineDelete} from "react-icons/ai";
+// app context
 import {useAppContext} from "../../../context/useContext";
 
 const StyledTableRow = styled(TableRow)(({theme}) => ({
@@ -28,8 +31,12 @@ export default function CustomizedTables({
     data,
     listCenterTd,
     listCenterHead,
+    className = "",
+    typeTable = "",
 }) {
     const {dark} = useAppContext();
+
+    const navigate = useNavigate();
 
     const StyledTableCell = React.useMemo(
         () =>
@@ -52,13 +59,45 @@ export default function CustomizedTables({
         [dark]
     );
 
+    const contentTd = (row, v) => {
+        if (v === "avatar") {
+            return (
+                <Avatar
+                    src={row[v]}
+                    alt={row["name"]}
+                    className='border dark:border-white/50 border-black/50 cursor-pointer '
+                />
+            );
+        }
+        if (v === "image") {
+            return (
+                <div className='w-28 h-10 flex items-center justify-center '>
+                    {row[v] ? (
+                        <img
+                            src={row[v]}
+                            alt={row["name"]}
+                            className='border dark:border-white/50 border-black/50 h-full w-auto object-contain cursor-pointer '
+                        />
+                    ) : (
+                        "NULL"
+                    )}
+                </div>
+            );
+        }
+        return row[v];
+    };
+
     return (
-        <div className='w-full h-full '>
+        <div
+            className={
+                `w-full h-full max-h-[40vh] overflow-y-scroll  scroll-bar ` +
+                className
+            }>
             <TableContainer component={Paper}>
                 <Table sx={{minWidth: 700}} aria-label='customized table'>
                     <TableHead>
                         <TableRow>
-                            {titles.map((v, index) => (
+                            {[...titles, "Actions"].map((v, index) => (
                                 <StyledTableCell
                                     key={index + "titleTable" + v}
                                     align={
@@ -71,10 +110,22 @@ export default function CustomizedTables({
                             ))}
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    <TableBody className=''>
                         {data.map((row, index) => {
                             return (
-                                <StyledTableRow key={row.name + "th" + index}>
+                                <StyledTableRow
+                                    key={row.name + "th" + index}
+                                    className='cursor-pointer '
+                                    onClick={() => {
+                                        if (typeTable === "users") {
+                                            navigate(`/profile/${row.id}`);
+                                        }
+                                        if (typeTable === "posts") {
+                                            navigate(
+                                                `/post/information/${row.id}`
+                                            );
+                                        }
+                                    }}>
                                     {fields.map((v, index) => (
                                         <StyledTableCell
                                             key={
@@ -90,17 +141,25 @@ export default function CustomizedTables({
                                                     : "left"
                                             }
                                             className='text-ellipsis max-w-md flex items-center justify-center '>
-                                            {v === "avatar" ? (
-                                                <Avatar
-                                                    src={row[v]}
-                                                    alt={row["name"]}
-                                                    className='border dark:border-white/50 border-black/50 '
-                                                />
-                                            ) : (
-                                                row[v]
-                                            )}
+                                            {contentTd(row, v)}
                                         </StyledTableCell>
                                     ))}
+                                    <StyledTableCell
+                                        component='td'
+                                        align='center'
+                                        className='text-ellipsis max-w-md flex items-center justify-center '>
+                                        <Tooltip
+                                            title={`Delete ${
+                                                typeTable === "users"
+                                                    ? "user"
+                                                    : "post"
+                                            }`}
+                                            placement='top'>
+                                            <div className='flex w-full items-center justify-center'>
+                                                <AiOutlineDelete className='text-xl text-red-400 dark:text-red-800 ' />
+                                            </div>
+                                        </Tooltip>
+                                    </StyledTableCell>
                                 </StyledTableRow>
                             );
                         })}

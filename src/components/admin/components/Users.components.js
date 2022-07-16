@@ -1,16 +1,18 @@
 import React, {useEffect, useMemo, useState} from "react";
 import Pagination from "@mui/material/Pagination";
-import moment from "moment";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import ReactLoading from "react-loading";
 // components
 import {Table} from "../..";
 import {useAppContext} from "../../../context/useContext";
-import ReactLoading from "react-loading";
 
-const Users = () => {
+const Users = ({convertDate, countUsers}) => {
     const {autoFetch} = useAppContext();
 
     const [loading, setLoading] = useState(false);
-    const [perPage, setPerPage] = useState(5);
+    const [perPage, setPerPage] = useState(10);
 
     const [page, setPage] = useState(1);
     // list all users
@@ -30,6 +32,7 @@ const Users = () => {
             );
             setTotalUser(data.numberUsers);
             setListUser(data.users);
+            countUsers(data.numberUsers);
         } catch (error) {
             console.log(error);
         }
@@ -62,20 +65,21 @@ const Users = () => {
         return listUser.map((v, index) => {
             return {
                 // @ts-ignore
+                id: v._id,
                 no: index + (page - 1) * perPage + 1,
                 // @ts-ignore
-                avatar: v.image.url,
+                avatar: v.image?.url,
                 // @ts-ignore
                 name: v.name,
                 // @ts-ignore
                 email: v.email,
                 postNumber: "n/a",
                 // @ts-ignore
-                follower: v.follower.length,
+                follower: v.follower?.length,
                 // @ts-ignore
-                following: v.following.length,
+                following: v.following?.length,
                 // @ts-ignore
-                date: moment(v.createdAt).fromNow(),
+                date: convertDate(v.createdAt),
             };
         });
     }, [listUser, fields]);
@@ -90,10 +94,10 @@ const Users = () => {
     );
 
     return (
-        <div className='w-full h-full '>
-            <div className='w-full flex justify-between items-center px-10 py-1 '>
+        <div className='w-full h-full px-1'>
+            <div className='w-full flex justify-between items-center px-1 md:pr-10 py-1 '>
                 <div className='font-bold text-xl '> User </div>
-                <div className='flex items-center '>
+                <div className='flex items-center gap-x-1 '>
                     {loading && (
                         <ReactLoading
                             type='spin'
@@ -102,13 +106,29 @@ const Users = () => {
                             color='#7d838c'
                         />
                     )}
+                    <div>
+                        <select
+                            id='countries'
+                            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[70px] py-1 cursor-pointer dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                            value={perPage}
+                            onChange={(e) => {
+                                setPerPage(parseInt(e.target.value));
+                            }}>
+                            <option value={5}>5</option>
+                            <option value={10}>10</option>
+                            <option value={15}>15</option>
+                        </select>
+                    </div>
+
                     <Pagination
-                        count={totalUser}
+                        count={
+                            (totalUser - (totalUser % perPage)) / perPage + 1
+                        }
                         page={page}
-                        color='primary'
+                        variant='outlined'
+                        shape='rounded'
                         className='dark:text-white text-black '
                         onChange={(setOneState, page) => {
-                            console.log(page);
                             setPage(page);
                         }}
                     />
@@ -121,6 +141,8 @@ const Users = () => {
                     data={data}
                     listCenterHead={listCenterHead}
                     listCenterTd={listCenterTd}
+                    className='sky'
+                    typeTable='users'
                 />
             </div>
         </div>
