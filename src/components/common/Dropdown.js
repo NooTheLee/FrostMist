@@ -10,7 +10,6 @@ import {
     AiFillHome,
 } from "react-icons/ai";
 import {SiMessenger} from "react-icons/si";
-import {IoLogoGameControllerB} from "react-icons/io";
 import {MdAdminPanelSettings} from "react-icons/md";
 import {LogoutIcon} from "@heroicons/react/outline";
 // components

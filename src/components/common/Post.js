@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useState} from "react";
 import moment from "moment";
 import {useNavigate} from "react-router-dom";
 import ReactLoading from "react-loading";
@@ -28,7 +28,7 @@ const Post = ({
     getDeletePostId = (postId) => {},
 }) => {
     const navigate = useNavigate();
-    const {autoFetch, setOneState, dark} = useAppContext();
+    const {autoFetch, setOneState} = useAppContext();
     const [showOption, setShowOption] = useState(false);
     const [showComment, setShowComment] = useState(false);
     const [likeLoading, setLikeLoading] = useState(false);
