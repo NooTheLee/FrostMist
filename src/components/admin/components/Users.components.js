@@ -1,8 +1,5 @@
 import React, {useEffect, useMemo, useState} from "react";
 import Pagination from "@mui/material/Pagination";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
 import ReactLoading from "react-loading";
 // components
 import {Table} from "../..";

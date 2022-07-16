@@ -1,6 +1,5 @@
 import React, {useEffect, useMemo, useState} from "react";
 import Pagination from "@mui/material/Pagination";
-import moment from "moment";
 // components
 import {Table} from "../..";
 import {useAppContext} from "../../../context/useContext";

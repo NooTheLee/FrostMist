@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import moment from "moment";
 import ReactLoading from "react-loading";
 import {AiOutlineCamera, AiOutlineSend} from "react-icons/ai";

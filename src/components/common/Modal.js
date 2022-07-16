@@ -74,7 +74,7 @@ const Modal = ({
                     <img
                         // @ts-ignore
                         src={image.url}
-                        alt='image'
+                        alt='xasdws'
                         className='flex items-center justify-center w-full max-h-full object-contain '
                     />
                     <MdCancel

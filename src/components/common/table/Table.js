@@ -56,7 +56,7 @@ export default function CustomizedTables({
                     },
                 };
             }),
-        [dark]
+        [dark, bgHeadColor]
     );
 
     const contentTd = (row, v) => {

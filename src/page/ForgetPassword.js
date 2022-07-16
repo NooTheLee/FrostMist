@@ -30,7 +30,7 @@ const ForgetPassword = () => {
         setLoading(true);
         try {
             const {email, newPassword, rePassword, secret} = state;
-            const {data} = await autoFetch.post("/api/auth/forgot-password", {
+            await autoFetch.post("/api/auth/forgot-password", {
                 email,
                 newPassword,
                 rePassword,

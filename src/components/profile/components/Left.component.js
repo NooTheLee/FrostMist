@@ -163,7 +163,7 @@ const Left = ({
                                 }}>
                                 <img
                                     src={i.image.url}
-                                    alt='image'
+                                    alt='aaa'
                                     className={`w-full h-full absolute top-0 left-0 object-cover ${
                                         rounded.includes(k)
                                             ? `rounded-${

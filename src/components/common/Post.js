@@ -50,12 +50,6 @@ const Post = ({
     const [imageEdit, setImageEdit] = useState(currentPost.image);
     const [loadingEdit, setLoadingEdit] = useState(false);
 
-    // background color:
-    const bgColor = useMemo(() => {
-        return "";
-        //return colorGeneration(dark);
-    }, [dark]);
-
     // open modal
     useEffect(() => {
         setOneState("openModal", openModal);
@@ -227,8 +221,7 @@ const Post = ({
 
     return (
         <div
-            className={`dark:bg-[#242526] bg-white mb-5 pt-3 pb-2.5 md:pb-3 rounded-lg ${className} `}
-            style={{backgroundColor: bgColor}}>
+            className={`dark:bg-[#242526] bg-white mb-5 pt-3 pb-2.5 md:pb-3 rounded-lg ${className} `}>
             {/* Model when in mode edit post */}
             {openModal && (
                 <Modal

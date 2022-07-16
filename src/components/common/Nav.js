@@ -7,7 +7,6 @@ import {BiSearchAlt} from "react-icons/bi";
 import {SiMessenger} from "react-icons/si";
 import {RiSpaceShipFill} from "react-icons/ri";
 import {MdAdminPanelSettings} from "react-icons/md";
-import {IoLogoGameControllerB} from "react-icons/io";
 import {BsFillSunFill, BsMoon} from "react-icons/bs";
 
 // components
@@ -94,7 +93,7 @@ const Nav = () => {
             });
         }
         return list;
-    }, []);
+    }, [user.role]);
 
     const navMenuLogged = () => {
         return menuListLogged.map((v) => (

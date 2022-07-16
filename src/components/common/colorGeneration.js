@@ -1,5 +1,3 @@
-import React from "react";
-
 function colorGeneration(dark = false) {
     const whiteColor = ["#FFCDD2", "#E1BEE7"];
     const darkColor = [
