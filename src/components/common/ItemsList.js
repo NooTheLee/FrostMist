@@ -1,16 +1,32 @@
 import * as React from "react";
+import {useNavigate} from "react-router-dom";
+// MUI
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
+// icon
 import {TiTick} from "react-icons/ti";
-
 const ADD_USER_TO_SEND_NEW_MESSAGE = "ADD_USER_TO_SEND_NEW_MESSAGE";
 const CLEAR_WHEN_DUPLICATE = "CLEAR_WHEN_DUPLICATE";
 
-export default function ItemsList({dataSource, dispatch, user, state}) {
+export default function ItemsList({
+    dataSource,
+    dispatch = () => {},
+    user,
+    state = {
+        listResultByPeopleSearch: [
+            {
+                _id: "",
+            },
+        ],
+    },
+    searchInNav = false,
+    clearList = () => {},
+}) {
     const quantity = dataSource.length;
+    const navigate = useNavigate();
     return (
         <div className='border dark:border-white/20 box-shadow'>
             <List
@@ -22,31 +38,38 @@ export default function ItemsList({dataSource, dispatch, user, state}) {
                             key={v._id + "listResult"}
                             className='cursor-pointer hover:bg-black/20 '
                             onClick={() => {
-                                if (user && v._id === user._id) {
+                                if (!searchInNav) {
+                                    if (user && v._id === user._id) {
+                                        // @ts-ignore
+                                        dispatch({type: CLEAR_WHEN_DUPLICATE});
+                                        return;
+                                    }
+                                    if (
+                                        state.listResultByPeopleSearch.length >
+                                        0
+                                    ) {
+                                        let id =
+                                            state.listResultByPeopleSearch.find(
+                                                (i) => i._id === v._id
+                                            );
+                                        // @ts-ignore
+                                        dispatch({type: CLEAR_WHEN_DUPLICATE});
+                                        if (id) return;
+                                    }
                                     // @ts-ignore
-                                    dispatch({type: CLEAR_WHEN_DUPLICATE});
-                                    return;
+                                    dispatch({
+                                        type: ADD_USER_TO_SEND_NEW_MESSAGE,
+                                        payload: {
+                                            listResultByPeopleSearch: [
+                                                ...state.listResultByPeopleSearch,
+                                                v,
+                                            ],
+                                        },
+                                    });
+                                } else {
+                                    navigate(`/profile/${v._id}`);
+                                    clearList();
                                 }
-                                if (state.listResultByPeopleSearch.length > 0) {
-                                    let id =
-                                        state.listResultByPeopleSearch.find(
-                                            (i) => i._id === v._id
-                                        );
-                                    // @ts-ignore
-                                    dispatch({type: CLEAR_WHEN_DUPLICATE});
-                                    if (id) return;
-                                }
-
-                                // @ts-ignore
-                                dispatch({
-                                    type: ADD_USER_TO_SEND_NEW_MESSAGE,
-                                    payload: {
-                                        listResultByPeopleSearch: [
-                                            ...state.listResultByPeopleSearch,
-                                            v,
-                                        ],
-                                    },
-                                });
                             }}>
                             <ListItem className='flex items-center flex-start '>
                                 <ListItemAvatar>

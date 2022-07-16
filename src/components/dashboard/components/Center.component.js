@@ -15,6 +15,7 @@ const Center = ({
     setPosts,
     getNewPosts,
     error,
+    isQrCode,
 }) => {
     const [attachment, setAttachment] = useState("");
     const [text, setText] = useState("");
@@ -125,7 +126,7 @@ const Center = ({
         <div className=''>
             {form()}
 
-            {openModal && (
+            {openModal && !isQrCode && (
                 <Modal
                     setOpenModal={setOpenModal}
                     text={text}

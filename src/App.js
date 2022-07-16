@@ -12,16 +12,18 @@ import {
     ProtectedLayout,
     ShareLayout,
 } from "./page";
-
+// layout
 import {Dashboard, Messenger, Admin, Game} from "./page/Layout";
 import {Profile, UpdateProfile, SuggestFollow} from "./page/user";
-
 import {Information} from "./page/Post";
+// modal qrCode
+import {ModalQrCode} from "./components";
 
 const App = () => {
-    const {dark} = useAppContext();
+    const {dark, openModal, isQrCode} = useAppContext();
     return (
         <div className={`${dark ? "dark" : ""} relative `}>
+            {/* Notification */}
             <ToastContainer
                 position='top-right'
                 autoClose={2000}
@@ -34,7 +36,9 @@ const App = () => {
                 pauseOnHover={false}
                 theme={dark ? "dark" : "light"}
             />
-
+            {/*QR code*/}
+            {openModal && isQrCode && <ModalQrCode />}
+            {/* Router */}
             <BrowserRouter>
                 <Routes>
                     <Route

@@ -25,12 +25,11 @@ const MainChat = ({
             // @ts-ignore
             return currentMessenger.content.map((c) => {
                 return (
-                    <div>
+                    <div key={c._id}>
                         <div
                             className={`chat-message max-w-[80%] md:max-w-[50%] chat-message-${
                                 c.sentBy._id === user._id ? "right" : "left"
-                            } flex items-center `}
-                            key={c._id}>
+                            } flex items-center `}>
                             {c.sentBy._id === user._id ? (
                                 <></>
                             ) : (
@@ -74,6 +73,19 @@ const MainChat = ({
             });
         }
         return <></>;
+    };
+
+    const listPeople = (k, v) => {
+        if (k > 3) {
+            return ` and ${
+                state.listResultByPeopleSearch.length - 4
+            } others people`;
+        }
+        if (k > 3) {
+            return "";
+        }
+        return `${k > 0 ? ", " : " "}
+                ${v ? v.name : ""}`;
     };
 
     if (state.isNewMessage) {
@@ -215,17 +227,9 @@ const MainChat = ({
                             <div className='flex text-[12px] md:text-base text-ellipsis w-full font-bold '>
                                 You,
                                 {state.listResultByPeopleSearch.map((v, k) => {
-                                    if (k > 3) {
-                                        return ` and ${
-                                            state.listResultByPeopleSearch
-                                                .length - 4
-                                        } others people`;
-                                    }
-                                    if (k > 3) {
-                                        return "";
-                                    }
-                                    return `${k > 0 ? ", " : " "}
-                                            ${v ? v.name : ""}`;
+                                    <div key={k + ",asdwqsadas"}>
+                                        {listPeople(v, k)}
+                                    </div>;
                                 })}
                             </div>
                         ) : (

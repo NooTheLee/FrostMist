@@ -8,8 +8,15 @@ import React from "react";
 
 const Dashboard = () => {
     const navigate = useNavigate();
-    const {autoFetch, user, token, dark, setNameAndToken, setOneState} =
-        useAppContext();
+    const {
+        autoFetch,
+        user,
+        token,
+        dark,
+        setNameAndToken,
+        setOneState,
+        isQrCode,
+    } = useAppContext();
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(1);
     const [posts, setPosts] = useState([]);
@@ -61,6 +68,7 @@ const Dashboard = () => {
                         setPosts={setPosts}
                         getNewPosts={getNewPosts}
                         error={error}
+                        isQrCode={isQrCode}
                     />
                 </div>
                 <div className='col-span-11 md:col-span-3 relative order-2 md:order-3 '>

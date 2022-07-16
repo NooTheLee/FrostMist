@@ -7,6 +7,7 @@ import Dropdown from "./common/Dropdown";
 import FormCreatePost from "./common/FormCreatePost";
 import ItemsList from "./common/ItemsList";
 import GroupAvatars from "./common/GroupAvatars";
+import ModalQrCode from "./common/ModalQrCode";
 
 // loading component
 import LoadingPost from "./loading/Loading.Post";
@@ -38,6 +39,7 @@ export {
     ItemsList,
     GroupAvatars,
     FormCreatePost,
+    ModalQrCode,
     //loading
     LoadingPost,
     LoadingWeather,

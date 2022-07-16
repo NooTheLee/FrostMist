@@ -12,11 +12,11 @@ import {toast} from "react-toastify";
 import ReactLoading from "react-loading";
 
 const Modal = ({
-    text,
-    setText,
-    setOpenModal,
-    attachment,
-    setAttachment,
+    text = "",
+    setText = (event) => {},
+    setOpenModal = (event) => {},
+    attachment = "",
+    setAttachment = (event) => {},
     createNewPost = () => {},
     handleEditPost = () => {},
     isEditPost = false,
@@ -140,88 +140,88 @@ const Modal = ({
                     }
                 }}></div>
             <div className='mx-auto w-[90%] sm:w-[66%] md:w-[33%] bg-white dark:bg-[#242526] rounded-xl px-4 z-[202] box-shadow relative '>
-                {isEditPost && (
-                    <MdCancel
-                        className='absolute top-4 right-6 text-[30px] opacity-50 hover:opacity-100 cursor-pointer transition-50 '
-                        onClick={() => {
-                            setOpenModal(false);
-                        }}
-                    />
-                )}
-                <div className='font-extrabold py-4 text-xl text-center border-b-[1px] border-black/20 dark:border-white/20 '>
-                    {isEditPost ? "Edit post" : "Create Post"}
-                </div>
-                <div className='flex gap-x-2 py-4 items-center  '>
-                    <img
-                        src={user.image.url}
-                        alt='userImage'
-                        className='w-10 h-10 rounded-full object-cover '
-                    />
-                    <div>
-                        <div className='text-[15px] font-semibold '>
-                            {user.name}
-                        </div>
-                        <button className='px-2 py-1 flex gap-x-0.5 items-center text-[12px] bg-[#E4E6EB] dark:bg-[#3A3B3C] rounded-lg mt-0.5 font-semibold scrollbar scrollbar-thumb-sky-200 scrollbar-track-gray-100 '>
-                            <GiEarthAmerica className=' ' />
-                            <span className=' '>Global</span>
-                            <MdArrowDropDown className='text-base ' />
-                        </button>
-                    </div>
-                </div>
-                <textarea
-                    value={text}
-                    className={`input-modal style-3 bg-inherit focus:ring-0 border-0 w-full placeholder:text-[#a0a0a1] ${
-                        text.length > 40 || attachment
-                            ? "text-[18px] "
-                            : "text-[22px]"
-                    } ${attachment ? "h-[100px]" : "h-[200px]"} relative`}
-                    placeholder={`What's on your mind, ${user.name}?`}
-                    onChange={(e) => {
-                        setText(e.target.value);
+                <MdCancel
+                    className='absolute top-4 right-6 text-[30px] opacity-50 hover:opacity-100 cursor-pointer transition-50 '
+                    onClick={() => {
+                        setOpenModal(false);
                     }}
                 />
-
-                {attachment && (
-                    <div className='relative flex w-full h-[200px] p-2 rounded-md border dark:border-white/20 group '>
-                        {uploadImage()}
+                <div className='POST '>
+                    <div className='font-extrabold py-4 text-xl text-center border-b-[1px] border-black/20 dark:border-white/20 '>
+                        {isEditPost ? "Edit post" : "Create Post"}
                     </div>
-                )}
-                {!attachment && (
-                    <div className='flex items-center justify-between px-4 mt-3 border rounded-md dark:border-white/20 border-black/20 '>
-                        <div className='text-[15px] font-semibold '>
-                            Add to your post
-                        </div>
-                        <div className='flex  gap-x-4 items-center  py-2  '>
-                            <div
-                                className='w-[35px] h-[35px]  rounded-full flex items-center justify-center dark:hover:bg-[#3A3B3C] px-1.5 cursor-pointer hover:bg-black/10 transition-20 '
-                                onClick={() => {
-                                    setAttachment("photo");
-                                }}>
-                                <MdPhoto
-                                    className={`relative text-[#45bd62] text-[26px] `}
-                                />
+                    <div className='flex gap-x-2 py-4 items-center  '>
+                        <img
+                            src={user.image.url}
+                            alt='userImage'
+                            className='w-10 h-10 rounded-full object-cover '
+                        />
+                        <div>
+                            <div className='text-[15px] font-semibold '>
+                                {user.name}
                             </div>
-                            <div
-                                className='w-[35px] h-[35px]  rounded-full flex items-center justify-center dark:hover:bg-[#3A3B3C] px-1.5 cursor-pointer hover:bg-black/10 transition-20 '
-                                onClick={() => {
-                                    toast("This function is updating...");
-                                }}>
-                                <FaVideo className='text-[#f3425f] text-[26px]' />
-                            </div>
+                            <button className='px-2 py-1 flex gap-x-0.5 items-center text-[12px] bg-[#E4E6EB] dark:bg-[#3A3B3C] rounded-lg mt-0.5 font-semibold scrollbar scrollbar-thumb-sky-200 scrollbar-track-gray-100 '>
+                                <GiEarthAmerica className=' ' />
+                                <span className=' '>Global</span>
+                                <MdArrowDropDown className='text-base ' />
+                            </button>
                         </div>
                     </div>
-                )}
+                    <textarea
+                        value={text}
+                        className={`input-modal style-3 bg-inherit focus:ring-0 border-0 w-full placeholder:text-[#a0a0a1] ${
+                            text.length > 40 || attachment
+                                ? "text-[18px] "
+                                : "text-[22px]"
+                        } ${attachment ? "h-[100px]" : "h-[200px]"} relative`}
+                        placeholder={`What's on your mind, ${user.name}?`}
+                        onChange={(e) => {
+                            setText(e.target.value);
+                        }}
+                    />
 
-                <button
-                    className={`w-full py-1.5 text-center rounded-[4px] font-semibold my-3 ${
-                        text
-                            ? "bg-[#3982E4] text-white "
-                            : "dark:bg-[#505151] dark:text-white/70 bg-[#3982E4] text-white "
-                    }`}
-                    disabled={!text || loading}
-                    onClick={handleButton}>
-                    {isEditPost ? "Save" : "Post"}
-                </button>
+                    {attachment && (
+                        <div className='relative flex w-full h-[200px] p-2 rounded-md border dark:border-white/20 group '>
+                            {uploadImage()}
+                        </div>
+                    )}
+                    {!attachment && (
+                        <div className='flex items-center justify-between px-4 mt-3 border rounded-md dark:border-white/20 border-black/20 '>
+                            <div className='text-[15px] font-semibold '>
+                                Add to your post
+                            </div>
+                            <div className='flex  gap-x-4 items-center  py-2  '>
+                                <div
+                                    className='w-[35px] h-[35px]  rounded-full flex items-center justify-center dark:hover:bg-[#3A3B3C] px-1.5 cursor-pointer hover:bg-black/10 transition-20 '
+                                    onClick={() => {
+                                        setAttachment("photo");
+                                    }}>
+                                    <MdPhoto
+                                        className={`relative text-[#45bd62] text-[26px] `}
+                                    />
+                                </div>
+                                <div
+                                    className='w-[35px] h-[35px]  rounded-full flex items-center justify-center dark:hover:bg-[#3A3B3C] px-1.5 cursor-pointer hover:bg-black/10 transition-20 '
+                                    onClick={() => {
+                                        toast("This function is updating...");
+                                    }}>
+                                    <FaVideo className='text-[#f3425f] text-[26px]' />
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    <button
+                        className={`w-full py-1.5 text-center rounded-[4px] font-semibold my-3 ${
+                            text
+                                ? "bg-[#3982E4] text-white "
+                                : "dark:bg-[#505151] dark:text-white/70 bg-[#3982E4] text-white "
+                        }`}
+                        disabled={!text || loading}
+                        onClick={handleButton}>
+                        {isEditPost ? "Save" : "Post"}
+                    </button>
+                </div>
             </div>
         </div>
     );

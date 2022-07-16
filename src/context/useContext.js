@@ -10,6 +10,7 @@ const initState = {
     token: token || "",
     dark: dark || false,
     openModal: false,
+    isQrCode: false,
 };
 // @ts-ignore
 const AppContext = createContext();
@@ -96,6 +97,13 @@ const AppProvider = ({children}) => {
         setStateContext({...state, user: "", token: ""});
     };
 
+    const openQrCode = () => {
+        setStateContext({...state, openModal: true, isQrCode: true});
+    };
+    const closeQrCode = () => {
+        setStateContext({...state, openModal: false, isQrCode: false});
+    };
+
     return (
         <AppContext.Provider
             value={{
@@ -106,6 +114,8 @@ const AppProvider = ({children}) => {
                 logOut,
                 setNameAndToken,
                 addToLocalStorage,
+                openQrCode,
+                closeQrCode,
             }}>
             {children}
         </AppContext.Provider>
