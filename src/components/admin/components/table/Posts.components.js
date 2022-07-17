@@ -4,6 +4,7 @@ import Pagination from "@mui/material/Pagination";
 import {Table} from "../../..";
 import {useAppContext} from "../../../../context/useContext";
 import ReactLoading from "react-loading";
+import {toast} from "react-toastify";
 
 const Posts = ({convertDate, countPosts}) => {
     const {autoFetch} = useAppContext();
@@ -34,6 +35,18 @@ const Posts = ({convertDate, countPosts}) => {
             console.log(error);
         }
         setLoading(false);
+    };
+
+    const deletePost = async (postId) => {
+        try {
+            const {data} = await autoFetch.delete(
+                `/api/post/admin/delete-post/${postId}`
+            );
+            toast("Delete post success!");
+            getAllPosts();
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const fields = useMemo(
@@ -84,6 +97,8 @@ const Posts = ({convertDate, countPosts}) => {
                 commentCount: v.comments?.length,
                 // @ts-ignore
                 date: convertDate(v.createdAt),
+                // @ts-ignore
+                userId: v.postedBy?._id,
             };
         });
     }, [posts, fields]);
@@ -145,6 +160,7 @@ const Posts = ({convertDate, countPosts}) => {
                     bgHeadColor='#009688'
                     className='green'
                     typeTable='posts'
+                    deletePost={deletePost}
                 />
             </div>
         </div>

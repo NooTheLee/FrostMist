@@ -14,8 +14,8 @@ import {
 } from "./page";
 // layout
 import {Dashboard, Messenger, Admin} from "./page/Layout";
-import {Profile, UpdateProfile, SuggestFollow} from "./page/user";
-import {Information} from "./page/Post";
+import {Profile, UpdateProfile} from "./page/user";
+import {Information} from "./page/post";
 // modal qrCode
 import {ModalQrCode} from "./components";
 
@@ -57,10 +57,6 @@ const App = () => {
                         <Route path='/messenger' element={<Messenger />} />
                         <Route path='/admin' element={<Admin />} />
                         <Route path='/profile/*' element={<Profile />} />
-                        <Route
-                            path='/suggest-follow'
-                            element={<SuggestFollow />}
-                        />
                         <Route
                             path='/update-profile'
                             element={<UpdateProfile />}

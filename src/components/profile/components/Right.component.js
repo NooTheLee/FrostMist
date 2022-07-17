@@ -44,7 +44,6 @@ const Right = ({
                 content: text,
                 image,
             });
-            //console.log(data.post);
             setPosts([data.post, ...posts]);
         } catch (error) {
             console.log(error);

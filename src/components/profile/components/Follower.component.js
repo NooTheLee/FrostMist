@@ -53,7 +53,7 @@ const FollowingPage = ({
             </div>
 
             {listFollowing.length > 0 ? (
-                <div className='grid grid-cols-2 my-4 gap-1 '>
+                <div className='md:grid grid-cols-2 my-4 gap-1 '>
                     {listFollowing.map((p) => (
                         <People
                             autoFetch={autoFetch}
@@ -124,7 +124,7 @@ export function People({
     const btn = (p) => {
         if (loading) {
             return (
-                <div className='w-20 h-10 flex items-center justify-center pb-2 ml-auto bg-[#3C4D63]/50 transition-20 text-white rounded-md'>
+                <div className='w-16 sm:w-20 h-8 sm:h-10 flex items-center justify-center pb-2 ml-auto bg-[#3C4D63]/50 transition-20 text-white rounded-md'>
                     <ReactLoading
                         type='spin'
                         width='20%'
@@ -138,7 +138,7 @@ export function People({
             if (own.following.includes(p._id)) {
                 return (
                     <button
-                        className=' px-4 py-2 ml-auto hover:bg-[#3C4D63] bg-[#3C4D63]/50 transition-20 text-white rounded-md '
+                        className='px-3 sm:px-4 py-1 md:py-2 ml-auto hover:bg-[#3C4D63] bg-[#3C4D63]/50 transition-20 text-white rounded-md text-[14px] sm:text-base '
                         onClick={() => {
                             if (
                                 window.confirm("Do u want unfollow this user?")
@@ -152,7 +152,7 @@ export function People({
             }
             return (
                 <button
-                    className=' px-4 py-2 ml-auto hover:bg-[#3C4D63] bg-[#3C4D63]/50 transition-20 text-white rounded-md '
+                    className=' px-3 sm:px-4 py-1 md:py-2 ml-auto hover:bg-[#3C4D63] bg-[#3C4D63]/50 transition-20 text-white rounded-md text-[14px] sm:text-base  '
                     onClick={() => handleFollower(p)}>
                     Follow
                 </button>
@@ -164,20 +164,20 @@ export function People({
     return (
         <div
             key={`${p._id}daskfhqw`}
-            className='col-span-1 flex items-center gap-x-3 px-4 py-5 '>
+            className='col-span-1 flex items-center gap-x-3 px-1 sm:px-2 md:px-4 py-2 md:py-5 '>
             <img
                 src={p.image.url}
                 alt=''
-                className='w-20 h-20 rounded-md object-cover cursor-pointer '
+                className='w-10 sm:w-16 md:w-20 h-10 sm:h-16 md:h-20 rounded-md object-cover cursor-pointer '
                 onClick={() => navigateToUserPage(p._id)}
             />
             <div className=''>
                 <div
-                    className='text-[17px] font-semibold cursor-pointer '
+                    className='text-[14px] sm:text-[17px] font-semibold cursor-pointer '
                     onClick={() => navigateToUserPage(p._id)}>
                     {p.name}
                 </div>
-                <div className='text-[14px] dark:text-[#b0b3b8]  '>
+                <div className='text-[12px] sm:text-[14px] dark:text-[#b0b3b8]  '>
                     {p.about}
                 </div>
             </div>

@@ -24,6 +24,8 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
     },
 }));
 
+// delete /admin/delete-post/:id
+
 export default function CustomizedTables({
     bgHeadColor = "",
     fields,
@@ -33,6 +35,7 @@ export default function CustomizedTables({
     listCenterHead,
     className = "",
     typeTable = "",
+    deletePost = () => {},
 }) {
     const {dark} = useAppContext();
 
@@ -120,11 +123,6 @@ export default function CustomizedTables({
                                         if (typeTable === "users") {
                                             navigate(`/profile/${row.id}`);
                                         }
-                                        if (typeTable === "posts") {
-                                            navigate(
-                                                `/post/information/${row.id}`
-                                            );
-                                        }
                                     }}>
                                     {fields.map((v, index) => (
                                         <StyledTableCell
@@ -140,7 +138,26 @@ export default function CustomizedTables({
                                                     ? "center"
                                                     : "left"
                                             }
-                                            className='text-ellipsis max-w-md flex items-center justify-center '>
+                                            className='text-ellipsis max-w-md flex items-center justify-center '
+                                            onClick={() => {
+                                                if (
+                                                    (v === "content" ||
+                                                        v === "image") &&
+                                                    row.image
+                                                ) {
+                                                    navigate(
+                                                        `/post/information/${row.id}`
+                                                    );
+                                                }
+                                                if (
+                                                    v === "avatar" ||
+                                                    v === "name"
+                                                ) {
+                                                    navigate(
+                                                        `/profile/${row.userId}`
+                                                    );
+                                                }
+                                            }}>
                                             {contentTd(row, v)}
                                         </StyledTableCell>
                                     ))}
@@ -156,7 +173,26 @@ export default function CustomizedTables({
                                             }`}
                                             placement='top'>
                                             <div className='flex w-full items-center justify-center'>
-                                                <AiOutlineDelete className='text-xl text-red-400 dark:text-red-800 ' />
+                                                <AiOutlineDelete
+                                                    className='text-xl text-red-400 dark:text-red-800 '
+                                                    onClick={() => {
+                                                        if (
+                                                            typeTable ===
+                                                            "posts"
+                                                        ) {
+                                                            if (
+                                                                window.confirm(
+                                                                    "Do u delete this post?"
+                                                                )
+                                                            ) {
+                                                                deletePost(
+                                                                    // @ts-ignore
+                                                                    row.id
+                                                                );
+                                                            }
+                                                        }
+                                                    }}
+                                                />
                                             </div>
                                         </Tooltip>
                                     </StyledTableCell>

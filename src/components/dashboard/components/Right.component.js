@@ -65,9 +65,7 @@ const Right = ({
                 <>
                     <div className='flex items-center justify-between text-[#8e8e8e] dark:text-[] font-semibold mb-2 '>
                         Suggestion to you
-                        <button
-                            className='text-[#262626] dark:text-[#bbbbbb] text-xs font-semibold '
-                            onClick={() => navigate("/suggest-follow")}>
+                        <button className='text-[#262626] dark:text-[#bbbbbb] text-xs font-semibold '>
                             See all
                         </button>
                     </div>
