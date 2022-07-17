@@ -1,6 +1,7 @@
 import React, {useState} from "react";
-import Users from "./components/Users.components";
-import Posts from "./components/Posts.components";
+import Users from "./components/table/Users.components";
+import Posts from "./components/table/Posts.components";
+import Chart from "./components/chart/Chart.components";
 
 import {ThemeProvider, createTheme} from "@mui/material/styles";
 import {useAppContext} from "../../context/useContext";
@@ -41,16 +42,17 @@ const Admin = () => {
         const yyyy = date.getFullYear();
         const mm = date.getMonth() + 1;
         const dd = date.getDate();
-        return `${dd >= 10 ? dd : "0" + dd}-${
-            mm >= 10 ? mm : "0" + mm
-        }-${yyyy}`;
+        return `${yyyy}-${mm >= 10 ? mm : "0" + mm}-${
+            dd >= 10 ? dd : "0" + dd
+        }`;
     };
 
     return (
         <ThemeProvider theme={darkTheme}>
             <div className='w-screen h-auto md:h-screen pt-[65px] md:overflow-hidden '>
-                <div className='w-full h-full md:grid grid-rows-2 grid-cols-4 '>
-                    <div className='col-span-1 col-row-1 grid grid-rows-2 gap-y-5 p-5 '>
+                <div className='w-full h-full md:grid grid-rows-4 grid-cols-4 '>
+                    {/* quantity */}
+                    <div className='col-span-1 row-span-2 grid grid-rows-2 gap-y-5 p-5 '>
                         <div className='w-full row-span-1 h-full rounded-lg bg-sky-600 dark:bg-[#242526] flex flex-col items-center justify-center '>
                             <div className='text-white text-[24px] font-bold '>
                                 Total users
@@ -68,14 +70,19 @@ const Admin = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='col-span-3 col-row-1 '>chart</div>
-                    <div className='col-span-2 col-row-1 '>
+                    {/* chart */}
+                    <div className='col-span-3 row-span-2 '>
+                        <Chart convertDate={convertDate} />
+                    </div>
+                    {/* table of users */}
+                    <div className='col-span-2 row-span-2 '>
                         <Users
                             convertDate={convertDate}
                             countUsers={setTotalUser}
                         />
                     </div>
-                    <div className='col-span-2 col-row-1 '>
+                    {/* table of posts */}
+                    <div className='col-span-2 row-span-2 '>
                         <Posts
                             convertDate={convertDate}
                             countPosts={setTotalPost}

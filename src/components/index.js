@@ -9,6 +9,7 @@ import ItemsList from "./common/ItemsList";
 import GroupAvatars from "./common/GroupAvatars";
 import ModalQrCode from "./common/ModalQrCode";
 import Table from "./common/table/Table";
+import LineChart from "./common/chart/LineChart";
 
 // loading component
 import LoadingPost from "./loading/Loading.Post";
@@ -42,6 +43,7 @@ export {
     FormCreatePost,
     ModalQrCode,
     Table,
+    LineChart,
     //loading
     LoadingPost,
     LoadingWeather,
