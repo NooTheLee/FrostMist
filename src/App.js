@@ -15,7 +15,7 @@ import {
 // layout
 import {Dashboard, Messenger, Admin} from "./page/Layout";
 import {Profile, UpdateProfile} from "./page/user";
-import {Information} from "./page/post";
+import {Information} from "./page/Post";
 // modal qrCode
 import {ModalQrCode} from "./components";
 
