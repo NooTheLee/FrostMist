@@ -1,6 +1,6 @@
 # **Introduction**
 
--   This is a social-network project with MERN (mongon, express, reactJs, nodeJs) + tailwindCss
+-   This is a social-network project with MERN (MongoDb, Express, ReactJs, NodeJs) + tailwindCss
 
 # **Page**
 
@@ -18,11 +18,14 @@
 -   Admin page (Only with admin's accounts).
 -   Profile.
 -   Update profile.
+-   Information a post.
 
 # **Features**
 
 -   Responsive.
+-   Dark mode
 -   Sign in, log out.
+-   Search user in Nav.
 -   Follow user, unfollow user.
 -   Distinguish admin and normal user (admin has blue tick).
 -   Post (in Dashboard page and profile page) :
@@ -35,3 +38,12 @@
     -   Like and unlike comment.
     -   Add reply comment (with text and image).
     -   Like and unlike reply comment.
+-   Message:
+    -   Add new user, group receive
+    -   Notification when receiving new messages from other users (sound)
+    -   Search user in chat
+-   Admin-page:
+    -   Statistics of registered people and number of posts.
+    -   Chart showing data by week (chartJS).
+    -   Table showing user and post details.
+-   ...
