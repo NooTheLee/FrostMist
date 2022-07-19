@@ -90,6 +90,11 @@ export default function CustomizedTables({
         return row[v];
     };
 
+    const fieldsArr = React.useMemo(
+        () => (typeTable !== "posts" ? titles : [...titles, "Actions"]),
+        [typeTable, titles]
+    );
+
     return (
         <div
             className={
@@ -100,7 +105,7 @@ export default function CustomizedTables({
                 <Table sx={{minWidth: 700}} aria-label='customized table'>
                     <TableHead>
                         <TableRow>
-                            {[...titles, "Actions"].map((v, index) => (
+                            {fieldsArr.map((v, index) => (
                                 <StyledTableCell
                                     key={index + "titleTable" + v}
                                     align={
@@ -161,41 +166,39 @@ export default function CustomizedTables({
                                             {contentTd(row, v)}
                                         </StyledTableCell>
                                     ))}
-                                    <StyledTableCell
-                                        component='td'
-                                        align='center'
-                                        className='text-ellipsis max-w-md flex items-center justify-center '>
-                                        <Tooltip
-                                            title={`Delete ${
-                                                typeTable === "users"
-                                                    ? "user"
-                                                    : "post"
-                                            }`}
-                                            placement='top'>
-                                            <div className='flex w-full items-center justify-center'>
-                                                <AiOutlineDelete
-                                                    className='text-xl text-red-400 dark:text-red-800 '
-                                                    onClick={() => {
-                                                        if (
-                                                            typeTable ===
-                                                            "posts"
-                                                        ) {
+                                    {typeTable === "posts" && (
+                                        <StyledTableCell
+                                            component='td'
+                                            align='center'
+                                            className='text-ellipsis max-w-md flex items-center justify-center '>
+                                            <Tooltip
+                                                title={`Delete post`}
+                                                placement='top'>
+                                                <div className='flex w-full items-center justify-center'>
+                                                    <AiOutlineDelete
+                                                        className='text-xl text-red-400 dark:text-red-800 '
+                                                        onClick={() => {
                                                             if (
-                                                                window.confirm(
-                                                                    "Do u delete this post?"
-                                                                )
+                                                                typeTable ===
+                                                                "posts"
                                                             ) {
-                                                                deletePost(
-                                                                    // @ts-ignore
-                                                                    row.id
-                                                                );
+                                                                if (
+                                                                    window.confirm(
+                                                                        "Do u delete this post?"
+                                                                    )
+                                                                ) {
+                                                                    deletePost(
+                                                                        // @ts-ignore
+                                                                        row.id
+                                                                    );
+                                                                }
                                                             }
-                                                        }
-                                                    }}
-                                                />
-                                            </div>
-                                        </Tooltip>
-                                    </StyledTableCell>
+                                                        }}
+                                                    />
+                                                </div>
+                                            </Tooltip>
+                                        </StyledTableCell>
+                                    )}
                                 </StyledTableRow>
                             );
                         })}

@@ -189,14 +189,12 @@ const Post = ({
                     image,
                 }
             );
-            //console.log(data.post);
             setPost(data.post);
             setTextEdit(data.post.content);
             setImageEdit(data.post.image);
             if (data.post.image) {
                 setAttachment("photo");
             }
-            console.log(data.post);
             toast("Update post success!");
         } catch (error) {
             console.log(error);
@@ -314,7 +312,7 @@ const Post = ({
                 } `}
                 dangerouslySetInnerHTML={{__html: post.content}}></div>
 
-            {/* when have image */}
+            {/* when has image */}
             {post.image && (
                 <div className='mt-3 flex items-center justify-center px-2 cursor-pointer '>
                     <img

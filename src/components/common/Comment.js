@@ -2,13 +2,14 @@ import React, {useEffect, useRef, useState} from "react";
 import moment from "moment";
 import ReactLoading from "react-loading";
 import useKeypress from "react-use-keypress";
+import {toast} from "react-toastify";
 //component
 import ReplyComment from "./ReplyComment";
 //icon
 import {AiOutlineCamera, AiOutlineSend, AiFillHeart} from "react-icons/ai";
 import {TiTick} from "react-icons/ti";
 import {MdCancel} from "react-icons/md";
-import {toast} from "react-toastify";
+import {HiReply} from "react-icons/hi";
 
 const Comment = ({
     currentComment,
@@ -326,23 +327,24 @@ const Comment = ({
                         }}>
                         Reply
                     </button>
-                    {comment.reply.length > 0 && (
-                        <button
-                            className='cursor-pointer'
-                            onClick={() => {
-                                setShowReply(!showReply);
-                            }}>
-                            {showReply
-                                ? "Hide  "
-                                : `View more ${comment.reply.length}
-                    ${comment.reply.length > 1 ? " replies" : " reply"} `}
-                        </button>
-                    )}
 
                     <div className='font-normal '>
                         {moment(comment.created).fromNow()}
                     </div>
                 </div>
+                {comment.reply.length > 0 && (
+                    <button
+                        className='cursor-pointer text-[#65676B] dark:text-[#c0c3ca] text-[13px] pl-2 flex font-bold '
+                        onClick={() => {
+                            setShowReply(!showReply);
+                        }}>
+                        <HiReply className='rotate-[180deg] translate-y-[2px] ' />
+                        {showReply
+                            ? "Hide replies "
+                            : `View more ${comment.reply.length}
+                    ${comment.reply.length > 1 ? " replies" : " reply"} `}
+                    </button>
+                )}
             </div>
         );
     };
@@ -463,6 +465,7 @@ const Comment = ({
             {/* form add reply comment */}
             {openFormReply && (
                 <>
+                    <div className='absolute w-10 h-32 border-l-[2px] border-b-[2px] border-l-[#F0F2F5] dark:border-l-[#3A3B3C] border-b-[#F0F2F5] dark:border-b-[#3A3B3C] left-5 rounded-bl-[20px] translate-y-[-108px] group-first:h-20 group-first:translate-y-[-60px] '></div>
                     <div className='flex gap-x-1.5 px-[10%] pt-2 w-full relative items-center '>
                         <img
                             src={user_img}

@@ -63,7 +63,7 @@ const Right = ({
                     user_img={own.image.url}
                     getDeletePostId={getDeletePostId}
                     className={!dark ? "shadow-post" : ""}
-                    userRole={user.role}
+                    userRole={own.role}
                 />
             ));
         }

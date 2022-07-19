@@ -4,7 +4,7 @@ import {AiOutlineCloseCircle} from "react-icons/ai";
 import {BiRadioCircle} from "react-icons/bi";
 import {FaSearchLocation} from "react-icons/fa";
 
-import {LoadingWeather} from "../../";
+import {LoadingWeather} from "../..";
 
 import useDebounce from "../../../hooks/useDebounce";
 const initWeather = {
@@ -81,7 +81,12 @@ const Left = ({dark, autoFetch}) => {
     };
 
     const left = () => {
-        if (wError) return <div className='text-2xl my-5 '>No city found!</div>;
+        if (wError)
+            return (
+                <div className='text-xl font-bold my-5 text-center '>
+                    No city found!
+                </div>
+            );
         if (wLoading)
             return (
                 <div className='my-4 sm:my-6 md:my-8'>

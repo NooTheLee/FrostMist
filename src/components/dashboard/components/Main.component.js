@@ -111,6 +111,9 @@ const Center = ({
     };
 
     const form = () => {
+        if (error) {
+            return <></>;
+        }
         if (loading) return <LoadingForm />;
         return (
             <FormCreatePost

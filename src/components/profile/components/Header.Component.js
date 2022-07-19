@@ -97,16 +97,18 @@ const Header = ({
 
     return (
         <div className='pt-[50px] md:pt-[75px] md:px-[15%] w-full dark:bg-[#242426] bg-white overflow-x-hidden '>
+            {/* background image */}
             <img
                 src='https://res.cloudinary.com/dcwekkkez/image/upload/v1656421547/bavmjvxcucadotx45jtk.jpg'
                 alt='bg'
                 className='w-full h-[30vh] sm:h-[40vh] md:h-[54vh] object-cover rounded-b-lg '
             />
             <div className='flex flex-col sm:flex-row mx-10 sm:items-start gap-x-4 border-b-[1px] dark:border-b-white/10 border-b-black/10 items-center '>
+                {/* avatar */}
                 <img
                     src={user.image.url}
                     alt='avatar'
-                    className='w-[170px] h-[170px] rounded-full object-cover translate-y-[-32px] shrink-0 dark:border-4 dark:border-white '
+                    className='w-[170px] h-[170px] rounded-full object-cover translate-y-[-32px] shrink-0  dark:border-white border-4 border-black/50 '
                 />
                 <div className='flex flex-col sm:flex-row w-full justify-between items-center sm:items-end pt-4 translate-y-[-32px] sm:translate-y-[0] '>
                     <div>

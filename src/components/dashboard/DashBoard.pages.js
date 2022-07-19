@@ -1,8 +1,8 @@
 import {useAppContext} from "../../context/useContext";
 import {useNavigate} from "react-router-dom";
-import Left from "./components/Left.component";
-import Center from "./components/Center.component";
-import Right from "./components/Right.component";
+import Left from "./components/Weather.component";
+import Center from "./components/Main.component";
+import Right from "./components/Sugestion.component";
 import {useState} from "react";
 import React from "react";
 
