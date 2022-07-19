@@ -60,7 +60,7 @@ const ForgetPassword = () => {
                 style={{
                     backgroundImage: !dark ? "none" : "url(/images/bg.png)",
                 }}>
-                <div className='flex md:w-full items-center justify-center z-10 relative'>
+                <div className='flex px-3 md:px-0 w-full items-center justify-center z-10 relative'>
                     <div className='bg-[#569894]/80 mx-[10%0] md:ml-auto w-full mt-14 dark:bg-[#3a3a3a]/80 dark:text-white/70 md:w-auto px-[20px] md:px-[80px] py-[30px] md:py-[40px] rounded-3xl transition-50 z-[11] '>
                         <div className=' mb-[18px] text-[30px] text-[#004053] dark:text-[#5B9D99] font-extrabold '>
                             Forget Password
@@ -71,7 +71,7 @@ const ForgetPassword = () => {
                                 e.preventDefault();
                                 forgetPassword();
                             }}>
-                            <div className='flex '>
+                            <div className='md:flex '>
                                 <div className=''>
                                     <div className='text-sm md:text-[16px] mb-2'>
                                         Email

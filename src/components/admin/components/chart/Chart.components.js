@@ -1,9 +1,9 @@
-import React, {useEffect, useMemo, useState} from "react";
-import {LineChart} from "../../../";
-import {useAppContext} from "../../../../context/useContext";
+import React, { useEffect, useMemo, useState } from "react";
+import { LineChart } from "../../../";
+import { useAppContext } from "../../../../context/useContext";
 
-const Chart = ({convertDate}) => {
-    const {autoFetch} = useAppContext();
+const Chart = ({ convertDate }) => {
+    const { autoFetch } = useAppContext();
 
     const [loadingPosts, setLoadingPosts] = useState(false);
     const [loadingUsers, setLoadingUsers] = useState(false);
@@ -19,7 +19,7 @@ const Chart = ({convertDate}) => {
     const getAllUsers = async () => {
         setLoadingUsers(true);
         try {
-            const {data} = await autoFetch.get(
+            const { data } = await autoFetch.get(
                 `/api/auth/all-users?page=${1}&perPage=${9999}`
             );
             setDataUsers(data.users);
@@ -32,7 +32,7 @@ const Chart = ({convertDate}) => {
     const getAllPosts = async () => {
         setLoadingPosts(true);
         try {
-            const {data} = await autoFetch.get(
+            const { data } = await autoFetch.get(
                 `/api/post/all-posts?page=${1}&perPage=${9999}`
             );
             setDataPosts(data.posts);
@@ -49,7 +49,7 @@ const Chart = ({convertDate}) => {
             const x = convertDate(v.createdAt);
             const index = data.find((v) => v.x === x);
             if (!index) {
-                data.push({x: x, y: 1});
+                data.push({ x: x, y: 1 });
             } else {
                 data[data.length - 1].y += 1;
             }
@@ -64,7 +64,7 @@ const Chart = ({convertDate}) => {
             const x = convertDate(v.createdAt);
             const index = data.find((v) => v.x === x);
             if (!index) {
-                data.push({x: x, y: 1});
+                data.push({ x: x, y: 1 });
             } else {
                 data[data.length - 1].y += 1;
             }
@@ -134,13 +134,28 @@ const Chart = ({convertDate}) => {
                         week: "DD/MM",
                     },
                 },
+                grid: { display: false },
+
+                title: {
+                    display: true,
+                    text: "Time",
+                },
+            },
+            y: {
+                grid: { display: false },
+
+                title: {
+                    display: true,
+                    text: "Quantity",
+                },
             },
         },
+        borderColor: "red",
     };
 
     return (
-        <div className='w-full h-full flex items-center justify-center  '>
-            <div className='w-full md:w-[60%] h-full '>
+        <div className="w-full h-full flex items-center justify-center  ">
+            <div className="w-full md:w-[60%] h-full ">
                 <LineChart datasets={datasets} option={option} />
             </div>
         </div>
