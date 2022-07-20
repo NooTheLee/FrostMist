@@ -137,11 +137,11 @@ const ReplyComment = ({
                             <img
                                 src={imageEdit?.url}
                                 alt='image_comment'
-                                className='max-h-52 w-auto object-contain my-1 ml-3 '
+                                className='object-contain w-auto my-1 ml-3 max-h-52 '
                             />
                             {!editLoading && (
                                 <MdCancel
-                                    className='absolute top-1 right-1 text-2xl transition-50 cursor-pointer '
+                                    className='absolute text-2xl cursor-pointer top-1 right-1 transition-50 '
                                     onClick={() => {
                                         setImageEdit(null);
                                     }}
@@ -166,11 +166,11 @@ const ReplyComment = ({
 
     return (
         <div className={`flex gap-x-1.5 mt-1.5 group pl-[8%] `}>
-            <div className='absolute w-10 h-32 border-l-[2px] border-b-[2px] border-l-[#F0F2F5] dark:border-l-[#3A3B3C] border-b-[#F0F2F5] dark:border-b-[#3A3B3C] left-5 rounded-bl-[20px] translate-y-[-108px] group-first:h-20 group-first:translate-y-[-60px] '></div>
+            <div className='absolute w-10 h-10 border-l-[2px] border-b-[2px] border-l-[#F0F2F5] dark:border-l-[#3A3B3C] border-b-[#F0F2F5] dark:border-b-[#3A3B3C] left-5 rounded-bl-[20px] translate-y-[-20px] '></div>
             <img
                 src={replyComment.postedBy?.image?.url}
                 alt='own_avt_cmt'
-                className='w-8 h-8 object-cover rounded-full cursor-pointer z-10 '
+                className='z-10 object-cover w-8 h-8 rounded-full cursor-pointer '
                 onClick={() => {
                     navigate(`/profile/${replyComment.postedBy._id}`);
                 }}
@@ -179,7 +179,7 @@ const ReplyComment = ({
                 className={`box-comment relative w-full ${
                     editLoading && "opacity-50"
                 } `}>
-                <div className='flex items-center gap-x-1 w-full '>
+                <div className='flex items-center w-full gap-x-1 '>
                     <div className='rounded-xl bg-[#F0F2F5] dark:bg-[#3A3B3C] px-3 py-2 max-w-full relative  '>
                         <div
                             className='font-bold text-[13px] text-[#050505] dark:text-[#e4e6eb] flex items-center gap-x-1 cursor-pointer '

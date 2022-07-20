@@ -277,11 +277,11 @@ const Comment = ({
                             <img
                                 src={imageEdit?.url}
                                 alt='image_comment'
-                                className='max-h-52 w-auto object-contain my-1 ml-3 '
+                                className='object-contain w-auto my-1 ml-3 max-h-52 '
                             />
                             {!editLoading && (
                                 <MdCancel
-                                    className='absolute top-1 right-1 text-2xl transition-50 cursor-pointer '
+                                    className='absolute text-2xl cursor-pointer top-1 right-1 transition-50 '
                                     onClick={() => {
                                         setImageEdit(null);
                                     }}
@@ -351,16 +351,13 @@ const Comment = ({
 
     return (
         <div className={`relative mt-4 `}>
-            {showReply && comment.reply.length > 0 && (
-                <div className='absolute h-[80%] w-0.5 left-5 bg-[#F0F2F5] dark:bg-[#3A3B3C] '></div>
-            )}
             {/* comment main */}
             <div className=' flex gap-x-1.5 mt-1.5 group'>
                 {/* avatar of own's comment */}
                 <img
                     src={comment.postedBy.image?.url}
                     alt='own_avt_cmt'
-                    className='w-10 h-10 object-cover rounded-full cursor-pointer z-10 '
+                    className='z-10 object-cover w-10 h-10 rounded-full cursor-pointer '
                     onClick={() => {
                         navigate(`/profile/${comment.postedBy._id}`);
                     }}
@@ -369,7 +366,7 @@ const Comment = ({
                     className={`box-comment relative w-full ${
                         editLoading && "opacity-50"
                     } `}>
-                    <div className='flex items-center gap-x-1 w-full '>
+                    <div className='flex items-center w-full gap-x-1 '>
                         <div className='rounded-xl bg-[#F0F2F5] dark:bg-[#3A3B3C] px-3 py-2 max-w-full relative  '>
                             <div
                                 className='font-bold text-[13px] text-[#050505] dark:text-[#e4e6eb] flex items-center gap-x-1 cursor-pointer '
@@ -465,12 +462,11 @@ const Comment = ({
             {/* form add reply comment */}
             {openFormReply && (
                 <>
-                    <div className='absolute w-10 h-32 border-l-[2px] border-b-[2px] border-l-[#F0F2F5] dark:border-l-[#3A3B3C] border-b-[#F0F2F5] dark:border-b-[#3A3B3C] left-5 rounded-bl-[20px] translate-y-[-108px] group-first:h-20 group-first:translate-y-[-60px] '></div>
                     <div className='flex gap-x-1.5 px-[10%] pt-2 w-full relative items-center '>
                         <img
                             src={user_img}
                             alt='user_avatar'
-                            className='w-8 h-8 object-cover shrink-0 rounded-full '
+                            className='object-cover w-8 h-8 rounded-full shrink-0 '
                         />
                         <form
                             className='flex px-2 rounded-full bg-[#F0F2F5] w-full mt-1 items-center dark:bg-[#3A3B3C]  '
@@ -525,11 +521,11 @@ const Comment = ({
                                     // @ts-ignore
                                     src={replyImage.url}
                                     alt='reply_image'
-                                    className='max-h-20 w-auto object-contain  mt-2 '
+                                    className='object-contain w-auto mt-2 max-h-20 '
                                 />
                                 {!replyLoading && (
                                     <MdCancel
-                                        className='absolute top-1 right-1 text-2xl transition-50 cursor-pointer hidden group-hover:flex '
+                                        className='absolute hidden text-2xl cursor-pointer top-1 right-1 transition-50 group-hover:flex '
                                         onClick={() => {
                                             setReplyImage(null);
                                         }}
