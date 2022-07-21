@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 
 // components
-import {LoadingPost, Modal, Post, LoadingForm, FormCreatePost} from "../../";
+import {LoadingPost, Modal, Post, LoadingForm, FormCreatePost} from "../..";
 
 const Right = ({
     autoFetch,
@@ -20,12 +20,14 @@ const Right = ({
     const [text, setText] = useState("");
     const [attachment, setAttachment] = useState("");
     const [openModal, setOpenModal] = useState(false);
+    const [loadingCreateNewPost, setLoadingCreateNewPost] = useState(false);
 
     useEffect(() => {
         setOneState("openModal", openModal);
     }, [openModal]);
 
     const createNewPost = async (formData) => {
+        setLoadingCreateNewPost(true);
         if (!text) {
             toast.error("You must type something...");
             return;
@@ -47,7 +49,9 @@ const Right = ({
             setPosts([data.post, ...posts]);
         } catch (error) {
             console.log(error);
+            toast.error("Something went wrong. Try again!");
         }
+        setLoadingCreateNewPost(false);
     };
 
     const PostInRight = () => {
@@ -90,7 +94,6 @@ const Right = ({
 
     return (
         <div>
-            {user._id === own._id && form()}
             {openModal && (
                 <Modal
                     setOpenModal={setOpenModal}
@@ -101,6 +104,11 @@ const Right = ({
                     createNewPost={createNewPost}
                 />
             )}
+
+            {user._id === own._id && form()}
+            <div className='mb-4'>
+                {loadingCreateNewPost && <LoadingPost />}
+            </div>
             {PostInRight()}
         </div>
     );

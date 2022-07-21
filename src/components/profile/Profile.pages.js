@@ -5,8 +5,8 @@ import {useNavigate} from "react-router-dom";
 
 //components
 import Header from "./components/Header.Component";
-import Left from "./components/Left.component";
-import Right from "./components/Right.component";
+import Left from "./components/Details.component";
+import Right from "./components/Posts.component";
 import {LoadingProfile} from "../";
 import FollowerPage from "./components/Follower.component";
 import FollowingPage from "./components/Following.component";
