@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useReducer, useState} from "react";
-import {AiOutlineSend} from "react-icons/ai";
+import {AiOutlineCamera, AiOutlineSend} from "react-icons/ai";
 import ReactLoading from "react-loading";
 import {toast} from "react-toastify";
 import io from "socket.io-client";
@@ -11,6 +11,7 @@ import BoxChat from "./components/BoxChat.component";
 import MainChat from "./components/MainChat.component";
 import {LoadingMessenger} from "../";
 import "./messenger.css";
+import {MdCancel} from "react-icons/md";
 
 // @ts-ignore
 const socket = io(process.env.REACT_APP_SOCKET_IO_SERVER, {
@@ -157,6 +158,8 @@ const reducer = (state, action) => {
     }
 };
 
+const initImage = {url: "", public_id: ""};
+
 const Message = () => {
     const navigate = useNavigate();
 
@@ -166,6 +169,9 @@ const Message = () => {
     const {autoFetch, user} = useAppContext(); /// own user
     const [state, dispatch] = useReducer(reducer, initState);
     const [scrLoading, setScrLoading] = useState(false);
+
+    const [image, setImage] = useState(initImage);
+    const [formData, setFormData] = useState(null);
 
     const setLoading = (value) => {
         // @ts-ignore
@@ -220,7 +226,13 @@ const Message = () => {
                                 : [newMessage, ...state.allMessages],
                         },
                     });
-                    playSound();
+                    // when user open more 2 tabs
+                    if (
+                        newMessage.content[newMessage.content.length - 1].sentBy
+                            ._id !== user._id
+                    ) {
+                        playSound();
+                    }
                     change = false;
                 });
             }
@@ -281,11 +293,34 @@ const Message = () => {
         navigate(`/profile/${id}`);
     };
 
+    // upload image to cloudinary
+    const handleUpImageToCloud = async () => {
+        try {
+            const {data} = await autoFetch.post(
+                `/api/post/upload-image`,
+                formData
+            );
+            return {url: data.url, public_id: data.public_id};
+        } catch (error) {
+            toast.error("Upload image fail!");
+            return initImage;
+        }
+    };
+
     const handleSendMess = async (receivedId) => {
         setLoading(true);
         try {
             let dt;
             const {text} = state;
+            let imageUrl = image;
+            if (imageUrl.url) {
+                imageUrl = await handleUpImageToCloud();
+                if (!imageUrl.url) {
+                    setLoading(true);
+                    setImage(initImage);
+                    return;
+                }
+            }
             if ((!receivedId && state.isNewMessage) || state.isGroup) {
                 let listId = [];
                 state.listResultByPeopleSearch.forEach((v) => {
@@ -294,11 +329,13 @@ const Message = () => {
                 dt = await autoFetch.put("/api/message/send-message", {
                     text,
                     receivedId: listId,
+                    image: imageUrl,
                 });
             } else {
                 dt = await autoFetch.put("/api/message/send-message", {
                     text,
                     receivedId: [receivedId],
+                    image: imageUrl,
                 });
             }
             let id = "";
@@ -331,16 +368,15 @@ const Message = () => {
                     index: id,
                 },
             });
-
-            setLoading(false);
+            setImage(initImage);
             socket.emit("new-message", dt.data.message);
         } catch (error) {
-            setLoading(false);
             console.log(error);
             if (error.response && error.response.data.msg) {
                 toast.error(error.response.data.msg);
             }
         }
+        setLoading(false);
     };
 
     const searchPeopleToNewMessage = async (textSearchNewMessage) => {
@@ -361,6 +397,20 @@ const Message = () => {
         } catch (error) {
             console.log(error);
         }
+    };
+
+    // set image to show in form
+    const handleImage = (e) => {
+        setImage(initImage);
+        const file = e.target.files[0];
+        // @ts-ignore
+        setImage({url: URL.createObjectURL(file)});
+
+        let formData = new FormData();
+        formData.append("image", file);
+
+        // @ts-ignore
+        setFormData(formData);
     };
 
     if (scrLoading) {
@@ -418,10 +468,37 @@ const Message = () => {
                                     handleSendMess(state.receiveUser._id);
                                 }
                             }}>
-                            <div className='w-full rounded-full border-[1px] border-[#8EABB4] flex px-2 items-center '>
+                            <div className='w-full rounded-full flex gap-x-2 items-center relative '>
+                                {image?.url && (
+                                    <div className='absolute w-[200px] h-[100px] md:w-[400px] md:h-[200px] rounded-md dark:bg-[#18191A] border dark:border-white/50 top-[-120px] md:top-[-220px] right-[60px] z-[20] flex items-center justify-center bg-[#8EABB4] border-[#333]/70 '>
+                                        {state.loading && (
+                                            <div className='absolute z-[21] bg-black/50 w-full h-full flex items-center justify-center '>
+                                                <ReactLoading
+                                                    type='spin'
+                                                    width={40}
+                                                    height={40}
+                                                    color='#7d838c'
+                                                />
+                                            </div>
+                                        )}
+                                        <img
+                                            src={image?.url}
+                                            alt='attachment'
+                                            className='h-full w-auto object-contain '
+                                        />
+                                        {!state.loading && (
+                                            <MdCancel
+                                                className='absolute text-2xl cursor-pointer top-1 right-1 transition-50 group-hover:flex opacity-50 hover:opacity-100 text-white  '
+                                                onClick={() => {
+                                                    setImage(initImage);
+                                                }}
+                                            />
+                                        )}
+                                    </div>
+                                )}
                                 <input
                                     type='text'
-                                    className='w-full bg-inherit border-0 focus:ring-0 rounded-full '
+                                    className='w-full bg-inherit first-line:focus:ring-0 focus:ring-white rounded-full border-[1px] border-[#8EABB4] flex px-4 items-center '
                                     placeholder='Type your message'
                                     value={state.text}
                                     onChange={(e) =>
@@ -436,8 +513,18 @@ const Message = () => {
                                     }
                                     ref={emailInputRef}
                                 />
+                                <label>
+                                    <AiOutlineCamera className='shrink-0 text-xl transition-50 opacity-60 hover:opacity-100 dark:text-[#b0b3b8] cursor-pointer ' />
+                                    <input
+                                        onChange={handleImage}
+                                        type='file'
+                                        accept='image/*'
+                                        name='avatar'
+                                        hidden
+                                    />
+                                </label>
                                 <button
-                                    className='shrink-0 text-xl opacity-50 hover:opacity-80 cursor-pointer '
+                                    className='shrink-0 text-xl opacity-50 hover:opacity-80 cursor-pointer  '
                                     type='submit'
                                     disabled={
                                         !state.receiveUser ||

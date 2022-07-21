@@ -6,6 +6,8 @@ import {ItemsList} from "../../";
 // icon
 import {AiOutlineCloseCircle} from "react-icons/ai";
 import {TiTick} from "react-icons/ti";
+import {AiOutlineHeart} from "react-icons/ai";
+import {BsFillReplyFill} from "react-icons/bs";
 
 const MainChat = ({
     state,
@@ -25,48 +27,64 @@ const MainChat = ({
             // @ts-ignore
             return currentMessenger.content.map((c) => {
                 return (
-                    <div key={c._id}>
-                        <div
-                            className={`chat-message max-w-[80%] md:max-w-[50%] chat-message-${
-                                c.sentBy._id === user._id ? "right" : "left"
-                            } flex items-center `}>
-                            {c.sentBy._id === user._id ? (
-                                <></>
-                            ) : (
-                                <div
-                                    className='image flex '
-                                    onClick={() => navigateToProfile(c._id)}>
-                                    <Avatar
-                                        src={
-                                            c && c.sentBy && c.sentBy.image
-                                                ? c.sentBy.image.url
-                                                : ""
-                                        }
-                                        className='mr-1 border-[1px] border-[#8EABB4] rounded-full w-8 h-8 cursor-pointer '
-                                        alt='AVATAR'
-                                    />
-                                    {currentMessenger.members.length > 2 && (
-                                        <span className='sentBy-name'>
-                                            {c.sentBy.name}
-                                        </span>
-                                    )}
-                                </div>
-                            )}
-
+                    <div
+                        key={c._id}
+                        className={`chat-message max-w-[80%] md:max-w-[50%] chat-message-${
+                            c.sentBy._id === user._id ? "right" : "left mb-2"
+                        } flex items-center `}>
+                        {c.sentBy._id === user._id ? (
+                            <></>
+                        ) : (
+                            <div
+                                className='image flex '
+                                onClick={() => navigateToProfile(c._id)}>
+                                <Avatar
+                                    src={
+                                        c && c.sentBy && c.sentBy.image
+                                            ? c.sentBy.image.url
+                                            : ""
+                                    }
+                                    className='mr-1 border-[1px] border-[#8EABB4] rounded-full w-8 h-8 cursor-pointer '
+                                    alt='AVATAR'
+                                />
+                                {currentMessenger.members.length > 2 && (
+                                    <span className='text-[#333]/70 dark:text-white/50 text-[13px] absolute top-[-12px] left-12 '>
+                                        {c.sentBy.name}
+                                    </span>
+                                )}
+                            </div>
+                        )}
+                        <div className='flex items-center group '>
                             <Tooltip
                                 title={moment(c.created).fromNow()}
                                 placement={
-                                    c.sentBy._id === user._id ? "left" : "right"
+                                    c.sentBy._id === user._id ? "top" : "top"
                                 }>
-                                <span
-                                    className={`chat-element md:max-w-[70%] flex-shrink-0 rounded-2xl md:rounded-[25px] ${
+                                <div
+                                    className={`order-1 chat-element md:max-w-[70%] flex-shrink-0 rounded-2xl md:rounded-[25px] ${
                                         c.sentBy._id === user._id
                                             ? "dark:bg-[#006064] bg-[#8eabb4] "
                                             : "dark:bg-[#3E4042] bg-white box-shadow text-black "
                                     }  px-3 py-2 ml-1 dark:text-white `}>
                                     {c.text}
-                                </span>
+                                    {c.image?.url && (
+                                        <img
+                                            src={c.image?.url}
+                                            alt='attachment'
+                                            className='max-h-[300px] w-auto object-contain rounded-md '
+                                        />
+                                    )}
+                                </div>
                             </Tooltip>
+                            <div
+                                className={`flex items-center absolute gap-x-1 text-xl h-full opacity-50 text-black dark:text-white ${
+                                    c.sentBy._id === user._id
+                                        ? "left-[-45px] flex-row-reverse  "
+                                        : "right-[-45px] "
+                                }  `}>
+                                <AiOutlineHeart className='shrink-0 cursor-pointer hidden group-hover:flex ' />
+                                <BsFillReplyFill className='shrink-0 cursor-pointer hidden group-hover:flex ' />
+                            </div>
                         </div>
                     </div>
                 );
