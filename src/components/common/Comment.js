@@ -352,7 +352,10 @@ const Comment = ({
     return (
         <div className={`relative mt-4 `}>
             {/* comment main */}
-            <div className=' flex gap-x-1.5 mt-1.5 group'>
+            <div className='relative flex gap-x-1.5 mt-1.5 group'>
+                {showReply && (
+                    <div className='absolute h-full w-2 border-l-[2px] z-[5] translate-x-5 border-l-[#F0F2F5] dark:border-l-[#3A3B3C] '></div>
+                )}
                 {/* avatar of own's comment */}
                 <img
                     src={comment.postedBy.image?.url}
@@ -462,6 +465,7 @@ const Comment = ({
             {/* form add reply comment */}
             {openFormReply && (
                 <>
+                    <div className='absolute w-10 h-10 border-l-[2px] border-b-[2px] border-l-[#F0F2F5] dark:border-l-[#3A3B3C] border-b-[#F0F2F5] dark:border-b-[#3A3B3C] left-5 rounded-bl-[20px] translate-y-[-10px] '></div>
                     <div className='flex gap-x-1.5 px-[10%] pt-2 w-full relative items-center '>
                         <img
                             src={user_img}
@@ -533,13 +537,6 @@ const Comment = ({
                                 )}
                             </div>
                         </div>
-                    )}
-                    {!replyLoading && (
-                        <button
-                            className='text-red-500 ml-[16%] text-[12px] '
-                            onClick={cancelReply}>
-                            Cancel reply
-                        </button>
                     )}
                 </>
             )}
