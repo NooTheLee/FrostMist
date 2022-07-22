@@ -12,7 +12,7 @@ const ModalQrCode = () => {
                 <img
                     src='./images/qrcode.png'
                     alt='QR code'
-                    className='w-40 h-40 md:w-60 md:h-60 '
+                    className='w-40 h-40 rounded-xl md:w-60 md:h-60 '
                 />
             </div>
         </div>
