@@ -16,6 +16,7 @@ import {Dropdown, ItemsList} from "../";
 // hocks
 import useDebounce from "../../hooks/useDebounce";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
+import ReactLoading from "react-loading";
 
 const Nav = () => {
     const {dark, setOneState, user, openQrCode, autoFetch} = useAppContext();
@@ -28,6 +29,8 @@ const Nav = () => {
     const [listSearchResult, setListSearchResult] = useState([]);
     // list empty
     const [isEmpty, setIsEmpty] = useState(false);
+    // loading
+    const [loading, setLoading] = useState(false);
 
     const clearListResult = () => {
         setListSearchResult([]);
@@ -45,6 +48,7 @@ const Nav = () => {
     }, [textDebounce]);
 
     const searchPeople = async () => {
+        setLoading(true);
         if (!text) {
             return;
         }
@@ -60,6 +64,7 @@ const Nav = () => {
         } catch (error) {
             console.log(error);
         }
+        setLoading(false);
     };
 
     const menuListLogged = useMemo(() => {
@@ -122,6 +127,7 @@ const Nav = () => {
                     alt='logo'
                     className='w-[30px] md:w-[40px] h-auto '
                 />
+                {/* search */}
                 {user && (
                     <div className='flex items-center border border-black/20 dark:bg-[#4E4F50] dark:text-[#b9bbbe] w-[180px] md:w-[220px] h-auto md:h-[40px] rounded-full px-2 ml-2 '>
                         <BiSearchAlt className='text-16px md:text-[20px] mx-1 ' />
@@ -135,6 +141,7 @@ const Nav = () => {
                                 value={text}
                                 onChange={(e) => setText(e.target.value)}
                             />
+
                             <div className='scroll-bar absolute max-h-[300px] rounded-[7px] w-[250px] overflow-y-auto overflow-x-hidden top-[60px] translate-x-[-10px] '>
                                 {(isEmpty || listSearchResult.length > 0) && (
                                     <div className=' box-shadow'>
@@ -155,6 +162,14 @@ const Nav = () => {
                                 )}
                             </div>
                         </div>
+                        {loading && (
+                            <ReactLoading
+                                type='spinningBubbles'
+                                width={20}
+                                height={20}
+                                color='#7d838c'
+                            />
+                        )}
                     </div>
                 )}
             </div>
