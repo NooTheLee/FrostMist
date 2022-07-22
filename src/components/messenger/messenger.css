@@ -121,12 +121,14 @@
 .chat-message .chat-element {
     max-width: 100%;
     word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 .chat-message.chat-message-left {
     max-width: 60%;
 }
 .chat-message.chat-message-left .chat-element {
     word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 .chat-message .message-time {
     color: rgb(114, 114, 114);

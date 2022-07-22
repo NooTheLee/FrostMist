@@ -36,7 +36,7 @@ const MainChat = ({
                             <></>
                         ) : (
                             <div
-                                className='image flex '
+                                className='flex image '
                                 onClick={() => navigateToProfile(c._id)}>
                                 <Avatar
                                     src={
@@ -61,11 +61,11 @@ const MainChat = ({
                                     c.sentBy._id === user._id ? "top" : "top"
                                 }>
                                 <div
-                                    className={`order-1 chat-element md:max-w-[70%] flex-shrink-0 rounded-2xl md:rounded-[25px] ${
+                                    className={`order-1 chat-element md:max-w-[70%] break-words  rounded-2xl md:rounded-[25px] ${
                                         c.sentBy._id === user._id
                                             ? "dark:bg-[#006064] bg-[#8eabb4] "
                                             : "dark:bg-[#3E4042] bg-white box-shadow text-black "
-                                    }  px-3 py-2 ml-1 dark:text-white `}>
+                                    }  px-3 py-2 ml-1 dark:text-white`}>
                                     {c.text}
                                     {c.image?.url && (
                                         <img
@@ -82,8 +82,8 @@ const MainChat = ({
                                         ? "left-[-45px] flex-row-reverse  "
                                         : "right-[-45px] "
                                 }  `}>
-                                <AiOutlineHeart className='shrink-0 cursor-pointer hidden group-hover:flex ' />
-                                <BsFillReplyFill className='shrink-0 cursor-pointer hidden group-hover:flex ' />
+                                <AiOutlineHeart className='hidden cursor-pointer shrink-0 group-hover:flex ' />
+                                <BsFillReplyFill className='hidden cursor-pointer shrink-0 group-hover:flex ' />
                             </div>
                         </div>
                     </div>
@@ -109,10 +109,10 @@ const MainChat = ({
     if (state.isNewMessage) {
         return (
             <>
-                <div className='py-2 px-4 border-bottom d-none d-lg-block'>
-                    <div className='flex create-new-message py-1 items-center gap-x-1 flex-wrap '>
+                <div className='px-4 py-2 border-bottom d-none d-lg-block'>
+                    <div className='flex flex-wrap items-center py-1 create-new-message gap-x-1 '>
                         <div className='flex gap-x-0.5 flex-wrap '>
-                            <div className='to  '>To:</div>
+                            <div className='to '>To:</div>
                             {state.listResultByPeopleSearch.length > 0 &&
                                 state.listResultByPeopleSearch.map((l, k) => (
                                     <span
@@ -139,7 +139,7 @@ const MainChat = ({
                                     </span>
                                 ))}
                         </div>
-                        <div className='ip mt-1 md:mt-0 '>
+                        <div className='mt-1 ip md:mt-0 '>
                             <input
                                 type='text'
                                 value={state.textSearchNewMessage}
@@ -154,7 +154,7 @@ const MainChat = ({
                                 placeholder='Search user...'
                                 style={{}}
                             />
-                            <div className='list-people-search-new-message mt-2'>
+                            <div className='mt-2 list-people-search-new-message'>
                                 {state.listPeopleToNewMessage.length > 0 && (
                                     <ItemsList
                                         dataSource={
@@ -170,7 +170,7 @@ const MainChat = ({
                     </div>
                 </div>
                 <div className='relative'>
-                    <div className='chat-messages p-4'></div>
+                    <div className='p-4 chat-messages'></div>
                 </div>
             </>
         );
@@ -185,7 +185,7 @@ const MainChat = ({
     }
     return (
         <>
-            <div className='py-2 px-4 border-bottom d-none d-lg-block'>
+            <div className='px-4 py-2 border-bottom d-none d-lg-block'>
                 <div className='flex items-center py-1'>
                     {/* list avatar */}
                     <div className='relative'>
@@ -226,7 +226,7 @@ const MainChat = ({
                                                           .url
                                                     : ""
                                             }
-                                            className='rounded-full mr-1 w-10 h-10 cursor-pointer border dark:border-white '
+                                            className='w-10 h-10 mr-1 border rounded-full cursor-pointer dark:border-white '
                                             alt='avatar'
                                             onClick={() =>
                                                 navigateToProfile(
@@ -239,7 +239,7 @@ const MainChat = ({
                         )}
                     </div>
                     {/* list name */}
-                    <div className='grow pl-3 w-full text-ellipsis'>
+                    <div className='w-full pl-3 grow text-ellipsis'>
                         {state.isGroup &&
                         state.listResultByPeopleSearch.length ? (
                             <div className='flex text-[12px] md:text-base text-ellipsis w-full font-bold '>

@@ -165,7 +165,7 @@ const ReplyComment = ({
     }
 
     return (
-        <div className={`flex gap-x-1.5 mt-1.5 group pl-[8%] `}>
+        <div className={`flex gap-x-1.5 mt-1.5 group pl-6 `}>
             <div className='absolute w-10 h-10 border-l-[2px] border-b-[2px] border-l-[#F0F2F5] dark:border-l-[#3A3B3C] border-b-[#F0F2F5] dark:border-b-[#3A3B3C] left-5 rounded-bl-[20px] translate-y-[-20px] '></div>
 
             <img
@@ -176,12 +176,13 @@ const ReplyComment = ({
                     navigate(`/profile/${replyComment.postedBy._id}`);
                 }}
             />
+
             <div
                 className={`box-comment relative w-full ${
                     editLoading && "opacity-50"
                 } `}>
+                <div className='absolute h-full w-2 border-l-[2px] z-[5] border-l-[#F0F2F5] dark:border-l-[#3A3B3C] left-[-62px] '></div>
                 <div className='flex items-center w-full gap-x-1 '>
-                    <div className='absolute h-full w-2 border-l-[2px] z-[5] border-l-[#F0F2F5] dark:border-l-[#3A3B3C] left-[-83px] '></div>
                     <div className='rounded-xl bg-[#F0F2F5] dark:bg-[#3A3B3C] px-3 py-2 max-w-full relative  '>
                         <div
                             className='font-bold text-[13px] text-[#050505] dark:text-[#e4e6eb] flex items-center gap-x-1 cursor-pointer '
