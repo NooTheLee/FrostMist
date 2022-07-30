@@ -26,7 +26,7 @@ const Comment = ({
     const [text, setText] = useState(currentComment.text);
     const [editLoading, setEditLoading] = useState(false);
     const [likeCommentLoading, setLikeCommentLoading] = useState(false);
-    const [imageEdit, setImageEdit] = useState(currentComment.image || null);
+    const [imageEdit, setImageEdit] = useState(currentComment?.image || null);
     const [formData, setFormData] = useState(null);
 
     const [textReply, setTextReply] = useState("");
@@ -41,7 +41,7 @@ const Comment = ({
         setEditComment(false);
         setShowOption(false);
         setText(cmtHistory.current);
-        setImageEdit(currentComment.image);
+        setImageEdit(currentComment?.image);
     };
 
     const handleImage = (e) => {
@@ -74,12 +74,12 @@ const Comment = ({
         try {
             let image = imageEdit;
             if (imageEdit) {
-                if (imageEdit.url !== comment.image?.url) {
+                if (imageEdit.url !== comment?.image?.url) {
                     image = await uploadOtherImage();
                     // when upload false
                     if (!image) {
                         setEditLoading(false);
-                        setImageEdit(comment.image);
+                        setImageEdit(comment?.image);
                         return;
                     }
                 }
@@ -127,7 +127,7 @@ const Comment = ({
     };
 
     const handleLikeComment = () => {
-        if (comment.like.includes(userId)) {
+        if (comment.like?.includes(userId)) {
             unlikeComment();
         } else {
             likeComment();
@@ -219,12 +219,20 @@ const Comment = ({
         }
     };
 
+    if (!currentComment.postedBy) {
+        return (
+            <div className=' rounded-xl bg-[#F0F2F5] dark:bg-[#3A3B3C] px-3 py-2 w-auto my-2 relative border border-red-500 opacity-50 '>
+                This comment has been removed because the user is banned.
+            </div>
+        );
+    }
+
     // Edit mode
     if (editComment) {
         return (
             <div className='flex gap-x-1.5 py-1 '>
                 <img
-                    src={comment.postedBy.image?.url}
+                    src={comment.postedBy?.image?.url}
                     alt='user_avatar'
                     className='w-[35px] h-[35px] object-cover shrink-0 rounded-full mt-1  '
                 />
@@ -311,8 +319,8 @@ const Comment = ({
                     className={`flex font-extrabold text-[13px] pl-2 gap-x-4 text-[#65676B] dark:text-[#b0b3b8] `}>
                     <button
                         className={`cursor-pointer ${
-                            comment.like.length > 0 &&
-                            comment.like.includes(userId) &&
+                            comment.like?.length > 0 &&
+                            comment.like?.includes(userId) &&
                             "text-[#c22727] dark:text-[#c22727]"
                         } `}
                         disabled={likeCommentLoading}
@@ -358,11 +366,11 @@ const Comment = ({
                 )}
                 {/* avatar of own's comment */}
                 <img
-                    src={comment.postedBy.image?.url}
+                    src={comment.postedBy?.image?.url}
                     alt='own_avt_cmt'
                     className='z-10 object-cover w-10 h-10 rounded-full cursor-pointer '
                     onClick={() => {
-                        navigate(`/profile/${comment.postedBy._id}`);
+                        navigate(`/profile/${comment.postedBy?._id}`);
                     }}
                 />
                 <div
@@ -375,11 +383,11 @@ const Comment = ({
                                 className='font-bold text-[13px] text-[#050505] dark:text-[#e4e6eb] flex items-center gap-x-1 cursor-pointer '
                                 onClick={() => {
                                     navigate(
-                                        `/profile/${comment.postedBy._id}`
+                                        `/profile/${comment.postedBy?._id}`
                                     );
                                 }}>
-                                {comment.postedBy.name}
-                                {comment.postedBy.role === "Admin" && (
+                                {comment.postedBy?.name}
+                                {comment.postedBy?.role === "Admin" && (
                                     <TiTick className='text-[13px] text-white rounded-full bg-sky-500 ' />
                                 )}
                             </div>
@@ -396,7 +404,7 @@ const Comment = ({
                             )}
 
                             {/* edit or delete comment */}
-                            {userId === comment.postedBy._id && (
+                            {userId === comment.postedBy?._id && (
                                 <div
                                     className='shrink-1 w-10 h-10 hidden group-hover:flex cursor-pointer text-[23px] font-extrabold hover:bg-[#F0F2F5] items-center justify-center rounded-full transition-50 dark:hover:bg-[#3A3B3C] absolute z-[100]  right-[-45px] top-[50%] translate-y-[-50%] '
                                     onClick={() => {
@@ -481,7 +489,7 @@ const Comment = ({
                             <input
                                 type='text'
                                 className='px-1.5 py-1 border-none focus:ring-0 bg-inherit rounded-full w-full font-medium dark:placeholder:text-[#b0b3b8] text-[15px] '
-                                placeholder={`Reply to "${comment.postedBy.name}"... `}
+                                placeholder={`Reply to "${comment.postedBy?.name}"... `}
                                 value={textReply}
                                 disabled={replyLoading}
                                 autoFocus={true}
