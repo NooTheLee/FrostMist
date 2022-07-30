@@ -1,8 +1,6 @@
 # **Introduction**
 
 -   This is a social-network project with MERN (MongoDb, Express, ReactJs, NodeJs) + tailwindCss
-
-![Dark mode](https://res.cloudinary.com/dcwekkkez/image/upload/v1658931571/ysweooaelulfeqjeekzd.png)
 # **Page**
 
 ###### _(Not logged)_
