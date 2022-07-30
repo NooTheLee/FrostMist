@@ -14,7 +14,7 @@
 -   Register.
 ![Dark mode](https://res.cloudinary.com/dcwekkkez/image/upload/v1659182982/vt38rfswmk1vd6yqwoeq.png)
 -   Forget password.
-![Dark mode](https://res.cloudinary.com/dcwekkkez/image/upload/v1658931571/ysweooaelulfeqjeekzd.png)
+![Dark mode](https://res.cloudinary.com/dcwekkkez/image/upload/v1659183352/jgzolk4l2aejm0rrjlv5.png)
 ###### _(Logged)_
 
 -   Dashboard.
