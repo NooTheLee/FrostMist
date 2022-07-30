@@ -13,16 +13,16 @@ const FormCreatePost = ({user, setOpenModal, setAttachment, text}) => {
             } `}>
             <div className='flex items-center gap-x-2 '>
                 <img
-                    src={user.image.url}
+                    src={user.image?.url}
                     alt='userImage'
-                    className='w-10 h-10 rounded-full object-cover shrink-0 '
+                    className='object-cover w-10 h-10 rounded-full shrink-0 '
                 />
                 <div
                     className=' dark:bg-[#4E4F50]/70 dark:hover:bg-[#4E4F50] rounded-full px-4 py-[9px] w-[90%] flex justify-start dark:text-[#b0b3b8] font-medium transition-20 h-10 cursor-pointer text-[#65676b] bg-[#E4E6E9]/60 hover:bg-[#E4E6E9]  '
                     onClick={() => {
                         setOpenModal(true);
                     }}>
-                    <div className=' mr-2 text-overflow-ellipsis  overflow-hidden '>
+                    <div className='mr-2 overflow-hidden  text-overflow-ellipsis'>
                         {text || `What's on your mind, ${user.name}?`}
                     </div>
                 </div>

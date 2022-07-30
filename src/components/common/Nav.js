@@ -122,11 +122,14 @@ const Nav = () => {
             <div
                 className='flex items-center min-w-[33%] '
                 style={{flex: "1 1 auto"}}>
-                <img
-                    src={`/images/${dark ? "logo-dark.png" : "logo.png"}`}
-                    alt='logo'
-                    className='w-[30px] md:w-[40px] h-auto '
-                />
+                <NavLink to='/' role='button'>
+                    <img
+                        src={`/images/${dark ? "logo-dark.png" : "logo.png"}`}
+                        alt='logo'
+                        className='w-[30px] md:w-[40px] h-auto '
+                    />
+                </NavLink>
+
                 {/* search */}
                 {user && (
                     <div className='flex items-center border border-black/20 dark:bg-[#4E4F50] dark:text-[#b9bbbe] w-[180px] md:w-[220px] h-auto md:h-[40px] rounded-full px-2 ml-2 '>
