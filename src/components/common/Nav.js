@@ -1,17 +1,17 @@
-import React, {useRef, useEffect, useState, useMemo} from "react";
-import {NavLink} from "react-router-dom";
+import React, { useRef, useEffect, useState, useMemo } from "react";
+import { NavLink } from "react-router-dom";
 
 // icon
-import {AiFillHome, AiOutlineQrcode} from "react-icons/ai";
-import {BiSearchAlt} from "react-icons/bi";
-import {SiMessenger} from "react-icons/si";
-import {RiSpaceShipFill} from "react-icons/ri";
-import {MdAdminPanelSettings} from "react-icons/md";
-import {BsFillSunFill, BsMoon} from "react-icons/bs";
+import { AiFillHome, AiOutlineQrcode } from "react-icons/ai";
+import { BiSearchAlt } from "react-icons/bi";
+import { SiMessenger } from "react-icons/si";
+import { RiSpaceShipFill } from "react-icons/ri";
+import { MdAdminPanelSettings } from "react-icons/md";
+import { BsFillSunFill, BsMoon } from "react-icons/bs";
 
 // components
-import {useAppContext} from "../../context/useContext.js";
-import {Dropdown, ItemsList} from "../";
+import { useAppContext } from "../../context/useContext.js";
+import { Dropdown, ItemsList } from "../";
 
 // hocks
 import useDebounce from "../../hooks/useDebounce";
@@ -19,7 +19,7 @@ import useOnClickOutside from "../../hooks/useOnClickOutside";
 import ReactLoading from "react-loading";
 
 const Nav = () => {
-    const {dark, setOneState, user, openQrCode, autoFetch} = useAppContext();
+    const { dark, setOneState, user, openQrCode, autoFetch } = useAppContext();
 
     // text state
     const [text, setText] = useState("");
@@ -53,7 +53,7 @@ const Nav = () => {
             return;
         }
         try {
-            const {data} = await autoFetch.get(`/api/auth/search-user/${text}`);
+            const { data } = await autoFetch.get(`/api/auth/search-user/${text}`);
             if (data.search.length === 0) {
                 setIsEmpty(true);
                 setListSearchResult([]);
@@ -103,9 +103,8 @@ const Nav = () => {
     const navMenuLogged = () => {
         return menuListLogged.map((v) => (
             <div
-                className={`w-full ${
-                    user.role !== "Admin" ? "px-[10%]" : ""
-                } + ${v.className} `}
+                className={`w-full ${user.role !== "Admin" ? "px-[10%]" : ""
+                    } + ${v.className} `}
                 key={"navlink" + v.link}>
                 <NavLink
                     to={v.link}
@@ -121,7 +120,7 @@ const Nav = () => {
         <div className='flex fixed top-0 w-screen bg-white px-1 sm:px-2 md:px-4 z-[100] items-center dark:bg-[#242526] transition-50 dark:text-[#DDDFE3] border-b-[#8a8a8a] py-1 '>
             <div
                 className='flex items-center min-w-[33%] '
-                style={{flex: "1 1 auto"}}>
+                style={{ flex: "1 1 auto" }}>
                 <NavLink to='/' role='button'>
                     <img
                         src={`/images/${dark ? "logo-dark.png" : "logo.png"}`}
@@ -178,7 +177,7 @@ const Nav = () => {
             </div>
             <ul
                 className='hidden md:flex  items-center justify-between text-white dark:text-[#B8BBBF] text-[25px] min-w-[33%] '
-                style={{flex: "1 1 auto"}}>
+                style={{ flex: "1 1 auto" }}>
                 {user ? (
                     navMenuLogged()
                 ) : (
@@ -206,7 +205,7 @@ const Nav = () => {
             </ul>
             <div
                 className='flex items-center justify-end min-w-[33%] gap-x-1 sm:gap-x-2 md:gap-x-3 '
-                style={{flex: "1 1 auto"}}>
+                style={{ flex: "1 1 auto" }}>
                 <div className='flex items-center'>
                     {user && (
                         <div className='text-sm md:text-md font-semibold border pl-3 md:pr-5 py-[5px] rounded-l-full translate-x-[16px] bg-[#3F51B5] text-white dark:bg-[#3A3A3A] dark:border-white/30 hidden md:flex '>
@@ -222,7 +221,7 @@ const Nav = () => {
                         localStorage.setItem("dark", String(!dark));
                     }}
                     role='button'
-                    style={{transition: "1s"}}>
+                    style={{ transition: "1s" }}>
                     <BsMoon className='absolute right-1 top-[5px] transition-50  text-white dark:translate-x-0 translate-x-[-15px] opacity-0 dark:opacity-[1]  ' />
                     <BsFillSunFill
                         className={`text-[20px] font-extrabold transition-50 dark:opacity-0 dark:translate-x-5`}
