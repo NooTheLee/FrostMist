@@ -15,7 +15,7 @@
 ![Dark mode](https://res.cloudinary.com/dcwekkkez/image/upload/v1659183352/jgzolk4l2aejm0rrjlv5.png)
 ###### _(Logged)_
 
--   Dashboard.
+-   Home.
 ![Dark mode](https://res.cloudinary.com/dcwekkkez/image/upload/v1659182995/uc2gwx26txbqaac3y6rp.png)
 -   Messenger.
 ![Dark mode](https://res.cloudinary.com/dcwekkkez/image/upload/v1659183242/pt1idgk5usv2kta9vfho.png)
